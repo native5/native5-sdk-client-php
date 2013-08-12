@@ -1,0 +1,4 @@
+{ "_id" : "1", "name" : "iPhone", "default" : true }
+{ "_id" : "2", "name" : "Android", "default" : true }
+{ "_id" : "3", "name" : "Blackberry", "default" : false }
+{ "_id" : "4", "name" : "Windows Mobile", "default" : false }

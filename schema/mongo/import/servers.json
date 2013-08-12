@@ -1,0 +1,3 @@
+{ "_id" : { "$oid" : "5178cd0f68d4739d141d36b0" }, "type" : "app", "name" : "Native5-Sandbox", "ip_address" : "107.21.187.165", "dns" : "ec2-107-21-187-165.compute-1.amazonaws.com", "load" : 0.60 }
+{ "_id" : { "$oid" : "5178cd0f68d4739d141d36b1" }, "type" : "app", "name" : "Native5-Prod0", "ip_address" : "122.168.12.109", "dns" : "ec2-yug-abc-102.com", "load" : 0.84 }
+{ "_id" : { "$oid" : "5178cd0f68d4739d141d36b2" }, "type" : "app", "name" : "Native5-Prod1", "ip_address" : "122.168.11.109", "dns" : "ec2-xac-abc-102.com", "load" : 0.84 }
