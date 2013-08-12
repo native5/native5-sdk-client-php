@@ -1,0 +1,249 @@
+<?php
+/**
+ *  Copyright 2012 Native5. All Rights Reserved
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  You may not use this file except in compliance with the License.
+ *
+ *  You may obtain a copy of the License at
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  or in the "license" file accompanying this file.
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *  PHP version 5.3+
+ *
+ * @category  Application
+ * @package   Native5\Application\
+ * @author    Barada Sahu <barry@native5.com>
+ * @copyright 2012 Native5. All Rights Reserved
+ * @license   See attached LICENSE for details
+ * @version   GIT: $gitid$
+ * @link      http://www.docs.native5.com
+ */
+
+namespace Native5;
+
+use Native5\Configuration;
+use Native5\Route\RoutingEngine;
+use Native5\UI\TemplatingEngine;
+use Native5\Services\Messaging\NotificationService;
+
+use Native5\Core\Log\LoggerFactory;
+use Native5\Core\Log\Logger;
+
+use Native5\Sessions\WebSessionManager;
+use Native5\Sessions\Session;
+
+use Native5\Identity\DefaultSubjectContext;
+use Native5\Identity\Subject;
+use Native5\Identity\DefaultSecurityManager;
+use Native5\Identity\SecurityUtils;
+
+/**
+ * Application
+ *
+ * @category  Application
+ * @package   Native5\Core
+ * @author    Barada Sahu <barry@native5.com>
+ * @copyright 2012 Native5. All Rights Reserved
+ * @license   See attached NOTICE.md for details
+ * @version   Release: 1.0
+ * @link      http://www.docs.native5.com
+ * Created : 27-11-2012
+ * Last Modified : Fri Dec 21 09:11:53 2012
+ */
+class Application
+{
+
+    private $_services;
+
+    private $_config;
+
+    private $_subject;
+
+
+    /**
+     * __construct 
+     * 
+     * @access private
+     * @return void
+     */
+    private function __construct()
+    {
+        // Read Config file and initialize services.
+        $this->_services = array();
+
+    }//end __construct()
+
+
+    /**
+     * init 
+     * 
+     * @param string $configFile Configuration with which to initialize an app with
+     *
+     * @static
+     * @access public
+     * @return void
+     */
+    public static function init($configFile='config/settings.yml')
+    {
+        // Initialize application services, Store application Object as a global
+        // Services are available from global app.
+        $app = $GLOBALS['app'] = new self();
+
+        $logger            = LoggerFactory::instance()->getLogger();
+        $GLOBALS['logger'] = $logger;
+        $file              = getcwd().'/logs/'.APP_NAME.'-debug.log';
+        $logger->addHandler($file, Logger::ALL, 7);
+
+        $app->_config = new Configuration($configFile);
+
+        $sessionManager = new WebSessionManager();
+        $sessionManager->startSession(null, true);
+
+        SecurityUtils::setSecurityManager(new DefaultSecurityManager());
+
+        $app->_subject = $app->_getSubjectFromSession($sessionManager->getActiveSession());
+
+        $app->_services['sessions']   = $sessionManager;
+        $app->_services['routing']    = new RoutingEngine();
+        $app->_services['templating'] = new TemplatingEngine();
+        $app->_services['messaging']  = NotificationService::instance();
+
+        return $app;
+
+    }//end init()
+
+
+    /**
+     * getSubject 
+     * 
+     * @access public
+     * @return Subject  
+     */
+    public function getSubject()
+    {
+        return $this->_subject;
+
+    }//end getSubject()
+
+
+    /**
+     * setSubject 
+     * 
+     * @param mixed $subject Currently active subject.
+     *
+     * @access public
+     * @return void
+     */
+    public function setSubject($subject)
+    {
+        $this->_subject = $subject;
+
+    }//end setSubject()
+
+
+    /**
+     * getSessionManager 
+     * 
+     * @access public
+     * @return SessionManager 
+     */
+    public function getSessionManager()
+    {
+        return $this->_services['sessions'];
+
+    }//end getSessionManager()
+
+
+    /**
+     * getConfiguration Get configuration of the application.  
+     * 
+     * @access public
+     * @return void
+     */
+    public function getConfiguration()
+    {
+        return $this->_config;
+
+    }//end getConfiguration()
+
+
+    /**
+     * get 
+     * 
+     * @param mixed $serviceName Service to find
+     *
+     * @access public
+     * @return Service
+     * @throws \Exception Service not found 
+     */
+    public function get($serviceName)
+    {
+        $service = $this->_services[$serviceName];
+        if (empty($service) === false) {
+            return $service;
+        }//end if
+
+        throw new \Exception('Service '.$serviceName.' not defined');
+
+    }//end get()
+
+
+    /**
+     * isDebugMode 
+     * 
+     * @access public
+     * @return void
+     */
+    public function isDebugMode()
+    {
+        global $app;
+        return true;
+
+    }//end isDebugMode()
+
+
+    /**
+     * Handles routing for all incoming requests. 
+     * 
+     * @param mixed $request Route the application based on incoming request.
+     *
+     * @access public
+     * @return void
+     */
+    public function route($request)
+    {
+        $router = $this->get('routing');
+        $router->route($request);
+
+    }//end route()
+
+
+    /**
+     * getSubjectFromSession 
+     * 
+     * @param Session $session The currently active session. 
+     *
+     * @access private
+     * @return Subject 
+     */
+    private function _getSubjectFromSession(Session $session)
+    {
+        $subject = Subject::createBuilder()
+            ->principals($session->getAttribute(DefaultSubjectContext::PRINCIPALS_SESSION_KEY))
+            ->authenticated($session->getAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY))
+            ->session($session)
+            ->build();
+        return $subject;
+
+    }//end _getSubjectFromSession()
+
+
+}//end class
+
+?>
