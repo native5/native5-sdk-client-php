@@ -1,7 +1,6 @@
-Native5 Client SDK for helping you build manage the web related aspects for native5 applications.
-===========================================================
-
-Uses Twig Templating engine for creating device specific templates specific to devices
+Native5 Client SDK for helping you build web related aspects for native5 applications.
+======================================================================================
+Uses the Twig Templating engine for creating device specific templates.
 
 Core framework elements resides in *Native5/Core*
 Controllers define the various page controllers and reside in module *Native/Core/Controllers*
@@ -12,8 +11,7 @@ UI templates resides in *templates*
 * Templates are used to render either partial or full content, upto the developer to define this.
 
 Running
-============================================================
-
+=======================================================================================
 Pre-requisites :
  
  * Apache2 
