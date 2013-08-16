@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class Native5\Identity\DefaultSecurityManager</title>
+
+	<script type="text/javascript" src="resources/combined.js?1180343265"></script>
+	<script type="text/javascript" src="elementlist.js?4004830262"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?2446941819" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2979642362" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<div class="brand" style="padding: 5px 0 0 5px; height: 20px; line-height: 20px; margin-left: -15PX;">
+        			<img alt="Native5 APIs" src="resources/logo.png" style="width: 32px;" title="Native5 APIs" />
+        			Native5 APIs
+        		</div>
+				<div class="nav-collapse">
+					<ul class="nav">
+        				<li class="divider-vertical"></li>
+						<li>
+							<a href="namespace-Native5.Identity.html" title="Summary of Native5\Identity"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li class="active"><a href="namespace-Native5.html">Native5<span></span></a>
+						<ul>
+				<li><a href="namespace-Native5.Api.html">Api</a>
+						</li>
+				<li><a href="namespace-Native5.Control.html">Control</a>
+						</li>
+				<li class="active"><a href="namespace-Native5.Identity.html">Identity</a>
+						</li>
+				<li><a href="namespace-Native5.Route.html">Route</a>
+						</li>
+				<li><a href="namespace-Native5.Scheduler.html">Scheduler</a>
+						</li>
+				<li><a href="namespace-Native5.Security.html">Security</a>
+						</li>
+				<li><a href="namespace-Native5.Services.html">Services<span></span></a>
+						<ul>
+				<li><a href="namespace-Native5.Services.Account.html">Account</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Analytics.html">Analytics</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Identity.html">Identity</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Job.html">Job</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Messaging.html">Messaging</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Users.html">Users</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Native5.Sessions.html">Sessions</a>
+						</li>
+				<li><a href="namespace-Native5.UI.html">UI</a>
+						</li>
+				<li><a href="namespace-Native5.Users.html">Users</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Native5.Identity.AuthRealm.html">AuthRealm</a></li>
+				<li><a href="class-Native5.Identity.DBRealm.html">DBRealm</a></li>
+				<li><a href="class-Native5.Identity.DefaultAccount.html">DefaultAccount</a></li>
+				<li class="active"><a href="class-Native5.Identity.DefaultSecurityManager.html">DefaultSecurityManager</a></li>
+				<li><a href="class-Native5.Identity.DefaultSubjectContext.html">DefaultSubjectContext</a></li>
+				<li><a href="class-Native5.Identity.DefaultSubjectDAO.html">DefaultSubjectDAO</a></li>
+				<li><a href="class-Native5.Identity.DelegatingSubject.html">DelegatingSubject</a></li>
+				<li><a href="class-Native5.Identity.RealmAuthenticator.html">RealmAuthenticator</a></li>
+				<li><a href="class-Native5.Identity.SecurityUtils.html">SecurityUtils</a></li>
+				<li><a href="class-Native5.Identity.SimpleAuthInfo.html">SimpleAuthInfo</a></li>
+				<li><a href="class-Native5.Identity.Subject.html">Subject</a></li>
+				<li><a href="class-Native5.Identity.SubjectBuilder.html">SubjectBuilder</a></li>
+				<li><a href="class-Native5.Identity.UsernamePasswordToken.html">UsernamePasswordToken</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Native5.Identity.Account.html">Account</a></li>
+				<li><a href="class-Native5.Identity.Authenticator.html">Authenticator</a></li>
+				<li><a href="class-Native5.Identity.AuthInfo.html">AuthInfo</a></li>
+				<li><a href="class-Native5.Identity.AuthToken.html">AuthToken</a></li>
+				<li><a href="class-Native5.Identity.ComparableEquals.html">ComparableEquals</a></li>
+				<li><a href="class-Native5.Identity.Logout.html">Logout</a></li>
+				<li><a href="class-Native5.Identity.Realm.html">Realm</a></li>
+				<li><a href="class-Native5.Identity.SubjectDAO.html">SubjectDAO</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Native5.Identity.AuthenticationException.html">AuthenticationException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class DefaultSecurityManager</h1>
+
+
+	<div class="description">
+	
+<p>DefaultSecurityManager</p>
+
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+<b><span>Native5\Identity\DefaultSecurityManager</span></b>			
+			 implements 
+				<a href="class-Native5.Identity.Authenticator.html"><span>Native5\Identity\Authenticator</span></a>, 
+			
+				<a href="class-Native5.Sessions.SessionManager.html"><span>Native5\Sessions\SessionManager</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Native5.html">Native5</a>\<a href="namespace-Native5.Identity.html">Identity</a><br />
+		<b>Package:</b> Native5\<package><br />
+
+				<b>Category:</b>
+				Identity<br />
+				<b>Copyright:</b>
+				2012 Native5. All Rights Reserved<br />
+				<b>License:</b>
+				<a href="See">attached NOTICE.md for details</a><br />
+				<b>Author:</b>
+				Barada Sahu &lt;<a
+href="mailto:barry&#64;native5.com">barry&#64;<!-- -->native5.com</a>&gt;<br />
+				<b>Version:</b>
+				Release: 1.0<br />
+				<b>Link:</b>
+				<a href="http://www.docs.native5.com">Created : 27-11-2012
+Last Modified : Fri Dec 21 09:11:53 2012</a><br />
+		<b>Located at</b> <a href="source-class-Native5.Identity.DefaultSecurityManager.html#30-373" title="Go to source code">Native5/Identity/DefaultSecurityManager.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#53-72" title="Go to source code">__construct</a>( <span>mixed <var>$authenticator</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+<p>__construct Default Constructor</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>__construct Default Constructor</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$authenticator</var></dt>
+						<dd><code>mixed</code><br>$authenticator Authenticator to use.</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="login" id="_login">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_login">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#75-100" title="Go to source code">login</a>( <span>mixed <var>$subject</var></span>, <span>mixed <var>$token</var></span> )</code>
+
+			<div class="description short">
+				
+<p>login Logs in the subject.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>login Logs in the subject.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$subject</var></dt>
+						<dd><code>mixed</code><br>$subject Subject to authenticate</dd>
+						<dt><var>$token</var></dt>
+						<dd><code>mixed</code><br>$token Token to be used for authentication.</dd>
+					</dl></div>
+
+
+					<h4>Throws</h4>
+					<div class="list">
+						<code><code><a href="class-Native5.Identity.AuthenticationException.html">Native5\Identity\AuthenticationException</a></code></code><br />
+					</div>
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="logout" id="_logout">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_logout">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#103-115" title="Go to source code">logout</a>( <span>mixed <var>$subject</var></span> )</code>
+
+			<div class="description short">
+				
+<p>logout</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>logout</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$subject</var></dt>
+						<dd><code>mixed</code><br>$subject Subject to logout</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="createSubject" id="_createSubject">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_createSubject">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#118-142" title="Go to source code">createSubject</a>( <span>mixed <var>$context</var></span> )</code>
+
+			<div class="description short">
+				
+<p>createSubject Creating the subject using the given context.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>createSubject Creating the subject using the given context.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$context</var></dt>
+						<dd><code>mixed</code><br>$context The context used to create the subject.</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="copy" id="_copy">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_copy">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#145-157" title="Go to source code">copy</a>( <span>mixed <var>$context</var></span> )</code>
+
+			<div class="description short">
+				
+<p>copy</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>copy</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$context</var></dt>
+						<dd><code>mixed</code><br>$context The context object to copy.</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="authenticate" id="_authenticate">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_authenticate">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#205-217" title="Go to source code">authenticate</a>( <span>mixed <var>$token</var></span> )</code>
+
+			<div class="description short">
+				
+<p>authenticate</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>authenticate</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$token</var></dt>
+						<dd><code>mixed</code><br>$token The token.</dd>
+					</dl></div>
+
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Native5.Identity.Authenticator.html#_authenticate">Native5\Identity\Authenticator::authenticate()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="startSession" id="_startSession">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_startSession">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#220-232" title="Go to source code">startSession</a>( <span>mixed <var>$context</var> = <span class="php-keyword1">null</span></span>, <span>mixed <var>$useExisting</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				
+<p>startSession</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>startSession</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$context</var></dt>
+						<dd><code>mixed</code><br>$context The context.</dd>
+						<dt><var>$useExisting</var></dt>
+						<dd><code>mixed</code><br>$useExisting Whether to use existing session.</dd>
+					</dl></div>
+
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Native5.Sessions.SessionManager.html#_startSession">Native5\Sessions\SessionManager::startSession()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getSession" id="_getSession">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getSession">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#235-247" title="Go to source code">getSession</a>( <span>mixed <var>$sessKey</var></span> )</code>
+
+			<div class="description short">
+				
+<p>getSession</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>getSession</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sessKey</var></dt>
+						<dd><code>mixed</code><br>$sessKey Session Key.</dd>
+					</dl></div>
+
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Native5.Sessions.SessionManager.html#_getSession">Native5\Sessions\SessionManager::getSession()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="endSession" id="_endSession">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_endSession">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#250-262" title="Go to source code">endSession</a>( <span>mixed <var>$sessKey</var></span> )</code>
+
+			<div class="description short">
+				
+<p>endSession</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>endSession</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$sessKey</var></dt>
+						<dd><code>mixed</code><br>$sessKey Session Key</dd>
+					</dl></div>
+
+
+
+
+
+					<h4>Implementation of</h4>
+					<div class="list"><code><a href="class-Native5.Sessions.SessionManager.html#_endSession">Native5\Sessions\SessionManager::endSession()</a></code></div>
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="destroy" id="_destroy">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_destroy">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#265-275" title="Go to source code">destroy</a>( )</code>
+
+			<div class="description short">
+				
+<p>destroy</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>destroy</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_createSubject" id="__createSubject">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__createSubject">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#278-299" title="Go to source code">_createSubject</a>( <span>mixed <var>$token</var></span>, <span>mixed <var>$info</var></span>, <span>mixed <var>$existing</var></span> )</code>
+
+			<div class="description short">
+				
+<p>_createSubject</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>_createSubject</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$token</var></dt>
+						<dd><code>mixed</code><br>$token Token</dd>
+						<dt><var>$info</var></dt>
+						<dd><code>mixed</code><br>$info Authentication Info</dd>
+						<dt><var>$existing</var></dt>
+						<dd><code>mixed</code><br>$existing Existing token</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="createSubjectContext" id="_createSubjectContext">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_createSubjectContext">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#302-312" title="Go to source code">createSubjectContext</a>( )</code>
+
+			<div class="description short">
+				
+<p>createSubjectContext</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>createSubjectContext</p>
+
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="doCreateSubject" id="_doCreateSubject">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_doCreateSubject">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#315-340" title="Go to source code">doCreateSubject</a>( <span>mixed <var>$context</var></span> )</code>
+
+			<div class="description short">
+				
+<p>doCreateSubject</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>doCreateSubject</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$context</var></dt>
+						<dd><code>mixed</code><br>$context SubjectContext</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_save" id="__save">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__save">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#343-355" title="Go to source code">_save</a>( <span><code><a href="class-Native5.Identity.Subject.html">Native5\Identity\Subject</a></code> <var>$subject</var></span> )</code>
+
+			<div class="description short">
+				
+<p>_save</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>_save</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$subject</var></dt>
+						<dd><code><code><a href="class-Native5.Identity.Subject.html">Native5\Identity\Subject</a></code></code><br>$subject The subject to save.</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="_delete" id="__delete">
+
+			<td class="attributes"><code>
+				 protected 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#__delete">#</a>
+			<code><a href="source-class-Native5.Identity.DefaultSecurityManager.html#358-370" title="Go to source code">_delete</a>( <span><code><a href="class-Native5.Identity.Subject.html">Native5\Identity\Subject</a></code> <var>$subject</var></span> )</code>
+
+			<div class="description short">
+				
+<p>_delete</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>_delete</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$subject</var></dt>
+						<dd><code><code><a href="class-Native5.Identity.Subject.html">Native5\Identity\Subject</a></code></code><br>$subject The subject to delete.</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+
+
+
+</div>
+	</div>
+</div>
+</body>
+</html>
