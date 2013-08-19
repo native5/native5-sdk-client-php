@@ -1,7 +1,6 @@
 {   
     "name"            : "native5/native5-sdk-client-php",
     "description"     : "Client SDK for Native5 Framework for building web applications.",
-    "version"         : "0.1.0",
     "keywords"        : ["templating", "logging", "framework", "security", "sessions", "events", "scheduling"],
     "homepage"        : "http://www.native5.com",
     "license"         : "proprietary",
@@ -41,11 +40,7 @@
             "monolog/monolog": "1.2.*",
             "twilio/sdk": "*",
             "guzzle/guzzle": "*",
-            "phpunit/phpunit": "3.7.*",
-            "pear-pear.php.net/Mail_Mime":"*",
-            "pear-pear.php.net/Mail_Queue":"*",
-            "pear-pear.php.net/MDB2_Driver_mysqli":"*",
-            "codeguy/upload": "*"
+            "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
             "psr-0": {
