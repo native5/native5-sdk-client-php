@@ -32,6 +32,9 @@
             "url": "http://pear.php.net" 
         }
     ],
+    "require-dev" : {
+        "native5/native5-sdk-common-php": "dev-development"
+    },
     "require" : {
             "twig/twig": "1.*",
             "aws/aws-sdk-php": "2.*",
@@ -42,7 +45,6 @@
             "pear-pear.php.net/Mail_Mime":"*",
             "pear-pear.php.net/Mail_Queue":"*",
             "pear-pear.php.net/MDB2_Driver_mysqli":"*",
-            "native5/native5-sdk-common-php": "dev-development",
             "codeguy/upload": "*"
     },
     "autoload": {
