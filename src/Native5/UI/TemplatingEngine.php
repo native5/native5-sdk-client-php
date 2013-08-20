@@ -68,7 +68,7 @@ class TemplatingEngine
             $templates_path = 'views'.'/'.$templates_path;
         }
         // Configure renderer
-        $cache_path = defined(CACHE_PATH) ? CACHE_PATH : "cache";
+        $cache_path = defined('CACHE_PATH') ? CACHE_PATH : "cache";
         $this->_renderer = new \Twig_Environment(
             new \Twig_Loader_Filesystem($templates_path, 
             array(
