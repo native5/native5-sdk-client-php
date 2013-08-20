@@ -82,7 +82,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      * @return void
      * @throws AuthenticationException
      */
-    public function login($subject, $token)
+    public function login(&$subject, $token)
     {
         global $logger;
         global $app;
@@ -108,7 +108,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      * @access public
      * @return void
      */
-    public function logout($subject)
+    public function logout(&$subject)
     {
         $this->_delete($subject);
 
