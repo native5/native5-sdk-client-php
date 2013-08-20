@@ -83,6 +83,8 @@ class TwigRenderer implements Renderer
     {
         global $app;
         $session = $app->getSessionManager()->getActiveSession();
+        $category = $session->getAttribute('category').'/';
+        $staticResourcesPath = defined('RESOURCES')? RESOURCES.$category : APP_NAME.'/public'.$category;
         $in_data = array('items'       => $data,
             'STATIC_RES_URL'=> RESOURCES.$session->getAttribute('category').'/');
         return $this->_twig->render($this->_template, $in_data);
@@ -137,7 +139,7 @@ class TwigRenderer implements Renderer
             $commonPath = 'views'.'/'.$commonPath;
         } 
         $loader->prependPath('./'.$commonPath, 'common');
-        $cache_path = isset(CACHE_PATH)?CACHE_PATH:"cache";
+        $cache_path = defined('CACHE_PATH') ? CACHE_PATH : 'cache';
         $this->_twig = new \Twig_Environment($loader,
             array(
                 'debug'      => true,
