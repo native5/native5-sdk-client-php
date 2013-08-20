@@ -97,11 +97,11 @@ class Application
 
         $logger            = LoggerFactory::instance()->getLogger();
         $GLOBALS['logger'] = $logger;
-        $file              = getcwd().'/logs/'.APP_NAME.'-debug.log';
+
+        $app->_config      = new Configuration($configFile);
+
+        $file              = getcwd().'/logs/'.$app->_config->getApplicationContext().'-debug.log';
         $logger->addHandler($file, Logger::ALL, 7);
-
-        $app->_config = new Configuration($configFile);
-
         $sessionManager = new WebSessionManager();
         $sessionManager->startSession(null, true);
 
