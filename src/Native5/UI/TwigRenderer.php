@@ -137,19 +137,13 @@ class TwigRenderer implements Renderer
             $commonPath = 'views'.'/'.$commonPath;
         } 
         $loader->prependPath('./'.$commonPath, 'common');
-        /*
-         *        $loader->prependPath('./templates/gradeA', 'gradeA');
-         *        $loader->prependPath('./templates/gradeB', 'gradeB');
-         *        $loader->prependPath('./templates/gradeC', 'gradeC');
-         *        $loader->prependPath('./templates/gradeD', 'gradeD');
-         *        $loader->addPath('./templates');
-         */
+        $cache_path = isset(CACHE_PATH)?CACHE_PATH:"cache";
         $this->_twig = new \Twig_Environment($loader,
             array(
                 'debug'      => true,
                 'autoreload' => false,
                 'autoescape' => true,
-                'cache'      => CACHE_PATH,
+                'cache'      => $cache_path,
             ));
         $this->_twig->getExtension('core')->setNumberFormat(2, '.', ',');
         $this->_twig->addFilter(
