@@ -84,9 +84,9 @@ class TwigRenderer implements Renderer
         global $app;
         $session = $app->getSessionManager()->getActiveSession();
         $category = $session->getAttribute('category').'/';
-        $staticResourcesPath = $app->getConfiguration()->getApplicationContext().'/public/'.$category;
+        $staticResourcesPath = '/'.$app->getConfiguration()->getApplicationContext().'/public/'.$category;
         if ($app->getConfiguration()->isLocal()) {
-            $staticResourcesPath = '/views/resources/'.$category;
+            $staticResourcesPath = '/'.$app->getConfiguration()->getApplicationContext().'/views/resources/'.$category;
         }
         $in_data = array (
             'items'          => $data,
