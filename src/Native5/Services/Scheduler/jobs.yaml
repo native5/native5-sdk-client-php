@@ -1,7 +1,0 @@
-Jobs:
- - 
-   name : ReportMail 
-   script : /Users/baradasahu/Sandbox/Development/n5/fetchReport.php
- - 
-   name : ShowReport
-   script : /Users/baradasahu/Sandbox/Development/n5/testAt.sh

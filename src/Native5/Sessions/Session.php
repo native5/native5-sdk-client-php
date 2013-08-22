@@ -52,7 +52,7 @@ class Session
      */
     public function __construct($session)
     {
-        $this->_sessObject = $session;
+        $this->_sessObject =& $_SESSION;
 
     }//end __construct()
 
