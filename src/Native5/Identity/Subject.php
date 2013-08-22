@@ -127,7 +127,7 @@ class Subject {
      */
     public function login($token)
     {
-        $subject           = SecurityUtils::getSecurityManager()->login(&$this, $token);
+        $subject           = SecurityUtils::getSecurityManager()->login($this, $token);
         $this->_principal  = $subject->getPrincipal();
         $this->_principals = $subject->getPrincipals();
 
@@ -150,7 +150,7 @@ class Subject {
     public function logout()
     {
         try {
-            SecurityUtils::getSecurityManager()->logout(&$this);
+            SecurityUtils::getSecurityManager()->logout($this);
         } catch (\Exception $ex) {
             $this->_principals    = null;
             $this->_authenticated = false;
