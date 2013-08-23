@@ -31,10 +31,8 @@
             "url": "http://pear.php.net" 
         }
     ],
-    "require-dev" : {
-        "native5/native5-sdk-common-php": "dev-development"
-    },
     "require" : {
+            "native5/native5-sdk-common-php": "0.1.0"
             "twig/twig": "1.*",
             "monolog/monolog": "1.2.*",
             "guzzle/guzzle": "*",
