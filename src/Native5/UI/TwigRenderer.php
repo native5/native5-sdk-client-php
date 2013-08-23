@@ -154,6 +154,15 @@ class TwigRenderer implements Renderer
             ));
         $this->_twig->getExtension('core')->setNumberFormat(2, '.', ',');
         $this->_twig->addFilter(
+            'nonce',
+            new \Twig_Filter_Function(function($str) {
+                if (strpos($str, '?') !== false) {
+                    return $str.'&rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+                }
+                return $str.'?rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+        })
+        );
+        $this->_twig->addFilter(
             'truncate',
             new \Twig_Filter_Function('StringFilter::truncate')
         );
