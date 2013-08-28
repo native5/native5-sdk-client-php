@@ -38,7 +38,7 @@ namespace Native5;
  */
 class Configuration
 {
-    
+
     private $_config;
 
     public function __construct($configFile) {
@@ -70,7 +70,7 @@ class Configuration
         return $this->_config['secretKey'];
     }
 
-    
+
     /**
      * isLocal 
      * 
@@ -82,6 +82,16 @@ class Configuration
 
     }// check if local environment
 
+
+    /**
+     * getApplicationContext 
+     * 
+     * @access public
+     * @return void
+     */
+    public function getApplicationContext() {
+        return $this->_config['app']['name'];
+    }
 }
 
 
