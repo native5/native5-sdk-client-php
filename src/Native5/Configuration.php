@@ -83,5 +83,5 @@ class Configuration
     }// check if local environment
 
 }
-?>
+
 

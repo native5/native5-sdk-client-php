@@ -99,5 +99,5 @@ class UsernamePasswordToken implements AuthToken
         return json_encode(array('username'=>$this->_user, 'password'=>$this->_passwd));
     }
 }
-?>
+
 
