@@ -46,5 +46,5 @@ class SupportedDevices {
     //const OPERA           = "opera";
     //const SYMBIAN 	    = "symbian";
 }
-?>
+
 
