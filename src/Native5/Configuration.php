@@ -50,6 +50,19 @@ class Configuration
         $this->_config = yaml_parse_file($configFile);
     }
 
+
+    /**
+     * Get the API endpoint
+     * 
+     * @access public
+     * @return void
+     */
+    public function getApiEndpoint() {
+        return $this->_config['url'];   
+
+    }//end getApiEndpoint()
+
+
     /**
      * getSharedKey 
      * 

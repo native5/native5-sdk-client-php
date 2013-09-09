@@ -43,8 +43,10 @@ class DefaultSubjectContext
     const SESSION_ID                = 'DefaultSubjectContext.SESSION_ID';
     const AUTHENTICATION_TOKEN      = 'DefaultSubjectContext.AUTHENTICATION_TOKEN';
     const AUTHENTICATION_INFO       = 'DefaultSubjectContext.AUTHENTICATION_INFO';
+    const AUTHORIZATION_INFO        = 'DefaultSubjectContext.AUTHORIZATION_INFO';
     const SUBJECT                   = 'DefaultSubjectContext.SUBJECT';
     const PRINCIPALS                = 'DefaultSubjectContext.PRINCIPALS';
+    const ROLES                     = 'DefaultSubjectContext.ROLES';
     const SESSION                   = 'DefaultSubjectContext.SESSION';
     const AUTHENTICATED             = 'DefaultSubjectContext.AUTHENTICATED';
     const HOST                      = 'DefaultSubjectContext.HOST';
@@ -181,6 +183,32 @@ class DefaultSubjectContext
         return $principals;
     }
 
+
+    public function resolveRoles()
+    {
+        $roles = $this->getRoles();
+
+        if (empty($roles)) {
+            $info = $this->getAuthorizationInfo();
+            if ($info != null) {
+                $roles= $info->getRoles();
+            }
+        }
+        return $roles;
+    }
+    
+    public function getRoles() {
+        if(array_key_exists(self::ROLES, $this->_map))
+            return $this->_map[self::ROLES];
+        return array();
+    }
+    
+    public function setRoles() {
+        if(array_key_exists(self::ROLES, $this->_map))
+            return $this->_map[self::ROLES];
+        return array();
+    }
+
     public function getSession()
     {
         if(array_key_exists(self::SESSION, $this->_map))
@@ -275,6 +303,18 @@ class DefaultSubjectContext
         $this->nullSafePut(self::AUTHENTICATION_TOKEN, $token);
     }
 
+    public function getAuthorizationInfo()
+    {
+        if(array_key_exists(self::AUTHORIZATION_INFO, $this->_map))
+            return $this->_map[self::AUTHORIZATION_INFO];
+        return null;
+    }
+
+    public function setAuthorizationInfo($token)
+    {
+        $this->nullSafePut(self::AUTHORIZATION_INFO, $token);
+    }
+    
     public function getHost()
     {
         if(array_key_exists(self::HOST, $this->_map))

@@ -143,7 +143,8 @@ class TwigRenderer implements Renderer
         if($app->getConfiguration()->isLocal()) {
             $commonPath = 'views'.'/'.$commonPath;
         } 
-        $loader->prependPath('./'.$commonPath, 'common');
+        //$loader->prependPath('./'.$commonPath, 'common');
+        $loader->prependPath($commonPath);
         $cache_path = defined('CACHE_PATH') ? CACHE_PATH : 'cache';
         $this->_twig = new \Twig_Environment($loader,
             array(
@@ -156,6 +157,7 @@ class TwigRenderer implements Renderer
         $this->_twig->addFilter(
             'nonce',
             new \Twig_Filter_Function(function($str) {
+                $app=$GLOBALS['app'];
                 if (strpos($str, '?') !== false) {
                     return $str.'&rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
                 }
