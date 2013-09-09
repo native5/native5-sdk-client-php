@@ -112,7 +112,7 @@ class Subject {
 
 
     public function hasRole($roleName) {
-        return (isset($this->_roles[$roleName]));
+        return (in_array($roleName, $this->_roles));
 
     }//end hasRole()
 
