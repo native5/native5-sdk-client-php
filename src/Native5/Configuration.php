@@ -106,5 +106,5 @@ class Configuration
         return $this->_config['app']['name'];
     }
 }
-?>
+
 
