@@ -49,6 +49,8 @@ class HttpResponse implements Response
     private $_body;
 
     private $_renderer;
+    
+    private $_error;
 
 
     /**
@@ -67,6 +69,7 @@ class HttpResponse implements Response
             $renderer = new SimpleRenderer();
         $this->_renderer = $renderer;
         $this->_headers = array();
+        $this->_error = false;
 
     }//end __construct()
 
@@ -83,6 +86,21 @@ class HttpResponse implements Response
         $redirectHeader = "Location: ".$location."?rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
         $this->addHeader($redirectHeader);
     }
+    
+    
+    /**
+     * sendError 
+     * 
+     * @param mixed $message 
+     * @param int $code 
+     * @access public
+     * @return void
+     */
+    public function sendError($message, $code=500) {
+        $this->_error = true;
+        $statusHeader= "HTTP/1.1 ".$code." ".$message;
+        header($statusHeader);
+    }
 
     /**
      * send
@@ -92,11 +110,11 @@ class HttpResponse implements Response
      */
     public function send()
     {
-        foreach ($this->_headers as $value) {
-            header($value);
-        }//end foreach
-        
-        echo $this->_transform($this->_encoding, $this->_body);
+        if (!$this->_error) {
+            foreach ($this->_headers as $value) {
+                header($value);
+            }//end foreach
+            echo $this->_transform($this->_encoding, $this->_body);
 
     }//end send()
 
