@@ -115,7 +115,7 @@ class HttpResponse implements Response
                 header($value);
             }//end foreach
             echo $this->_transform($this->_encoding, $this->_body);
-
+        }
     }//end send()
 
 
