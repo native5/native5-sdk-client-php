@@ -52,14 +52,20 @@ class DeviceManager
      */
     public function determineCategory($userAgent = null) {
         $logger = $GLOBALS['logger'];
-
+        $app = $GLOBALS['app'];
         $parsedUA = UA::parse($userAgent);
-        try {
-            $logger->info('Attempting device lookup in database');
-            $browser = $this->_lookupDB($parsedUA);
-            return $this->_computeCategory($browser);
-        } catch (\Exception $ex) {
-            $logger->info("No device database found, defaulting to local file based detection");
+        if (!empty($app) && !$app->getConfiguration()->isLocal()) {
+            try {
+                $logger->info('Attempting device lookup in database');
+                $browser = $this->_lookupDB($parsedUA);
+                return $this->_computeCategory($browser);
+            } catch (\Exception $ex) {
+                $logger->info("No device database found, defaulting to local file based detection");
+                $browser = $this->_lookupLocal($parsedUA);
+                return $this->_computeCategory($browser);
+            } 
+        } else {
+            $logger->info("Local environment , defaulting to local file based detection");
             $browser = $this->_lookupLocal($parsedUA);
             return $this->_computeCategory($browser);
         }
