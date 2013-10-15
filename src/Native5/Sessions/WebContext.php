@@ -60,8 +60,9 @@ class WebContext
         }
 
         $this->_map             = array();
+        $rawUA                  = $_SERVER["HTTP_USER_AGENT"];
         $deviceMgr              = new DeviceManager();
-        $this->_map['device']   = $deviceMgr->determineCategory();
+        $this->_map['device']   = $deviceMgr->determineCategory($rawUA);
         $latitude               = isset($_REQUEST['lat']) ? $_REQUEST['lat'] : '0.00';
         $longitude              = isset($_REQUEST['lng']) ? $_REQUEST['lng'] : '0.00';
         $this->_map['location'] = array('latitude' => $latitude, 'longitude' => $longitude);

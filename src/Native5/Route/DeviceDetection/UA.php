@@ -93,14 +93,14 @@ class UA
         // still false?! see if it's a really dumb feature phone, if not just mark it as unknown
         if (!$result) {
             if ((strpos(self::$accept,'text/vnd.wap.wml') > 0) || (strpos(self::$accept,'application/vnd.wap.xhtml+xml') > 0) || isset($_SERVER['HTTP_X_WAP_PROFILE']) || isset($_SERVER['HTTP_PROFILE'])) {
-                $result = new stdClass();
+                $result = new \stdClass();
                 $result->device         = "Generic Feature Phone";
                 $result->deviceFull     = "Generic Feature Phone";
                 $result->isMobile       = true;
                 $result->isMobileDevice = true;
                 $result->uaOriginal     = self::$ua;
             } else {
-                $result = new stdClass();
+                $result = new \stdClass();
                 $result->device         = "Unknown";
                 $result->deviceFull     = "Unknown";
                 $result->isMobile       = false;
@@ -255,7 +255,7 @@ class UA
     private static function osParser() {
 
         // build the obj that will be returned
-        $osObj = new stdClass();
+        $osObj = new \stdClass();
 
         // run the regexes to match things up
         $osRegexes = self::$regexes['os_parsers'];
@@ -303,7 +303,7 @@ class UA
     private static function deviceParser() {
 
         // build the obj that will be returned
-        $deviceObj = new stdClass();
+        $deviceObj = new \stdClass();
 
         // run the regexes to match things up
         $deviceRegexes = self::$regexes['device_parsers'];
@@ -362,13 +362,14 @@ class UA
      */
     private static function log($data) {
         if (!$data) {
-            $data = new stdClass();
+            $data = new \stdClass();
             $data->ua = self::$ua;
         } 
         $jsonData = json_encode($data);
-        $fp = fopen(__DIR__."/log/user_agents.log", "a");
-        fwrite($fp, $jsonData."\r\n");
-        fclose($fp);
+        echo $jsonData."\r\n";
+        //$fp = fopen(__DIR__."/log/user_agents.log", "a");
+        //fwrite($fp, $jsonData."\r\n");
+        //fclose($fp);
     }
 
     /**
@@ -401,7 +402,7 @@ if (defined('STDIN') && isset($argv) && isset($argv[1]) && ($argv[1] == '-get'))
     if (!UA::$silent) { print("getting the YAML file...\n"); }
     UA::get();
 } else if (defined('STDIN')) {
-    print("You must use the -get flag to use UAParser.php from the command line.\n");
+    //print("You must use the -get flag to use UAParser.php from the command line.\n");
 }
 
 ?>

@@ -50,18 +50,18 @@ class DeviceManager
      * @access public
      * @return category of request, typically of the order M00X. 
      */
-    public function determineCategory() {
+    public function determineCategory($userAgent = null) {
         $logger = $GLOBALS['logger'];
 
-        $ua = UA::parse();
+        $parsedUA = UA::parse($userAgent);
         try {
             $logger->info('Attempting device lookup in database');
-            $browser = $this->_lookupDB($ua);
+            $browser = $this->_lookupDB($parsedUA);
             return $this->_computeCategory($browser);
         } catch (\Exception $ex) {
-            $logger->info('No device database found, defaulting to local file based detection');
-            $browser = $this->_lookupLocal($ua);
-            return $browser;
+            $logger->info("No device database found, defaulting to local file based detection");
+            $browser = $this->_lookupLocal($parsedUA);
+            return $this->_computeCategory($browser);
         }
     }
 
@@ -76,6 +76,8 @@ class DeviceManager
      */
     private function _lookupLocal($ua)
     {
+        $logger = $GLOBALS['logger'];
+        //$logger->info(print_r($ua,1));
         $browser = new Browser();
         $gradePrefix = "X";
         $gradeSuffix = Grades::UNSUPPORTED;
@@ -85,27 +87,32 @@ class DeviceManager
             $gradeSuffix == Grades::_001;
         } else if ($ua->isMobile) {
             $gradePrefix = DeviceTypes::MOBILE;
+            $logger->info(print_r($ua->os." : ".$ua->osMajor.$ua->osMinor,1));
             switch($ua->os) {
             case "Android" :
-                if ($ua->osVersion >= 4) {
-                    $gradeSuffix = Grades::_001;
+                if (intval($ua->osMajor) >= 4) {
+                    $gradeSuffix = Grades::_201;
                 } else {
-                    $gradeSuffix = Grades::_010;
+                    $gradeSuffix = Grades::_210;
                 }
+                break;
             case "iOS" :
-                if ($ua->osVersion >= 5) {
-                    $gradeSuffix = Grades::_001;
+                if (intval($ua->osMajor) >= 4 && intval($ua->osMinor >= 2)) {
+                    $gradeSuffix = Grades::_101;
                 } else {
-                    $gradeSuffix = Grades::_010;
+                    $gradeSuffix = Grades::_110;
                 }
-            case "Windows" :
-                if ($ua->osVersion >= 8) {
-                    $gradeSuffix = Grades::_001;
-                } else if ($ua->osVersion == 7.5) {
-                    $gradeSuffix = Grades::_010;
+                break;
+            case "Windows Phone" :
+                if (intval($ua->osMajor) >= 8) {
+                    $gradeSuffix = Grades::_301;
+                } else if (intval($ua->osMajor) >= 7 && intval($ua->osMinor) >= 5) {
+                    $gradeSuffix = Grades::_320;
                 } 
+                break;
             default :
-                $gradeSuffix = Grades::_100;
+                $gradeSuffix = Grades::_400;
+                break;
             }
         } else {
             $gradePrefix = DeviceTypes::DESKTOP;
@@ -129,8 +136,8 @@ class DeviceManager
         $browser = new Browser();
         $browser->setGrade(Grades::UNSUPPORTED);
 
-        $conn = new \Mongo('mongodb://'.DeviceDetection::HOST);
-        $collection = $conn->selectDB(DeviceDetection::DB)->devices;
+        $conn = new \Mongo('mongodb://'.DeviceManager::HOST);
+        $collection = $conn->selectDB(DeviceManager::DB)->devices;
 
         // Determine Regex fitting the U/A Category. 
         $pattern = $this->_getMatchingRegex($ua);

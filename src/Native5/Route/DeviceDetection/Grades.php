@@ -49,5 +49,13 @@ interface Grades {
     const _009 	      = '009';
     const _010 	      = '010';
     const _100 	      = '100';
+    const _101 	      = '101';
+    const _110 	      = '110';
+    const _201 	      = '201';
+    const _210 	      = '210';
+    const _301 	      = '301';
+    const _310 	      = '310';
+    const _320 	      = '320';
+    const _400 	      = '400';
 }
 ?>
