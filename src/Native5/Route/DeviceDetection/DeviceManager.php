@@ -21,9 +21,7 @@
  * @link      http://www.docs.native5.com 
  */
 
-namespace Native5\Route;
-
-require 'UAParser.php';
+namespace Native5\Route\DeviceDetection;
 
 /**
  * DeviceDetection 
@@ -38,10 +36,13 @@ require 'UAParser.php';
  * Created : 27-11-2012
  * Last Modified : Fri Dec 21 09:11:53 2012
  */
-class DeviceDetection
+class DeviceManager
 {
+
+
     const HOST = "localhost";
     const DB = "native5";
+
 
     /**
      * Categorize Incoming Request  
@@ -50,29 +51,81 @@ class DeviceDetection
      * @return category of request, typically of the order M00X. 
      */
     public function determineCategory() {
-        // FIXME: Hardcoded category
-        return 'M0101';
-
         $logger = $GLOBALS['logger'];
+
+        $ua = UA::parse();
         try {
-            $ua = \UA::parse();
-            $browser = $this->_findMatch($ua);
+            $logger->info('Attempting device lookup in database');
+            $browser = $this->_lookupDB($ua);
             return $this->_computeCategory($browser);
         } catch (\Exception $ex) {
-            $logger->info('No device database found, defaulting to local');
-            return 'M0101';
+            $logger->info('No device database found, defaulting to local file based detection');
+            $browser = $this->_lookupLocal($ua);
+            return $browser;
         }
+    }
+
+
+    /**
+     * Lookup Device Detection based on File. 
+     * 
+     * @param mixed $ua The user agent.
+     *
+     * @access private
+     * @return void
+     */
+    private function _lookupLocal($ua)
+    {
+        $browser = new Browser();
+        $gradePrefix = "X";
+        $gradeSuffix = Grades::UNSUPPORTED;
+
+        if ($ua->isMobile && $ua->isTablet) {
+            $gradePrefix = DeviceTypes::TABLET;
+            $gradeSuffix == Grades::_001;
+        } else if ($ua->isMobile) {
+            $gradePrefix = DeviceTypes::MOBILE;
+            switch($ua->os) {
+            case "Android" :
+                if ($ua->osVersion >= 4) {
+                    $gradeSuffix = Grades::_001;
+                } else {
+                    $gradeSuffix = Grades::_010;
+                }
+            case "iOS" :
+                if ($ua->osVersion >= 5) {
+                    $gradeSuffix = Grades::_001;
+                } else {
+                    $gradeSuffix = Grades::_010;
+                }
+            case "Windows" :
+                if ($ua->osVersion >= 8) {
+                    $gradeSuffix = Grades::_001;
+                } else if ($ua->osVersion == 7.5) {
+                    $gradeSuffix = Grades::_010;
+                } 
+            default :
+                $gradeSuffix = Grades::_100;
+            }
+        } else {
+            $gradePrefix = DeviceTypes::DESKTOP;
+            $gradeSuffix = Grades::_001;
+        }
+        $browser->setGrade($gradePrefix.$gradeSuffix);
+        return $browser;
     }
 
 
     /**
      * Finds closest match given the user agent 
      * 
-     * @param mixed $ua : User Agent Object parsed using UA 
+     * @param mixed $ua : User Agent Object parsed using UA
+     *
      * @access private
      * @return void
      */
-    private function _findMatch($ua) {
+    private function _lookupDB($ua)
+    {
         $browser = new Browser();
         $browser->setGrade(Grades::UNSUPPORTED);
 
@@ -86,20 +139,21 @@ class DeviceDetection
         //$device = $collection->findOne(array("userAgent"=>$nameRegex));
         // Match User Agent independent of OS Version, Check OS Version >= Base Matching Version
         $device = $collection->findOne(
-            array(
-                '$and'=>array(
-                    array("userAgent"=>$uaRegex), 
-                    array('$or'=> array(
+            array (
+                '$and'=>array (
+                    array ("userAgent"=>$uaRegex), 
+                    array ('$or'=> array(
                         array("device.os.version"=>array('$exists'=>false)),
                         array("device.os.version"=>array('$lte'=>"".$ua->osVersion))
                     ))
                 )
             )
         );
-        if(!empty($device)) {
+
+        if (!empty($device)) {
             $browser = $this->_createBrowser($device);
         } else {
-            // TODO : Insert into DB & spawn Categorization task.
+            // TODO : Request for Browser Categorization 
         }
         return $browser;
     }
