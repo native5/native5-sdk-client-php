@@ -23,7 +23,7 @@
 
 namespace Native5\Sessions;
 
-use Native5\Route\DeviceDetection;
+use Native5\Route\DeviceDetection\DeviceManager;
 
 /**
  * Web context for the current app. 
@@ -54,12 +54,13 @@ class WebContext
      */
     public function __construct($request=null)
     {
-        if ($request === NULL) {
+
+        if ($request === null) {
             $request = $_REQUEST;
         }
 
         $this->_map             = array();
-        $deviceMgr              = new DeviceDetection();
+        $deviceMgr              = new DeviceManager();
         $this->_map['device']   = $deviceMgr->determineCategory();
         $latitude               = isset($_REQUEST['lat']) ? $_REQUEST['lat'] : '0.00';
         $longitude              = isset($_REQUEST['lng']) ? $_REQUEST['lng'] : '0.00';

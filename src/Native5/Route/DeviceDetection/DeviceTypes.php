@@ -21,10 +21,10 @@
  * @link      http://www.docs.native5.com 
  */
 
-namespace Native5\Route;
+namespace Native5\Route\DeviceDetection;
 
 /**
- * Grades 
+ * DeviceTypes 
  * 
  * @category  Route 
  * @package   Native5\Route
@@ -36,16 +36,11 @@ namespace Native5\Route;
  * Created : 27-11-2012
  * Last Modified : Fri Dec 21 09:11:53 2012
  */
-interface Grades {
-    const UNSUPPORTED = 'XXX';
-    const _001 	  = '001';
-    const _002        = '002';
-    const _003        = '003';
-    const _004        = '004';
-    const _005 	  = '005';
-    const _006 	  = '006';
-    const _007        = '007';
-    const _008 	  = '008';
-    const _009 	  = '009';
+interface DeviceTypes {
+    const DESKTOP  = 'D';
+    const TABLET   = 'T';
+    const MOBILE   = 'M';
+    const TV       = 'V';
+    const NONE     = 'X';
 }
 ?>

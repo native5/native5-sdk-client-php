@@ -21,7 +21,7 @@
  * @link      http://www.docs.native5.com 
  */
 
-namespace Native5\Route;
+namespace Native5\Route\DeviceDetection;
 
 /**
  * SupportedDevices 
