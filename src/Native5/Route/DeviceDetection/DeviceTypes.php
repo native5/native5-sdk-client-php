@@ -21,7 +21,7 @@
  * @link      http://www.docs.native5.com 
  */
 
-namespace Native5\Route;
+namespace Native5\Route\DeviceDetection;
 
 /**
  * DeviceTypes 
@@ -37,7 +37,7 @@ namespace Native5\Route;
  * Last Modified : Fri Dec 21 09:11:53 2012
  */
 interface DeviceTypes {
-    const COMPUTER = 'D';
+    const DESKTOP  = 'D';
     const TABLET   = 'T';
     const MOBILE   = 'M';
     const TV       = 'V';
