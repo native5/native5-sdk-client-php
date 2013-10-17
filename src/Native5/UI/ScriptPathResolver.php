@@ -67,10 +67,17 @@ class ScriptPathResolver
         $basePath =  '/'.$staticPath.'/resources/'.$category;
         $commonPath =  '/'.$staticPath.'/resources/common';
 
-        if (file_exists(getcwd().$basePath.'/scripts/'.$name)) {
-            return '/'.$app->getConfiguration()->getApplicationContext().$basePath.'/'.$name;
-        } else if (file_exists($commonPath.'/scripts/'.$name)) {
-            return '/'.$app->getConfiguration()->getApplicationContext().$commonPath.'/'.$name;
+        $searchFolder = '.';
+        if(preg_match('/.*\.js$/', $name)) {
+            $searchFolder = 'scripts';
+        } else if(preg_match('.*\.js$', $name)) {
+            $searchFolder = 'styles';
+        }
+
+        if (file_exists(getcwd().$basePath.'/'.$searchFolder'/'.$name)) {
+            return '/'.$app->getConfiguration()->getApplicationContext().$basePath.'/'.$searchFolder.'/'.$name;
+        } else if (file_exists(getcwd().$commonPath.'/'.$searchFolder.'/'.$name)) {
+            return '/'.$app->getConfiguration()->getApplicationContext().$commonPath.'/'.$searchFolder.'/'.$name;
         }
         return $name;
     }
