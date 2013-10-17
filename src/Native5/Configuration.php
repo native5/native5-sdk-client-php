@@ -85,6 +85,23 @@ class Configuration
 
 
     /**
+     * getDefaultGrade 
+     * 
+     * @access public
+     * @return void
+     */
+    public function getDefaultGrade()
+    {
+        if (array_key_exists('defaultGrade', $this->_config)) {
+            return $this->_config['defaultGrade'];
+        }
+
+        return null;
+
+    }//end getDefaultGrade()
+
+
+    /**
      * isLocal 
      * 
      * @access public
