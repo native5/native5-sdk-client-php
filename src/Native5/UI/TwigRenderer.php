@@ -152,7 +152,6 @@ class TwigRenderer implements Renderer
         }
         $pathsToSearch[] = $commonPath;
         $loader         =  new \Twig_Loader_Filesystem($pathsToSearch);
-        //$loader->prependPath($commonPath);
         $cache_path = defined('CACHE_PATH') ? CACHE_PATH : 'cache';
         $this->_twig = new \Twig_Environment(
             $loader,
@@ -188,6 +187,9 @@ class TwigRenderer implements Renderer
         $this->_twig->addFilter(
             'isLater',
             new \Twig_Filter_Function('DateFilter::isLater')
+        );
+        $this->_twig->addFunction(
+            new \Twig_SimpleFunction('resolvePath', 'Native5\UI\ScriptPathResolver::resolve')
         );
 
     }//end _configure()
