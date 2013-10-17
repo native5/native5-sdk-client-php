@@ -70,7 +70,7 @@ class ScriptPathResolver
         $searchFolder = '.';
         if(preg_match('/.*\.js$/', $name)) {
             $searchFolder = 'scripts';
-        } else if(preg_match('.*\.js$', $name)) {
+        } else if(preg_match('/.*\.css$/', $name)) {
             $searchFolder = 'styles';
         }
 
