@@ -54,15 +54,17 @@ class WebContext
      */
     public function __construct($request=null)
     {
-
+        $app = $GLOBALS['app'];
         if ($request === null) {
             $request = $_REQUEST;
         }
 
         $this->_map             = array();
-        $rawUA                  = $_SERVER["HTTP_USER_AGENT"];
         $deviceMgr              = new DeviceManager();
-        $this->_map['device']   = $deviceMgr->determineCategory($rawUA);
+        $this->_map['device']   = $deviceMgr->determineCategory(
+            $_SERVER["HTTP_USER_AGENT"], 
+            $app->getConfiguration()->getDefaultGrade()
+        );
         $latitude               = isset($_REQUEST['lat']) ? $_REQUEST['lat'] : '0.00';
         $longitude              = isset($_REQUEST['lng']) ? $_REQUEST['lng'] : '0.00';
         $this->_map['location'] = array('latitude' => $latitude, 'longitude' => $longitude);

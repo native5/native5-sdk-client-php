@@ -50,7 +50,7 @@ class DeviceManager
      * @access public
      * @return category of request, typically of the order M00X. 
      */
-    public function determineCategory($userAgent = null) {
+    public function determineCategory($userAgent = null, $defaultGrade = Grades::UNSUPPORTED) {
         $logger = $GLOBALS['logger'];
         $app = $GLOBALS['app'];
         $parsedUA = UA::parse($userAgent);
@@ -61,12 +61,12 @@ class DeviceManager
                 return $this->_computeCategory($browser);
             } catch (\Exception $ex) {
                 $logger->info("No device database found, defaulting to local file based detection");
-                $browser = $this->_lookupLocal($parsedUA);
+                $browser = $this->_lookupLocal($parsedUA, $defaultGrade);
                 return $this->_computeCategory($browser);
-            } 
+            }
         } else {
-            $logger->info("Local environment , defaulting to local file based detection");
-            $browser = $this->_lookupLocal($parsedUA);
+            $logger->info("Local environment, defaulting to local file based detection");
+            $browser = $this->_lookupLocal($parsedUA, $defaultGrade);
             return $this->_computeCategory($browser);
         }
     }
@@ -80,12 +80,11 @@ class DeviceManager
      * @access private
      * @return void
      */
-    private function _lookupLocal($ua)
+    private function _lookupLocal($ua, $defaultGrade)
     {
         $logger = $GLOBALS['logger'];
-        //$logger->info(print_r($ua,1));
         $browser = new Browser();
-        $gradePrefix = "X";
+        $gradePrefix = 'X';
         $gradeSuffix = Grades::UNSUPPORTED;
 
         if ($ua->isMobile && $ua->isTablet) {
