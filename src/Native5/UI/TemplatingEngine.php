@@ -67,10 +67,17 @@ class TemplatingEngine
         if($app->getConfiguration()->isLocal()) {
             $templates_path = 'views'.'/'.$templates_path;
         }
+        
+        $pathsToSearch = array();
+        if (file_exists($templatesPath)) {
+            $pathsToSearch[] = $templatesPath;
+        }
+        $pathsToSearch[] = $commonPath;
+        $loader         =  new \Twig_Loader_Filesystem($pathsToSearch);
         // Configure renderer
         $cache_path = defined('CACHE_PATH') ? CACHE_PATH : "cache";
         $this->_renderer = new \Twig_Environment(
-            new \Twig_Loader_Filesystem($templates_path, 
+            new \Twig_Loader_Filesystem($pathsToSearch, 
             array(
                 'debug'=> true,
                 'autoreload'=>false,
