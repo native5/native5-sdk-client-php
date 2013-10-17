@@ -64,13 +64,18 @@ class TemplatingEngine
         global $app;
         $session = $app->getSessionManager()->getActiveSession();
         $templates_path = "templates/".$session->getAttribute('category');
+
+        $commonPath = 'templates/common';
+        if ($app->getConfiguration()->isLocal()) {
+            $commonPath = 'views'.'/'.$commonPath;
+        } 
         if($app->getConfiguration()->isLocal()) {
             $templates_path = 'views'.'/'.$templates_path;
         }
         
         $pathsToSearch = array();
-        if (file_exists($templatesPath)) {
-            $pathsToSearch[] = $templatesPath;
+        if (file_exists($templates_path)) {
+            $pathsToSearch[] = $templates_path;
         }
         $pathsToSearch[] = $commonPath;
         $loader         =  new \Twig_Loader_Filesystem($pathsToSearch);
