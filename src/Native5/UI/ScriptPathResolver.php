@@ -74,7 +74,7 @@ class ScriptPathResolver
             $searchFolder = 'styles';
         }
 
-        if (file_exists(getcwd().$basePath.'/'.$searchFolder'/'.$name)) {
+        if (file_exists(getcwd().$basePath.'/'.$searchFolder.'/'.$name)) {
             return '/'.$app->getConfiguration()->getApplicationContext().$basePath.'/'.$searchFolder.'/'.$name;
         } else if (file_exists(getcwd().$commonPath.'/'.$searchFolder.'/'.$name)) {
             return '/'.$app->getConfiguration()->getApplicationContext().$commonPath.'/'.$searchFolder.'/'.$name;
