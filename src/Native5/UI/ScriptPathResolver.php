@@ -62,16 +62,16 @@ class ScriptPathResolver
             $staticPath = 'views';
         }
 
+        $session = $app->getSessionManager()->getActiveSession();
         $category =  $session->getAttribute('category'); 
-        $basePath =  '/'.$app->getConfiguration()->getApplicationContext().'/'.$staticResDir.'/resources/'.$category;
-        $commonPath =  '/'.$app->getConfiguration()->getApplicationContext().'/'.$staticResDir.'/resources/common';
+        $basePath =  '/'.$staticPath.'/resources/'.$category;
+        $commonPath =  '/'.$staticPath.'/resources/common';
 
-        if (file_exists($basePath.'/scripts/'.$name)) {
-            return $basePath.'/'.$name;
+        if (file_exists(getcwd().$basePath.'/scripts/'.$name)) {
+            return '/'.$app->getConfiguration()->getApplicationContext().$basePath.'/'.$name;
         } else if (file_exists($commonPath.'/scripts/'.$name)) {
-            return $commonPath.'/'.$name;
+            return '/'.$app->getConfiguration()->getApplicationContext().$commonPath.'/'.$name;
         }
-        $logger->debug('Unable to resolve script path, defaulting to sending script name');
         return $name;
     }
 }
