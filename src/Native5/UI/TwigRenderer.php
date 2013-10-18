@@ -153,13 +153,24 @@ class TwigRenderer implements Renderer
         $pathsToSearch[] = $commonPath;
         $loader         =  new \Twig_Loader_Filesystem($pathsToSearch);
         $cache_path = defined('CACHE_PATH') ? CACHE_PATH : 'cache';
+        
+        $cacheFolder =  getcwd().DIRECTORY_SEPARATOR.$cache_path;
+        if (!file_exists($cacheFolder)) {
+            if(!mkdir($cacheFolder)) {
+                $cacheFolder = sys_get_temp_dir().$cache_path;
+                if(!file_exists($cacheFolder) && !mkdir($cacheFolder)) {
+                    die('Insufficient privileges to create logs folder in application directory, or temp path, exiting');    
+                }
+            }
+        }
+        
         $this->_twig = new \Twig_Environment(
             $loader,
             array(
                 'debug'      => true,
                 'autoreload' => false,
                 'autoescape' => true,
-                'cache'      => $cache_path,
+                'cache'      => $cacheFolder,
             ));
         $this->_twig->getExtension('core')->setNumberFormat(2, '.', ',');
         $this->_twig->addFilter(
