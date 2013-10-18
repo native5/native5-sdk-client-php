@@ -99,8 +99,13 @@ class Application
         $GLOBALS['logger'] = $logger;
 
         $app->_config      = new Configuration($configFile);
+        
+        $logFolder =  getcwd().'/logs';
+        if (!file_exists($logFolder)) {
+            mkdir($logFolder);
+        }
 
-        $file              = getcwd().'/logs/'.$app->_config->getApplicationContext().'-debug.log';
+        $file              = $logFolder.$app->_config->getApplicationContext().'-debug.log';
         $logger->addHandler($file, Logger::ALL, 7);
         $sessionManager = new WebSessionManager();
         $sessionManager->startSession(null, true);
