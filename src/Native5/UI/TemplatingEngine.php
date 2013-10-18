@@ -84,7 +84,12 @@ class TemplatingEngine
         
         $cacheFolder =  getcwd().DIRECTORY_SEPARATOR.$cache_path;
         if (!file_exists($cacheFolder)) {
-            mkdir($cacheFolder);
+            if(!mkdir($cacheFolder)) {
+                $cacheFolder = sys_get_temp_dir().$cache_path;
+                if(!file_exists($cacheFolder) && !mkdir($cacheFolder)) {
+                    die('Insufficient privileges to create logs folder in application directory, or temp path, exiting');    
+                }
+            }
         }
 
         $this->_renderer = new \Twig_Environment(
@@ -93,7 +98,7 @@ class TemplatingEngine
                 'debug'=> true,
                 'autoreload'=>false,
                 'autoescape'=>true,
-                'cache' => $cache_path
+                'cache' => $cacheFolder
             )
         )
     );

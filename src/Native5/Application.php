@@ -102,10 +102,15 @@ class Application
         
         $logFolder =  getcwd().'/logs';
         if (!file_exists($logFolder)) {
-            mkdir($logFolder);
+            if(!mkdir($logFolder)) {
+                $logFolder = sys_get_temp_dir().'/logs';
+                if(!file_exists($logFolder) && !mkdir($logFolder)) {
+                    die('Insufficient privileges to create logs folder in application directory, or temp path, exiting');    
+                }
+            }
         }
 
-        $file              = $logFolder.$app->_config->getApplicationContext().'-debug.log';
+        $file              = $logFolder.DIRECTORY_SEPARATOR.$app->_config->getApplicationContext().'-debug.log';
         $logger->addHandler($file, Logger::ALL, 7);
         $sessionManager = new WebSessionManager();
         $sessionManager->startSession(null, true);
