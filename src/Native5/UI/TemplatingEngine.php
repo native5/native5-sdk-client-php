@@ -81,6 +81,12 @@ class TemplatingEngine
         $loader         =  new \Twig_Loader_Filesystem($pathsToSearch);
         // Configure renderer
         $cache_path = defined('CACHE_PATH') ? CACHE_PATH : "cache";
+        
+        $cacheFolder =  getcwd().DIRECTORY_SEPARATOR.$cache_path;
+        if (!file_exists($cacheFolder)) {
+            mkdir($cacheFolder);
+        }
+
         $this->_renderer = new \Twig_Environment(
             new \Twig_Loader_Filesystem($pathsToSearch, 
             array(
