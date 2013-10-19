@@ -16,8 +16,8 @@
  * limitations under the License.
  *  PHP version 5.3+
  *
- * @category  <category> 
- * @package   Native5\Core\<package>
+ * @category  Filters 
+ * @package   Native5\UI
  * @author    Barada Sahu <barry@native5.com>
  * @copyright 2012 Native5. All Rights Reserved 
  * @license   See attached LICENSE for details
@@ -58,7 +58,7 @@ class ScriptPathResolver
         $app    = $GLOBALS['app'];
 
         $staticPath = 'public';
-        if($app->getConfiguration()->isLocal()) {
+        if ($app->getConfiguration()->isLocal()) {
             $staticPath = 'views';
         }
 
@@ -68,10 +68,20 @@ class ScriptPathResolver
         $commonPath =  '/'.$staticPath.'/resources/common';
 
         $searchFolder = '.';
+        
+        $isUrl = false;
+
         if(preg_match('/.*\.js$/', $name)) {
             $searchFolder = 'scripts';
         } else if(preg_match('/.*\.css$/', $name)) {
             $searchFolder = 'styles';
+        } else {
+            $isUrl = true;
+            $name = DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$name; 
+        }
+
+        if($isUrl) {
+            return $name;
         }
 
         if (file_exists(getcwd().$basePath.'/'.$searchFolder.'/'.$name)) {
