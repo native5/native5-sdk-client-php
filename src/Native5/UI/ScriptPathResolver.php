@@ -75,12 +75,14 @@ class ScriptPathResolver
             $searchFolder = 'scripts';
         } else if(preg_match('/.*\.css$/', $name)) {
             $searchFolder = 'styles';
+        } else if(preg_match('/.*\.(?:jpg|jpeg|gif|png)$/', $name)) {
+            $searchFolder = 'images';
         } else {
             $isUrl = true;
             $name = DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$name; 
         }
 
-        if($isUrl) {
+        if ($isUrl) {
             return $name;
         }
 
