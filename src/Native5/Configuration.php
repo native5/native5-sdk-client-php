@@ -70,6 +70,9 @@ class Configuration
      * @return void
      */
     public function getSharedKey() {
+        $key = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('sharedKey');
+        if($key != null)
+            return $key;
         return $this->_config['sharedKey'];   
     }
 
@@ -80,6 +83,9 @@ class Configuration
      * @return void
      */
     public function getSecretKey() {
+        $secret = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('secretKey');
+        if($secret != null)
+            return $secret;
         return $this->_config['secretKey'];
     }
 
