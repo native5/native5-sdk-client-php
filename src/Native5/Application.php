@@ -112,12 +112,12 @@ class Application
         $logger->addHandler($file, Logger::ALL, 7);
         $sessionManager = new WebSessionManager();
         $sessionManager->startSession(null, true);
+        $app->_services['sessions']   = $sessionManager;
 
         SecurityUtils::setSecurityManager(new DefaultSecurityManager());
 
         $app->_subject = $app->_getSubjectFromSession($sessionManager->getActiveSession());
 
-        $app->_services['sessions']   = $sessionManager;
         $app->_services['routing']      = new RoutingEngine();
         $app->_services['templating'] = new TemplatingEngine();
         $app->_services['messaging']  = NotificationService::instance();

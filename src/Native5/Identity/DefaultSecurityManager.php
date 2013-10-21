@@ -87,7 +87,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         global $logger;
         global $app;
         try {
-            list($authInfo, $roles) = $this->authenticate($token);
+            list($authInfo, $roles, $tokens) = $this->authenticate($token);
         } catch (AuthenticationException $aex) {
             $logger->error($aex->getMessage(), array($aex->getMessage()));
             throw $aex;
@@ -98,6 +98,10 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         // Generate unique token to prevent XSRF.
         $app->getSessionManager()->getActiveSession()->setAttribute('nonce', sha1(uniqid(mt_rand(), true))); 
         $app->getSessionManager()->getActiveSession()->setAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY, true);
+        if(!empty($tokens)) {
+            $app->getSessionManager()->getActiveSession()->setAttribute('sharedKey', $tokens['token']); 
+            $app->getSessionManager()->getActiveSession()->setAttribute('secretKey', $tokens['secret']); 
+        }
         return $loggedInSubj;
 
     }//end login()
