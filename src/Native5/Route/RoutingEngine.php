@@ -50,6 +50,11 @@ class RoutingEngine
     {
         global $logger;
         try {
+            // TODO : Refactor Code :
+            // $url    = URLParser::parse();
+            // $route  = RouteMapper::getRoute($url['route']);
+            // $router = new Router();
+            // $router->route($route);
             $urlInterpreter = new UrlInterpreter();
             $command        = $urlInterpreter->getCommand();
             $router         = new Router($command);

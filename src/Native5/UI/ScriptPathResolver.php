@@ -21,7 +21,7 @@
  * @author    Barada Sahu <barry@native5.com>
  * @copyright 2012 Native5. All Rights Reserved 
  * @license   See attached LICENSE for details
- * @version   GIT: $gitid$ 
+ * @version   GIT: $gitid$
  * @link      http://www.docs.native5.com 
  */
 
@@ -54,18 +54,18 @@ class ScriptPathResolver
      */
     public static function resolve($name)
     {
-        $logger = $GLOBALS['logger'];
-        $app    = $GLOBALS['app'];
-
+        $logger     = $GLOBALS['logger'];
+        $app        = $GLOBALS['app'];
         $staticPath = 'public';
+        
         if ($app->getConfiguration()->isLocal()) {
             $staticPath = 'views';
         }
 
-        $session = $app->getSessionManager()->getActiveSession();
-        $category =  $session->getAttribute('category'); 
-        $basePath =  '/'.$staticPath.'/resources/'.$category;
-        $commonPath =  '/'.$staticPath.'/resources/common';
+        $session    = $app->getSessionManager()->getActiveSession();
+        $category   = $session->getAttribute('category');
+        $basePath   = '/'.$staticPath.'/resources/'.$category;
+        $commonPath = '/'.$staticPath.'/resources/common';
 
         $searchFolder = '.';
         
@@ -79,7 +79,7 @@ class ScriptPathResolver
             $searchFolder = 'images';
         } else {
             $isUrl = true;
-            $name = DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$name; 
+            $name  = DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$name;
         }
 
         if ($isUrl) {
