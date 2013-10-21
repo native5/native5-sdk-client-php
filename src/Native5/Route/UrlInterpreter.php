@@ -55,6 +55,7 @@ class UrlInterpreter {
         } else { 
             $controllerName = $commandArray[0];
         }
+        $controllerName = preg_replace( '/[-_](.?)/e',"strtoupper('$1')", strtolower( $controllerName) );
         if($controllerName == '') {
             $controllerName = 'home';
         }

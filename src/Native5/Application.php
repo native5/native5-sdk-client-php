@@ -93,11 +93,9 @@ class Application
     {
         // Initialize application services, Store application Object as a global
         // Services are available from global app.
-        $app = $GLOBALS['app'] = new self();
-
+        $app               = $GLOBALS['app']                         = new self();
         $logger            = LoggerFactory::instance()->getLogger();
         $GLOBALS['logger'] = $logger;
-
         $app->_config      = new Configuration($configFile);
         
         $logFolder =  getcwd().'/logs';
@@ -120,7 +118,7 @@ class Application
         $app->_subject = $app->_getSubjectFromSession($sessionManager->getActiveSession());
 
         $app->_services['sessions']   = $sessionManager;
-        $app->_services['routing']    = new RoutingEngine();
+        $app->_services['routing']      = new RoutingEngine();
         $app->_services['templating'] = new TemplatingEngine();
         $app->_services['messaging']  = NotificationService::instance();
 
