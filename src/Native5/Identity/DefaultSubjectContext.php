@@ -52,6 +52,7 @@ class DefaultSubjectContext
     const HOST                      = 'DefaultSubjectContext.HOST';
     const PRINCIPALS_SESSION_KEY    = 'DefaultSubjectContext._PRINCIPALS_SESSION_KEY';
     const AUTHENTICATED_SESSION_KEY = 'DefaultSubjectContext._AUTHENTICATED_SESSION_KEY';
+    const AUTHORIZATION_SESSION_KEY = 'DefaultSubjectContext._AUTHORIZATION_SESSION_KEY';
 
     private $_map;
 
@@ -202,11 +203,11 @@ class DefaultSubjectContext
             return $this->_map[self::ROLES];
         return array();
     }
-    
-    public function setRoles() {
-        if(array_key_exists(self::ROLES, $this->_map))
-            return $this->_map[self::ROLES];
-        return array();
+
+
+    public function setRoles($roles)
+    {
+        $this->_map[self::ROLES] = $roles;
     }
 
     public function getSession()

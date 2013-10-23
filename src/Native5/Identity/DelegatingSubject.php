@@ -129,6 +129,19 @@ class DelegatingSubject extends Subject
 
 
     /**
+     * getRoles 
+     * 
+     * @access public
+     * @return void
+     */
+    public function getRoles()
+    {
+        return $this->_roles;
+
+    }//end getRoles()
+
+
+    /**
      * getPrimaryPrincipal 
      * 
      * @access public
