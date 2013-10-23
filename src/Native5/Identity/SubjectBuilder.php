@@ -110,6 +110,22 @@ class SubjectBuilder
 
 
     /**
+     * authorization 
+     * 
+     * @param mixed $roles The roles using which to replicate the authorization state
+     *
+     * @access public
+     * @return void
+     */
+    public function authorization($roles)
+    {
+        $this->_context->setRoles($roles);
+        return $this;
+
+    }//end authorization()
+
+
+    /**
      * build 
      * 
      * @access public

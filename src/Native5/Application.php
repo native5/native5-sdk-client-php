@@ -245,6 +245,7 @@ class Application
         $subject = Subject::createBuilder()
             ->principals($session->getAttribute(DefaultSubjectContext::PRINCIPALS_SESSION_KEY))
             ->authenticated($session->getAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY))
+            ->authorization($session->getAttribute(DefaultSubjectContext::AUTHORIZATION_SESSION_KEY))
             ->session($session)
             ->build();
         return $subject;

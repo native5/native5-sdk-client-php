@@ -84,8 +84,45 @@ class DefaultSubjectDAO implements SubjectDAO
     {
         $this->mergePrincipals($subject);
         $this->mergeAuthenticationState($subject);
+        $this->mergeAuthorizationState($subject);
 
     }//end _saveToSession()
+
+
+    /**
+     * mergeAuthorizationState 
+     * 
+     * @param mixed $subject The subject from which to save the Authorization State.
+     *
+     * @access protected
+     * @return void
+     */
+    protected function mergeAuthorizationState($subject)
+    {
+        $currentRoles = $subject->getRoles();
+        $session      = $subject->getSession(false);
+
+        if ($session === null) {
+            if (!empty($currentRoles)) {
+                $session = $subject->getSession();
+                $session->setAttribute(DefaultSubjectContext::AUTHORIZATION_SESSION_KEY, $currentRoles);
+            }
+        } else {    //otherwise no session and no roles - nothing to save
+            $existingRoles =
+                    $session->getAttribute(DefaultSubjectContext::AUTHORIZATION_SESSION_KEY);
+
+            if (empty($currentRoles)) {
+                if (!empty($existingRoles)) {
+                    $session->removeAttribute(DefaultSubjectContext::AUTHORIZATION_SESSION_KEY);
+                }
+            } else {    //otherwise both are null or empty - no need to update the session
+                if ($currentRoles !== $existingRoles) {
+                    $session->setAttribute(DefaultSubjectContext::AUTHORIZATION_SESSION_KEY, $currentRoles);
+                }
+            }
+        }
+
+    }//end mergeAuthorizationState()
 
 
     /**
