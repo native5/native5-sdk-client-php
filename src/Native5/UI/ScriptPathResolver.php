@@ -93,5 +93,27 @@ class ScriptPathResolver
         }
         return $name;
     }
+
+
+    /**
+     * secureLink
+     * 
+     * @param mixed $url Append nonce to token.
+     *
+     * @static
+     * @access public
+     * @return void
+     */
+    public static function secureLink($url)
+    {
+        $app        = $GLOBALS['app'];
+        if ($app->getSubject() !== null && $app->getSubject()->isAuthenticated()) {
+            $separator = '&';
+            if(!strpos($url, '?')) {
+                $separator = '?';
+            }
+            $url = $url.$separator.'rand_token='.$app->getSessionManager()->getActiveSession()->get('nonce');
+        }
+    }//end resolveLink()
 }
 ?>
