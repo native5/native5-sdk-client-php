@@ -83,7 +83,14 @@ class HttpResponse implements Response
      */
     public function redirectTo($location) {
         global $app;
-        $redirectHeader = "Location: ".$location."?rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+        $host = $_SERVER['HTTP_HOST'];
+        if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+            $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+        } 
+        $redirectHeader = 'Location: '.'http://'.$host.'/'.$app->getConfiguration()->getApplicationContext().'/'.$location;
+        if ($app->getSubject()->isAuthenticated()) {
+            $redirectHeader .= "?rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+        }
         $this->addHeader($redirectHeader);
     }
     
