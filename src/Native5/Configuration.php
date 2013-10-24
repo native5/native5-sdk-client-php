@@ -23,8 +23,6 @@
 
 namespace Native5;
 
-use Symfony\Component\Yaml\Yaml;
-
 /**
  * Configuration 
  * 
@@ -49,7 +47,7 @@ class Configuration
                 $GLOBALS['logger']->error('No configuration found', array($configFile));
             throw new \Exception('No configuration file found, Native5 application need a valid configuration file to be present in the config folder.');
         }
-        $this->_config = Yaml::parse($configFile);
+        $this->_config = yaml_parse_file($configFile);
     }
 
 
