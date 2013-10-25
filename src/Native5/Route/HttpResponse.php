@@ -89,7 +89,10 @@ class HttpResponse implements Response
         } 
         $redirectHeader = 'Location: '.'http://'.$host.'/'.$app->getConfiguration()->getApplicationContext().'/'.$location;
         if ($app->getSubject()->isAuthenticated()) {
-            $redirectHeader .= "?rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+            $separator = '?';
+            if(strpos($redirectHeader, '?'))
+                $separator = '&';
+            $redirectHeader .= $separator."rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
         }
         $this->addHeader($redirectHeader);
     }
