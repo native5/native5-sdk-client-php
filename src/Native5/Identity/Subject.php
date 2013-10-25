@@ -39,7 +39,7 @@ class Subject {
 
     private $_principal;
     private $_principals;
-    private $_roles;
+    protected $_roles;
     private $_permissions;
     protected $_authenticated;
     protected $_session;
@@ -112,7 +112,8 @@ class Subject {
 
 
     public function hasRole($roleName) {
-        return (in_array($roleName, $this->_roles));
+
+        return !empty($this->_roles) && (in_array($roleName, $this->_roles));
 
     }//end hasRole()
 
