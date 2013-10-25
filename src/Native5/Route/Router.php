@@ -100,7 +100,13 @@ class Router
             $response = new HttpResponse();
             $response->addHeader('HTTP/1.1 400 Bad Request');
             $response->send();
-        } 
+        } catch(ServiceException $sxe) {
+            $response = new HttpResponse();
+            $response->sendError($sxe->getMessage());
+        } catch(ClientException $cxe) {
+            $response = new HttpResponse();
+            $response->sendError($cxe->getMessage(), $cxe->getCode());
+        }
     }//end route()
 
 }//end class
