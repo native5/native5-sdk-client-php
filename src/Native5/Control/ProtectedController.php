@@ -77,8 +77,7 @@ abstract class ProtectedController extends DefaultController
             parent::execute($request);
         } catch(AuthenticationException $ex) {
             $logger->error('Unauthorized attempt to access resource, being redirected to home page', array($ex->getMessage()));
-            $this->_response->addHeader('HTTP/1.1 401 Unauthorized');
-            $this->_response->send();
+            $this->_handleUnauthenticatedAccess();
         }
     }
 
@@ -116,5 +115,3 @@ abstract class ProtectedController extends DefaultController
 
 
 }//end class
-
-?>
