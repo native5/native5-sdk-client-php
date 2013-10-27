@@ -74,25 +74,17 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
             // Default Grade
             if (isset($this->_config['app']['defaultGrade']))
                 $this->_configuration->setDefaultGrade($this->_config['app']['defaultGrade']);
-            // Debug Level
-            if (isset($this->_config['app']['debugLevel']))
-                $this->_configuration->setDebugLevel($this->_config['app']['debugLevel']);
+            // Log Level
+            if (isset($this->_config['app']['logLevel']))
+                $this->_configuration->setLogLevel($this->_config['app']['logLevel']);
 
             // Api Configuration
-            // Endpoint
-            $this->_configuration->setApiEndpoint($this->_config['api']['url']);
+            // Url
+            $this->_configuration->setApiUrl($this->_config['api']['url']);
             // Shared Key
-            $sessionSharedKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('sharedKey');
-            if (!empty($sessionSharedKey))
-                $this->_configuration->setSharedKey($sessionSharedKey);
-            else
-                $this->_configuration->setSharedKey($this->_config['api']['sharedKey']);
+            $this->_configuration->setSharedKey($this->_config['api']['sharedKey']);
             // Secret Key
-            $sessionSharedKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('secretKey');
-            if (!empty($sessionSecretKey))
-                $this->_configuration->setSecretKey($sessionSecretKey);
-            else
-                $this->_configuration->setSecretKey($this->_config['api']['secretKey']);
+            $this->_configuration->setSecretKey($this->_config['api']['secretKey']);
         }
 
         return $this->_configuration;
