@@ -65,6 +65,14 @@ class Application
 
     private $_subject;
 
+    private static $LOG_MAPPING = array(
+        'debug'     => 'LOG_DEBUG',
+        'info'      => 'LOG_INFO',
+        'warning'   => 'LOG_WARNING',
+        'error'     => 'LOG_ERR',
+        'crit'      => 'LOG_CRIT',
+        'alert'     => 'LOG_ALERT',
+    );
 
     /**
      * __construct 
@@ -89,14 +97,15 @@ class Application
      * @access public
      * @return void
      */
-    public static function init($configFile='config/settings.yml')
+    public static function init($configFile='config/settings.yml', $localConfigFile='config/settings.local.yml')
     {
         // Initialize application services, Store application Object as a global
         // Services are available from global app.
         $app               = $GLOBALS['app']                         = new self();
         $logger            = LoggerFactory::instance()->getLogger();
         $GLOBALS['logger'] = $logger;
-        $app->_config      = new Configuration($configFile);
+        $configFactory     = new ConfigurationFactory($configFile, $localConfigFile);
+        $app->_config      = $configFactory->getConfig();
         
         $logFolder =  getcwd().'/logs';
         if (!file_exists($logFolder)) {
@@ -109,7 +118,7 @@ class Application
         }
 
         $file              = $logFolder.DIRECTORY_SEPARATOR.$app->_config->getApplicationContext().'-debug.log';
-        $logger->addHandler($file, Logger::ALL, 7);
+        $logger->addHandler($file, Logger::ALL, self::$LOG_MAPPING[$this->_config->getDebugLevel()]);
         $sessionManager = new WebSessionManager();
         $sessionManager->startSession(null, true);
         $app->_services['sessions']   = $sessionManager;
