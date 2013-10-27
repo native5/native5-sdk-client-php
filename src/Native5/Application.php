@@ -99,7 +99,7 @@ class Application
     {
         // Initialize application services, Store application Object as a global
         // Services are available from global app.
-        $app               = new self();
+        $GLOBALS['app']    = $app = new self();
         $GLOBALS['logger'] = LoggerFactory::instance()->getLogger();
         $configFactory     = new ConfigurationFactory($configFile, $localConfigFile);
         $app->_config      = $configFactory->getConfig();
@@ -115,7 +115,7 @@ class Application
         }
 
         $file              = $logFolder.DIRECTORY_SEPARATOR.$app->_config->getApplicationContext().'-debug.log';
-        $GLOBALS['logger']->addHandler($file, Logger::ALL, self::$LOG_MAPPING[$this->_config->getDebugLevel()]);
+        $GLOBALS['logger']->addHandler($file, Logger::ALL, self::$LOG_MAPPING[$app->_config->getLogLevel()]);
         $sessionManager = new WebSessionManager();
         $sessionManager->startSession(null, true);
         $app->_services['sessions']   = $sessionManager;
@@ -127,8 +127,8 @@ class Application
         $app->_services['routing']      = new RoutingEngine();
         $app->_services['templating'] = new TemplatingEngine();
         $app->_services['messaging']  = NotificationService::instance();
-        $GLOBALS['app']    = $app;
 
+        $GLOBALS['logger']->error("The app configuration: ".PHP_EOL.print_r($app->_config, 1));
         return $app;
     }
 

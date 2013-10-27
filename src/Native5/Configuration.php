@@ -38,11 +38,11 @@ namespace Native5;
  */
 class Configuration {
     private $_applicationContext;
-    private $_apiEndpoint;
+    private $_apiUrl;
     private $_sharedKey;
     private $_secretKey;
     private $_defaultGrade;
-    private $_debugLevel;
+    private $_logLevel;
     private $_local;
 
     public function __construct($applicationContext = null) {
@@ -57,15 +57,18 @@ class Configuration {
         $this->_applicationContext = $applicationContext;
     }
 
-    public function getApiEndpoint() {
-        return $this->_apiEndpoint;
+    public function getApiUrl() {
+        return $this->_apiUrl;
     }
 
-    public function setApiEndpoint($apiEndpoint) {
-        $this->_apiEndpoint = $apiEndpoint;
+    public function setApiUrl($apiUrl) {
+        $this->_apiUrl = $apiUrl;
     }
 
     public function getSharedKey() {
+        $sessionSharedKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('sharedKey');
+        if (!empty($sessionSharedKey))
+            return $sessionSharedKey;
         return $this->_sharedKey;
     }
 
@@ -74,6 +77,9 @@ class Configuration {
     }
 
     public function getSecretKey() {
+        $sessionSecretKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('secretKey');
+        if (!empty($sessionSecretKey))
+            return $sessionSecretKey;
         return $this->_secretKey;
     }
 
@@ -89,12 +95,12 @@ class Configuration {
         $this->_defaultGrade = $defaultGrade;
     }
 
-    public function getDebugLevel() {
-        return $this->_debugLevel;
+    public function getLogLevel() {
+        return $this->_logLevel;
     }
 
-    public function setDebugLevel($debugLevel) {
-        $this->_debugLevel = $debugLevel;
+    public function setLogLevel($logLevel) {
+        $this->_logLevel = $logLevel;
     }
 
     public function isLocal() {
