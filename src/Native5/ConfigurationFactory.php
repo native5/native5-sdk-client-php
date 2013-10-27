@@ -46,7 +46,7 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
     }
 
     /**
-     * makeConfig Wrap the associative configuration array inside a DBConfig class
+     * makeConfig Wrap the associative configuration array inside a Configuration class
      *
      * @access public
      * @return void
