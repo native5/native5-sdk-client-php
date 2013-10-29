@@ -1,6 +1,6 @@
 <?php
 /**
- *  Copyright 2012 Native5. All Rights Reserved
+ *  Copyright 2013 Native5. All Rights Reserved
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *	You may not use this file except in compliance with the License.
@@ -14,8 +14,8 @@
  *
  * @category  Configuration 
  * @package   Native5
- * @author    Barada Sahu <barry@native5.com>
- * @copyright 2012 Native5. All Rights Reserved 
+ * @author    Shamik Datta <shamik@native5.com>
+ * @copyright 2013 Native5. All Rights Reserved
  * @license   See attached LICENSE for details
  * @version   GIT: $gitid$ 
  * @link      http://www.docs.native5.com 
@@ -24,110 +24,92 @@
 namespace Native5;
 
 /**
- * Configuration 
+ * Configuration
  * 
  * @category  Configuration 
  * @package   Native5
- * @author    Barada Sahu <barry@native5.com>
- * @copyright 2012 Native5. All Rights Reserved 
+ * @author    Shamik Datta <shamik@native5.com>
+ * @copyright 2013 Native5. All Rights Reserved
  * @license   See attached NOTICE.md for details
  * @version   Release: 1.0 
  * @link      http://www.docs.native5.com 
  * Created : 27-11-2012
  * Last Modified : Fri Dec 21 09:11:53 2012
  */
-class Configuration
-{
+class Configuration {
+    private $_applicationContext;
+    private $_apiUrl;
+    private $_sharedKey;
+    private $_secretKey;
+    private $_defaultGrade;
+    private $_logLevel;
+    private $_local;
 
-    private $_config;
-
-    public function __construct($configFile) {
-        if(!file_exists($configFile)) {
-            if (isset($GLOBALS['logger']))
-                $GLOBALS['logger']->error('No configuration found', array($configFile));
-            throw new \Exception('No configuration file found, Native5 application need a valid configuration file to be present in the config folder.');
-        }
-        $this->_config = yaml_parse_file($configFile);
+    public function __construct($applicationContext = null) {
+        $this->_applicationContext = $applicationContext;
     }
 
-
-    /**
-     * Get the API endpoint
-     * 
-     * @access public
-     * @return void
-     */
-    public function getApiEndpoint() {
-        return $this->_config['url'];   
-
-    }//end getApiEndpoint()
-
-
-    /**
-     * getSharedKey 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getSharedKey() {
-        $key = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('sharedKey');
-        if($key != null)
-            return $key;
-        return $this->_config['sharedKey'];   
-    }
-
-    /**
-     * getSecretKey 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getSecretKey() {
-        $secret = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('secretKey');
-        if($secret != null)
-            return $secret;
-        return $this->_config['secretKey'];
-    }
-
-
-    /**
-     * getDefaultGrade 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getDefaultGrade()
-    {
-        if (array_key_exists('defaultGrade', $this->_config)) {
-            return $this->_config['defaultGrade'];
-        }
-
-        return null;
-
-    }//end getDefaultGrade()
-
-
-    /**
-     * isLocal 
-     * 
-     * @access public
-     * @return void
-     */
-    public function isLocal() {
-        return array_key_exists('environment',$this->_config) && (strcasecmp($this->_config['environment'] , 'local')==0);
-
-    }// check if local environment
-
-
-    /**
-     * getApplicationContext 
-     * 
-     * @access public
-     * @return void
-     */
     public function getApplicationContext() {
-        return $this->_config['app']['name'];
+        return $this->_applicationContext;
     }
-}
 
+    public function setApplicationContext($applicationContext) {
+        $this->_applicationContext = $applicationContext;
+    }
+
+    public function getApiUrl() {
+        return $this->_apiUrl;
+    }
+
+    public function setApiUrl($apiUrl) {
+        $this->_apiUrl = $apiUrl;
+    }
+
+    public function getSharedKey() {
+        $sessionSharedKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('sharedKey');
+        if (!empty($sessionSharedKey))
+            return $sessionSharedKey;
+        return $this->_sharedKey;
+    }
+
+    public function setSharedKey($sharedKey) {
+        $this->_sharedKey = $sharedKey;
+    }
+
+    public function getSecretKey() {
+        $sessionSecretKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('secretKey');
+        if (!empty($sessionSecretKey))
+            return $sessionSecretKey;
+        return $this->_secretKey;
+    }
+
+    public function setSecretKey($secretKey) {
+        $this->_secretKey = $secretKey;
+    }
+
+    public function getDefaultGrade() {
+        return $this->_defaultGrade;
+    }
+
+    public function setDefaultGrade($defaultGrade) {
+        $this->_defaultGrade = $defaultGrade;
+    }
+
+    public function getLogLevel() {
+        return $this->_logLevel;
+    }
+
+    public function setLogLevel($logLevel) {
+        $this->_logLevel = $logLevel;
+    }
+
+    public function isLocal() {
+        return empty($this->_local) ? false : true;
+    }
+
+    public function setLocal() {
+        $this->_local = true;
+    }
+
+}
 

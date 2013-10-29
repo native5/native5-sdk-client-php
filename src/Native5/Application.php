@@ -65,6 +65,14 @@ class Application
 
     private $_subject;
 
+    private static $LOG_MAPPING = array(
+        'debug'     => 'LOG_DEBUG',
+        'info'      => 'LOG_INFO',
+        'warning'   => 'LOG_WARNING',
+        'error'     => 'LOG_ERR',
+        'crit'      => 'LOG_CRIT',
+        'alert'     => 'LOG_ALERT',
+    );
 
     /**
      * __construct 
@@ -76,9 +84,7 @@ class Application
     {
         // Read Config file and initialize services.
         $this->_services = array();
-
-    }//end __construct()
-
+    }
 
     /**
      * init 
@@ -89,14 +95,14 @@ class Application
      * @access public
      * @return void
      */
-    public static function init($configFile='config/settings.yml')
+    public static function init($configFile='config/settings.yml', $localConfigFile='config/settings.local.yml')
     {
         // Initialize application services, Store application Object as a global
         // Services are available from global app.
-        $app               = $GLOBALS['app']                         = new self();
-        $logger            = LoggerFactory::instance()->getLogger();
-        $GLOBALS['logger'] = $logger;
-        $app->_config      = new Configuration($configFile);
+        $GLOBALS['app']    = $app = new self();
+        $GLOBALS['logger'] = LoggerFactory::instance()->getLogger();
+        $configFactory     = new ConfigurationFactory($configFile, $localConfigFile);
+        $app->_config      = $configFactory->getConfig();
         
         $logFolder =  getcwd().'/logs';
         if (!file_exists($logFolder)) {
@@ -109,7 +115,7 @@ class Application
         }
 
         $file              = $logFolder.DIRECTORY_SEPARATOR.$app->_config->getApplicationContext().'-debug.log';
-        $logger->addHandler($file, Logger::ALL, 7);
+        $GLOBALS['logger']->addHandler($file, Logger::ALL, self::$LOG_MAPPING[$app->_config->getLogLevel()]);
         $sessionManager = new WebSessionManager();
         $sessionManager->startSession(null, true);
         $app->_services['sessions']   = $sessionManager;
@@ -122,10 +128,9 @@ class Application
         $app->_services['templating'] = new TemplatingEngine();
         $app->_services['messaging']  = NotificationService::instance();
 
+        $GLOBALS['logger']->error("The app configuration: ".PHP_EOL.print_r($app->_config, 1));
         return $app;
-
-    }//end init()
-
+    }
 
     /**
      * getSubject 
@@ -137,8 +142,7 @@ class Application
     {
         return $this->_subject;
 
-    }//end getSubject()
-
+    }
 
     /**
      * setSubject 
@@ -152,8 +156,7 @@ class Application
     {
         $this->_subject = $subject;
 
-    }//end setSubject()
-
+    }
 
     /**
      * getSessionManager 
@@ -165,8 +168,7 @@ class Application
     {
         return $this->_services['sessions'];
 
-    }//end getSessionManager()
-
+    }
 
     /**
      * getConfiguration Get configuration of the application.  
@@ -178,8 +180,7 @@ class Application
     {
         return $this->_config;
 
-    }//end getConfiguration()
-
+    }
 
     /**
      * get 
@@ -195,12 +196,10 @@ class Application
         $service = $this->_services[$serviceName];
         if (empty($service) === false) {
             return $service;
-        }//end if
+        }
 
         throw new \Exception('Service '.$serviceName.' not defined');
-
-    }//end get()
-
+    }
 
     /**
      * isDebugMode 
@@ -212,9 +211,7 @@ class Application
     {
         global $app;
         return true;
-
-    }//end isDebugMode()
-
+    }
 
     /**
      * Handles routing for all incoming requests. 
@@ -228,8 +225,7 @@ class Application
     {
         $router = $this->get('routing');
         $router->route($request);
-
-    }//end route()
+    }
 
 
     /**
@@ -249,10 +245,6 @@ class Application
             ->session($session)
             ->build();
         return $subject;
+    }
+}
 
-    }//end _getSubjectFromSession()
-
-
-}//end class
-
-?>
