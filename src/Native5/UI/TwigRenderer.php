@@ -177,10 +177,12 @@ class TwigRenderer implements Renderer
             'nonce',
             new \Twig_Filter_Function(function($str) {
                 $app=$GLOBALS['app'];
+                $logger = $GLOBALS['logger'];
+                $logger->debug('Checking for string value of nonce '.$str);
                 if (strpos($str, '?') !== false) {
-                    return $str.'&rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+                    return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'&rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
                 }
-                return $str.'?rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+                return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'?rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
         })
         );
         $this->_twig->addFilter(
