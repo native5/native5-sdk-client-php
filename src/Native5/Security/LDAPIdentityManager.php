@@ -23,7 +23,7 @@
 namespace Native5\Security;
 
 /**
- * RequestChecker 
+ * LDAPIdentityManager 
  *
  * @category  Security 
  * @package   Native5\Security
@@ -35,29 +35,34 @@ namespace Native5\Security;
  * Created : 27-11-2012
  * Last Modified : Fri Dec 21 09:11:53 2012
  */
-class RequestChecker
-{
+class LDAPIdentityManager implements IdentityManager {
+	
+	public function isAuthenticated() {
+		return false;
+	}
+	
+	public function isAuthorized() {
+		return true;
+	}
 
-    /**
-     * isAuthorized 
-     * 
-     * @static
-     * @access public
-     * @return void
-     */
-    public static function isAuthorized()
-    {
-        $headers = apache_request_headers();
-        if (isset($_SESSION['uid'])) {
-            return true;
-        }
-        if(!isset($headers['N5-Api-Sig']))
-            return FALSE;
-        $salt = "N@t1v3";
-        $request_sig = $headers['N5-Api-Sig'];
-        $string = $headers['N5-Api-Key'].$salt;
-        if(hash('sha256', $string) == $request_sig)
-            return TRUE;
-        return FALSE;	
-    }
+	/**
+	 * Authenticate using request &/or credentials in request.
+	 * Authentication results in authentication token being generated. 
+	 *
+	 */
+	public function authenticate($user) {
+		$token = "#544719020012012";
+		return $token;
+	}
+
+	/**
+	 * Authorization of user based on userToken. 
+	 * Generates token which will provide user access levels to functions.
+	 *
+	 */ 
+	public function authorize($userToken) {
+		$authToken = ''; // Token which can be used to define user access.
+		return $authToken;
+	}
 }
+?>
