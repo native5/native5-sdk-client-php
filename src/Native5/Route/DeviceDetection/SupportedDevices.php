@@ -21,10 +21,10 @@
  * @link      http://www.docs.native5.com 
  */
 
-namespace Native5\Route;
+namespace Native5\Route\DeviceDetection;
 
 /**
- * OS 
+ * SupportedDevices 
  * 
  * @category  Route 
  * @package   Native5\Route
@@ -36,27 +36,15 @@ namespace Native5\Route;
  * Created : 27-11-2012
  * Last Modified : Fri Dec 21 09:11:53 2012
  */
-class OS {
-    private $name;
-    private $family; // Category e.g. iOS, Android, Bada, BBOS etc.
-    private $version;
-
-    public function __construct($family, $name, $ver) {
-        $this->family = $family;
-        $this->name = $name;
-        $this->version = $ver;
-    }
-
-    public function getName() {
-        return $this->name;
-    }
-
-    public function getFamily() {
-        return $this->family;
-    }
-
-    public function getVersion() {
-        return $this->version;
-    }
+class SupportedDevices {
+    const MOBILE_ANDROID    = "android";
+    const MOBILE_IPHONE     = "iphone";
+    const MOBILE_BLACKBERRY = "blackberry";
+    const MOBILE_NOKIA 	    = "nokia";
+    const MOBILE_WINDOWS    = "Windows Phone";
+    const TABLET_IPAD       = "ipad";
+    //const OPERA           = "opera";
+    //const SYMBIAN 	    = "symbian";
 }
-?>
+
+

@@ -5,10 +5,17 @@
 	<meta name="generator" content="ApiGen 2.8.0" />
 	<meta name="robots" content="noindex" />
 
+<<<<<<< HEAD
 	<title>File Native5/Sessions/WebSessionManager.php</title>
 
 	<script type="text/javascript" src="resources/combined.js?1180343265"></script>
 	<script type="text/javascript" src="elementlist.js?4004830262"></script>
+=======
+	<title>File Native5/Sessions/WebSessionManager.php | Native5 API Client</title>
+
+	<script type="text/javascript" src="resources/combined.js?3177796058"></script>
+	<script type="text/javascript" src="elementlist.js?3490523517"></script>
+>>>>>>> release-0.2.0
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?2446941819" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2979642362" />
 
@@ -59,12 +66,16 @@
 			<ul>
 				<li class="active"><a href="namespace-Native5.html">Native5<span></span></a>
 						<ul>
+<<<<<<< HEAD
 				<li><a href="namespace-Native5.Api.html">Api</a>
 						</li>
+=======
+>>>>>>> release-0.2.0
 				<li><a href="namespace-Native5.Control.html">Control</a>
 						</li>
 				<li><a href="namespace-Native5.Identity.html">Identity</a>
 						</li>
+<<<<<<< HEAD
 				<li><a href="namespace-Native5.Route.html">Route</a>
 						</li>
 				<li><a href="namespace-Native5.Scheduler.html">Scheduler</a>
@@ -86,10 +97,20 @@
 				<li><a href="namespace-Native5.Services.Users.html">Users</a>
 						</li>
 							</ul></li>
+=======
+				<li><a href="namespace-Native5.Route.html">Route<span></span></a>
+						<ul>
+				<li><a href="namespace-Native5.Route.DeviceDetection.html">DeviceDetection</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Native5.Security.html">Security</a>
+						</li>
+>>>>>>> release-0.2.0
 				<li class="active"><a href="namespace-Native5.Sessions.html">Sessions</a>
 						</li>
 				<li><a href="namespace-Native5.UI.html">UI</a>
 						</li>
+<<<<<<< HEAD
 				<li><a href="namespace-Native5.Users.html">Users</a>
 						</li>
 							</ul></li>
@@ -97,6 +118,9 @@
 						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
+=======
+							</ul></li>
+>>>>>>> release-0.2.0
 			</ul>
 		</div>
 
@@ -209,6 +233,7 @@
 </span><span id="81" class="l"><a class="l" href="#81"> 81 </a>
 </span><span id="82" class="l"><a class="l" href="#82"> 82 </a>            <span class="php-var">$app</span> = <span class="php-var">$GLOBALS</span>[<span class="php-quote">'app'</span>];
 </span><span id="83" class="l"><a class="l" href="#83"> 83 </a>            <span class="php-keyword1">if</span> (!<span class="php-var">$app</span>-&gt;getConfiguration()-&gt;isLocal()) {
+<<<<<<< HEAD
 </span><span id="84" class="l"><a class="l" href="#84"> 84 </a>                <span class="php-var">$handler</span> = <span class="php-keyword1">new</span> CachedSessionHandler();
 </span><span id="85" class="l"><a class="l" href="#85"> 85 </a>                <span class="php-keyword2">session_set_save_handler</span>(
 </span><span id="86" class="l"><a class="l" href="#86"> 86 </a>                    <span class="php-keyword1">array</span>(<span class="php-var">$handler</span>, <span class="php-quote">'open'</span>),
@@ -218,6 +243,17 @@
 </span><span id="90" class="l"><a class="l" href="#90"> 90 </a>                    <span class="php-keyword1">array</span>(<span class="php-var">$handler</span>, <span class="php-quote">'destroy'</span>),
 </span><span id="91" class="l"><a class="l" href="#91"> 91 </a>                    <span class="php-keyword1">array</span>(<span class="php-var">$handler</span>, <span class="php-quote">'gc'</span>)
 </span><span id="92" class="l"><a class="l" href="#92"> 92 </a>                );
+=======
+</span><span id="84" class="l"><a class="l" href="#84"> 84 </a>                <span class="php-comment">//$handler = new CachedSessionHandler();</span>
+</span><span id="85" class="l"><a class="l" href="#85"> 85 </a>                <span class="php-comment">//session_set_save_handler(</span>
+</span><span id="86" class="l"><a class="l" href="#86"> 86 </a>                    <span class="php-comment">//array($handler, 'open'),</span>
+</span><span id="87" class="l"><a class="l" href="#87"> 87 </a>                    <span class="php-comment">//array($handler, 'close'),</span>
+</span><span id="88" class="l"><a class="l" href="#88"> 88 </a>                    <span class="php-comment">//array($handler, 'read'),</span>
+</span><span id="89" class="l"><a class="l" href="#89"> 89 </a>                    <span class="php-comment">//array($handler, 'write'),</span>
+</span><span id="90" class="l"><a class="l" href="#90"> 90 </a>                    <span class="php-comment">//array($handler, 'destroy'),</span>
+</span><span id="91" class="l"><a class="l" href="#91"> 91 </a>                    <span class="php-comment">//array($handler, 'gc')</span>
+</span><span id="92" class="l"><a class="l" href="#92"> 92 </a>                <span class="php-comment">//);</span>
+>>>>>>> release-0.2.0
 </span><span id="93" class="l"><a class="l" href="#93"> 93 </a>            }
 </span><span id="94" class="l"><a class="l" href="#94"> 94 </a>
 </span><span id="95" class="l"><a class="l" href="#95"> 95 </a>            <span class="php-var">$_SESSION</span>[self::GLOBAL_PREFIX.<span class="php-quote">'category'</span>]      = <span class="php-var">$context</span>-&gt;get(<span class="php-quote">'device'</span>);
@@ -296,7 +332,11 @@
 </span></span><span id="168" class="l"><a class="l" href="#168">168 </a><span class="php-comment">     * @access public
 </span></span><span id="169" class="l"><a class="l" href="#169">169 </a><span class="php-comment">     * @return void
 </span></span><span id="170" class="l"><a class="l" href="#170">170 </a><span class="php-comment">     */</span>
+<<<<<<< HEAD
 </span><span id="171" class="l"><a class="l" href="#171">171 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_resetActiveSession" href="#_resetActiveSession">resetActiveSession</a>()
+=======
+</span><span id="171" class="l"><a class="l" href="#171">171 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_resetActiveSession" href="#_resetActiveSession">resetActiveSession</a>()
+>>>>>>> release-0.2.0
 </span><span id="172" class="l"><a class="l" href="#172">172 </a>    {
 </span><span id="173" class="l"><a class="l" href="#173">173 </a>        <span class="php-var">$category</span> = <span class="php-var">$_SESSION</span>[self::GLOBAL_PREFIX.<span class="php-quote">'category'</span>];
 </span><span id="174" class="l"><a class="l" href="#174">174 </a>        <span class="php-keyword2">session_unset</span>();
@@ -316,7 +356,11 @@
 </span></span><span id="188" class="l"><a class="l" href="#188">188 </a><span class="php-comment">     * @access public
 </span></span><span id="189" class="l"><a class="l" href="#189">189 </a><span class="php-comment">     * @return void
 </span></span><span id="190" class="l"><a class="l" href="#190">190 </a><span class="php-comment">     */</span>
+<<<<<<< HEAD
 </span><span id="191" class="l"><a class="l" href="#191">191 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_updateActiveSession" href="#_updateActiveSession">updateActiveSession</a>()
+=======
+</span><span id="191" class="l"><a class="l" href="#191">191 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">static</span> <span class="php-keyword1">function</span> <a id="_updateActiveSession" href="#_updateActiveSession">updateActiveSession</a>()
+>>>>>>> release-0.2.0
 </span><span id="192" class="l"><a class="l" href="#192">192 </a>    {
 </span><span id="193" class="l"><a class="l" href="#193">193 </a>        <span class="php-var">$_SESSION</span>[self::GLOBAL_PREFIX.<span class="php-quote">'last_accessed'</span>] = <span class="php-keyword2">time</span>();
 </span><span id="194" class="l"><a class="l" href="#194">194 </a>

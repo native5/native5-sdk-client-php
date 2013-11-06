@@ -168,7 +168,7 @@ class WebSessionManager implements SessionManager
      * @access public
      * @return void
      */
-    public function resetActiveSession()
+    public static function resetActiveSession()
     {
         $category = $_SESSION[self::GLOBAL_PREFIX.'category'];
         session_unset();
@@ -188,7 +188,7 @@ class WebSessionManager implements SessionManager
      * @access public
      * @return void
      */
-    public function updateActiveSession()
+    public static function updateActiveSession()
     {
         $_SESSION[self::GLOBAL_PREFIX.'last_accessed'] = time();
 

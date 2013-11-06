@@ -64,18 +64,41 @@ class TemplatingEngine
         global $app;
         $session = $app->getSessionManager()->getActiveSession();
         $templates_path = "templates/".$session->getAttribute('category');
+
+        $commonPath = 'templates/common';
+        if ($app->getConfiguration()->isLocal()) {
+            $commonPath = 'views'.'/'.$commonPath;
+        } 
         if($app->getConfiguration()->isLocal()) {
             $templates_path = 'views'.'/'.$templates_path;
         }
+        
+        $pathsToSearch = array();
+        if (file_exists($templates_path)) {
+            $pathsToSearch[] = $templates_path;
+        }
+        $pathsToSearch[] = $commonPath;
+        $loader         =  new \Twig_Loader_Filesystem($pathsToSearch);
         // Configure renderer
         $cache_path = defined('CACHE_PATH') ? CACHE_PATH : "cache";
+        
+        $cacheFolder =  getcwd().DIRECTORY_SEPARATOR.$cache_path;
+        if (!file_exists($cacheFolder)) {
+            if(!mkdir($cacheFolder)) {
+                $cacheFolder = sys_get_temp_dir().$cache_path;
+                if(!file_exists($cacheFolder) && !mkdir($cacheFolder)) {
+                    die('Insufficient privileges to create logs folder in application directory, or temp path, exiting');    
+                }
+            }
+        }
+
         $this->_renderer = new \Twig_Environment(
-            new \Twig_Loader_Filesystem($templates_path, 
+            new \Twig_Loader_Filesystem($pathsToSearch, 
             array(
                 'debug'=> true,
                 'autoreload'=>false,
                 'autoescape'=>true,
-                'cache' => $cache_path
+                'cache' => $cacheFolder
             )
         )
     );

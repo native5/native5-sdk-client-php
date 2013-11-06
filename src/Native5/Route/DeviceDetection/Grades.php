@@ -21,10 +21,10 @@
  * @link      http://www.docs.native5.com 
  */
 
-namespace Native5\Route;
+namespace Native5\Route\DeviceDetection;
 
 /**
- * SupportedDevices 
+ * Grades 
  * 
  * @category  Route 
  * @package   Native5\Route
@@ -36,15 +36,26 @@ namespace Native5\Route;
  * Created : 27-11-2012
  * Last Modified : Fri Dec 21 09:11:53 2012
  */
-class SupportedDevices {
-    const MOBILE_ANDROID    = "android";
-    const MOBILE_IPHONE     = "iphone";
-    const MOBILE_BLACKBERRY = "blackberry";
-    const MOBILE_NOKIA 	    = "nokia";
-    const MOBILE_WINDOWS    = "Windows Phone";
-    const TABLET_IPAD       = "ipad";
-    //const OPERA           = "opera";
-    //const SYMBIAN 	    = "symbian";
+interface Grades {
+    const UNSUPPORTED = 'XXX';
+    const _001 	      = '001';
+    const _002        = '002';
+    const _003        = '003';
+    const _004        = '004';
+    const _005 	      = '005';
+    const _006 	      = '006';
+    const _007        = '007';
+    const _008 	      = '008';
+    const _009 	      = '009';
+    const _010 	      = '010';
+    const _100 	      = '100';
+    const _101 	      = '101';
+    const _110 	      = '110';
+    const _201 	      = '201';
+    const _210 	      = '210';
+    const _301 	      = '301';
+    const _310 	      = '310';
+    const _320 	      = '320';
+    const _400 	      = '400';
 }
 ?>
-

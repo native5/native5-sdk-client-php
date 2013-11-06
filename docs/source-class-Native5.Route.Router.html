@@ -5,10 +5,17 @@
 	<meta name="generator" content="ApiGen 2.8.0" />
 	<meta name="robots" content="noindex" />
 
+<<<<<<< HEAD
 	<title>File Native5/Route/Router.php</title>
 
 	<script type="text/javascript" src="resources/combined.js?1180343265"></script>
 	<script type="text/javascript" src="elementlist.js?4004830262"></script>
+=======
+	<title>File Native5/Route/Router.php | Native5 API Client</title>
+
+	<script type="text/javascript" src="resources/combined.js?3177796058"></script>
+	<script type="text/javascript" src="elementlist.js?3490523517"></script>
+>>>>>>> release-0.2.0
 	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?2446941819" />
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2979642362" />
 
@@ -59,12 +66,16 @@
 			<ul>
 				<li class="active"><a href="namespace-Native5.html">Native5<span></span></a>
 						<ul>
+<<<<<<< HEAD
 				<li><a href="namespace-Native5.Api.html">Api</a>
 						</li>
+=======
+>>>>>>> release-0.2.0
 				<li><a href="namespace-Native5.Control.html">Control</a>
 						</li>
 				<li><a href="namespace-Native5.Identity.html">Identity</a>
 						</li>
+<<<<<<< HEAD
 				<li class="active"><a href="namespace-Native5.Route.html">Route</a>
 						</li>
 				<li><a href="namespace-Native5.Scheduler.html">Scheduler</a>
@@ -86,10 +97,20 @@
 				<li><a href="namespace-Native5.Services.Users.html">Users</a>
 						</li>
 							</ul></li>
+=======
+				<li class="active"><a href="namespace-Native5.Route.html">Route<span></span></a>
+						<ul>
+				<li><a href="namespace-Native5.Route.DeviceDetection.html">DeviceDetection</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Native5.Security.html">Security</a>
+						</li>
+>>>>>>> release-0.2.0
 				<li><a href="namespace-Native5.Sessions.html">Sessions</a>
 						</li>
 				<li><a href="namespace-Native5.UI.html">UI</a>
 						</li>
+<<<<<<< HEAD
 				<li><a href="namespace-Native5.Users.html">Users</a>
 						</li>
 							</ul></li>
@@ -97,6 +118,9 @@
 						</li>
 				<li><a href="namespace-PHP.html">PHP</a>
 						</li>
+=======
+							</ul></li>
+>>>>>>> release-0.2.0
 			</ul>
 		</div>
 
@@ -104,6 +128,7 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
+<<<<<<< HEAD
 				<li><a href="class-Native5.Route.Browser.html">Browser</a></li>
 				<li><a href="class-Native5.Route.Command.html">Command</a></li>
 				<li><a href="class-Native5.Route.Device.html">Device</a></li>
@@ -115,13 +140,24 @@
 				<li class="active"><a href="class-Native5.Route.Router.html">Router</a></li>
 				<li><a href="class-Native5.Route.RoutingEngine.html">RoutingEngine</a></li>
 				<li><a href="class-Native5.Route.SupportedDevices.html">SupportedDevices</a></li>
+=======
+				<li><a href="class-Native5.Route.Command.html">Command</a></li>
+				<li><a href="class-Native5.Route.HttpRequest.html">HttpRequest</a></li>
+				<li><a href="class-Native5.Route.HttpResponse.html">HttpResponse</a></li>
+				<li><a href="class-Native5.Route.RequestHelper.html">RequestHelper</a></li>
+				<li class="active"><a href="class-Native5.Route.Router.html">Router</a></li>
+				<li><a href="class-Native5.Route.RoutingEngine.html">RoutingEngine</a></li>
+>>>>>>> release-0.2.0
 				<li><a href="class-Native5.Route.UrlInterpreter.html">UrlInterpreter</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
 			<ul>
+<<<<<<< HEAD
 				<li><a href="class-Native5.Route.DeviceTypes.html">DeviceTypes</a></li>
 				<li><a href="class-Native5.Route.Grades.html">Grades</a></li>
+=======
+>>>>>>> release-0.2.0
 				<li><a href="class-Native5.Route.Request.html">Request</a></li>
 				<li><a href="class-Native5.Route.Response.html">Response</a></li>
 			</ul>
@@ -239,6 +275,7 @@
 </span><span id="100" class="l"><a class="l" href="#100">100 </a>            <span class="php-var">$response</span> = <span class="php-keyword1">new</span> HttpResponse();
 </span><span id="101" class="l"><a class="l" href="#101">101 </a>            <span class="php-var">$response</span>-&gt;addHeader(<span class="php-quote">'HTTP/1.1 400 Bad Request'</span>);
 </span><span id="102" class="l"><a class="l" href="#102">102 </a>            <span class="php-var">$response</span>-&gt;send();
+<<<<<<< HEAD
 </span><span id="103" class="l"><a class="l" href="#103">103 </a>        } 
 </span><span id="104" class="l"><a class="l" href="#104">104 </a>    }<span class="php-comment">//end route()</span>
 </span><span id="105" class="l"><a class="l" href="#105">105 </a>
@@ -246,6 +283,21 @@
 </span><span id="107" class="l"><a class="l" href="#107">107 </a>
 </span><span id="108" class="l"><a class="l" href="#108">108 </a><span class="xlang">?&gt;</span>
 </span><span id="109" class="l"><a class="l" href="#109">109 </a></span></code></pre>
+=======
+</span><span id="103" class="l"><a class="l" href="#103">103 </a>        } <span class="php-keyword1">catch</span>(ServiceException <span class="php-var">$sxe</span>) {
+</span><span id="104" class="l"><a class="l" href="#104">104 </a>            <span class="php-var">$response</span> = <span class="php-keyword1">new</span> HttpResponse();
+</span><span id="105" class="l"><a class="l" href="#105">105 </a>            <span class="php-var">$response</span>-&gt;sendError(<span class="php-var">$sxe</span>-&gt;getMessage());
+</span><span id="106" class="l"><a class="l" href="#106">106 </a>        } <span class="php-keyword1">catch</span>(ClientException <span class="php-var">$cxe</span>) {
+</span><span id="107" class="l"><a class="l" href="#107">107 </a>            <span class="php-var">$response</span> = <span class="php-keyword1">new</span> HttpResponse();
+</span><span id="108" class="l"><a class="l" href="#108">108 </a>            <span class="php-var">$response</span>-&gt;sendError(<span class="php-var">$cxe</span>-&gt;getMessage(), <span class="php-var">$cxe</span>-&gt;getCode());
+</span><span id="109" class="l"><a class="l" href="#109">109 </a>        }
+</span><span id="110" class="l"><a class="l" href="#110">110 </a>    }<span class="php-comment">//end route()</span>
+</span><span id="111" class="l"><a class="l" href="#111">111 </a>
+</span><span id="112" class="l"><a class="l" href="#112">112 </a>}<span class="php-comment">//end class</span>
+</span><span id="113" class="l"><a class="l" href="#113">113 </a>
+</span><span id="114" class="l"><a class="l" href="#114">114 </a><span class="xlang">?&gt;</span>
+</span><span id="115" class="l"><a class="l" href="#115">115 </a></span></code></pre>
+>>>>>>> release-0.2.0
 	</div>
 </div>
 </body>

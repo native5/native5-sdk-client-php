@@ -87,14 +87,21 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         global $logger;
         global $app;
         try {
-            $authInfo = $this->authenticate($token);
+            list($authInfo, $roles, $tokens) = $this->authenticate($token);
         } catch (AuthenticationException $aex) {
             $logger->error($aex->getMessage(), array($aex->getMessage()));
             throw $aex;
         }
-        $loggedInSubj = $this->_createSubject($token, $authInfo, $subject);
-        $app->getSessionManager()->getActiveSession()->setAttribute('nonce', sha1(uniqid(mt_rand(), true)));
+        $loggedInSubj = $this->_createSubject($token, $authInfo, $subject, $roles);
+
+        $logger->debug('User Logged in as : '.print_r($subject,1));
+        // Generate unique token to prevent XSRF.
+        $app->getSessionManager()->getActiveSession()->setAttribute('nonce', sha1(uniqid(mt_rand(), true))); 
         $app->getSessionManager()->getActiveSession()->setAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY, true);
+        if(!empty($tokens)) {
+            $app->getSessionManager()->getActiveSession()->setAttribute('sharedKey', $tokens['token']); 
+            $app->getSessionManager()->getActiveSession()->setAttribute('secretKey', $tokens['secret']); 
+        }
         return $loggedInSubj;
 
     }//end login()
@@ -126,15 +133,11 @@ class DefaultSecurityManager implements Authenticator, SessionManager
     public function createSubject($context)
     {
         global $logger;
-        $logger->debug('Create Subject - '.$context->isAuthenticated());
-
-        $copyContext = $this->copy($context);
-        $copyContext = $this->_ensureSecurityMgr($copyContext);
-        $copyContext = $this->_resolveSession($copyContext);
-        $copyContext = $this->_resolvePrincipals($copyContext);
+        //$copyContext = $this->copy($context);
+        //$copyContext = $this->_ensureSecurityMgr($copyContext);
+        //$copyContext = $this->_resolveSession($copyContext);
+        //$copyContext = $this->_resolvePrincipals($copyContext);
         $subject     = $this->doCreateSubject($context);
-
-        $logger->debug('Create Subject(Copy Context) - '.$context->isAuthenticated());
         $this->_save($subject);
 
         return $subject;
@@ -281,17 +284,19 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      * @param mixed $token    Token
      * @param mixed $info     Authentication Info
      * @param mixed $existing Existing token
+     * @param array $roles    The roles to use. 
      *
      * @access protected
      * @return void
      */
-    protected function _createSubject($token, $info, $existing)
+    protected function _createSubject($token, $info, $existing, $roles=array())
     {
         global $logger;
         $context = $this->createSubjectContext();
         $context->setAuthenticated(true);
         $context->setAuthenticationToken($token);
         $context->setAuthenticationInfo($info);
+        $context->setRoles($roles);
         if ($existing !== null)
             $context->setSubject($existing);
         return $this->createSubject($context);
@@ -327,6 +332,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         $session         = $context->resolveSession();
         $principals      = $context->resolvePrincipals();
         $authenticated   = $context->resolveAuthenticated();
+        $roles           = $context->resolveRoles();
         $host            = $context->resolveHost();
 
         return new DelegatingSubject(
@@ -334,6 +340,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             $authenticated,
             $host,
             $session,
+            $roles,
             $securityManager
         );
 

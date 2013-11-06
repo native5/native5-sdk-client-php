@@ -1,4 +1,4 @@
-export GIT_VERSION:=$(shell git describe)
+export GIT_VERSION:=$(shell git describe --always)
 export CURR_BUILD:=$(shell git rev-parse HEAD)
 export PREV_BUILD:=$(shell awk -F"[,:]" '{for(i=1;i<=NF;i++){if($$i~/build\042/){print $$(i+1)} } }' VERSION)
 version_list:= $(subst -, ,$(GIT_VERSION))

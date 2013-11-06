@@ -24,14 +24,14 @@
 namespace Native5\Identity;
 
 /**
- * %ClassName% 
+ * DelegatingSubject 
  * 
  * @category  Identity 
- * @package   Native5\<package>
+ * @package   Native5\Identity
  * @author    Barada Sahu <barry@native5.com>
  * @copyright 2012 Native5. All Rights Reserved 
  * @license   See attached NOTICE.md for details
- * @version   Release: 1.0 
+ * @version   Release: 0.1.0 
  * @link      http://www.docs.native5.com 
  * Created : 27-11-2012
  * Last Modified : Fri Dec 21 09:11:53 2012
@@ -63,12 +63,14 @@ class DelegatingSubject extends Subject
         $authenticated,
         $host,
         $session,
+        $roles,
         $securityManager
     ) {
         $this->principals      = $principals;
         $this->_authenticated  = $authenticated;
         $this->host            = $host;
         $this->_session        = $session;
+        $this->_roles          = $roles; 
         $this->securityManager = $securityManager;
 
     }//end __construct()
@@ -124,6 +126,19 @@ class DelegatingSubject extends Subject
         return $this->principals;
 
     }//end getPrincipals()
+
+
+    /**
+     * getRoles 
+     * 
+     * @access public
+     * @return void
+     */
+    public function getRoles()
+    {
+        return $this->_roles;
+
+    }//end getRoles()
 
 
     /**

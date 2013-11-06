@@ -49,6 +49,8 @@ class HttpResponse implements Response
     private $_body;
 
     private $_renderer;
+    
+    private $_error;
 
 
     /**
@@ -67,6 +69,7 @@ class HttpResponse implements Response
             $renderer = new SimpleRenderer();
         $this->_renderer = $renderer;
         $this->_headers = array();
+        $this->_error = false;
 
     }//end __construct()
 
@@ -80,8 +83,42 @@ class HttpResponse implements Response
      */
     public function redirectTo($location) {
         global $app;
-        $redirectHeader = "Location: ".$location."?rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
-        $this->addHeader($redirectHeader);
+        $host = $_SERVER['HTTP_HOST'];
+        if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+            $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+        }
+        $protocol = isset($_SERVER['HTTPS'])?'https://':'http://'; 
+        $redirectLocation = $protocol.$host.'/'.$app->getConfiguration()->getApplicationContext().'/'.$location;
+        if ($app->getSubject()->isAuthenticated()) {
+            $separator = '?';
+            if(strpos($redirectLocation, '?'))
+                $separator = '&';
+            $redirectLocation .= $separator."rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+        }
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            $response = array();
+            $response['redirect'] = $redirectLocation;
+            echo json_encode($response);
+            exit;
+        } else {
+            $this->addHeader('Location: '.$redirectLocation);
+        }
+    }
+    
+    
+    /**
+     * sendError 
+     * 
+     * @param mixed $message 
+     * @param int $code 
+     * @access public
+     * @return void
+     */
+    public function sendError($message, $code=500) {
+        $this->_error = true;
+        $statusHeader= "HTTP/1.1 ".$code." ".$message;
+        header($statusHeader);
     }
 
     /**
@@ -92,12 +129,12 @@ class HttpResponse implements Response
      */
     public function send()
     {
-        foreach ($this->_headers as $value) {
-            header($value);
-        }//end foreach
-        
-        echo $this->_transform($this->_encoding, $this->_body);
-
+        if (!$this->_error) {
+            foreach ($this->_headers as $value) {
+                header($value);
+            }//end foreach
+            echo $this->_transform($this->_encoding, $this->_body);
+        }
     }//end send()
 
 

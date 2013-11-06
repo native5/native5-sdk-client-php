@@ -61,9 +61,11 @@ class TwigRenderer implements Renderer
     {
         $app=$GLOBALS['app'];
 
-        if($app->getConfiguration()->isLocal()) {
+        if ($app->getConfiguration()->isLocal())
+        {
             $basePath = 'views'.'/'.$basePath;
         }
+        
         $this->_template = $template;
         $this->_basePath = $basePath;
         $this->_configure();
@@ -84,13 +86,15 @@ class TwigRenderer implements Renderer
         global $app;
         $session = $app->getSessionManager()->getActiveSession();
         $category = $session->getAttribute('category').'/';
-        $staticResourcesPath = '/'.$app->getConfiguration()->getApplicationContext().'/public/resources/'.$category;
+        $staticResDir = 'public';
         if ($app->getConfiguration()->isLocal()) {
-            $staticResourcesPath = '/'.$app->getConfiguration()->getApplicationContext().'/views/resources/'.$category;
+            $staticResDir = 'views';
         }
+        $staticPath = '/'.$app->getConfiguration()->getApplicationContext().'/'.$staticResDir.'/resources/'.$category;
+
         $in_data = array (
             'items'          => $data,
-            'STATIC_RES_URL' => $staticResourcesPath
+            'STATIC_RES_URL' => $staticPath
             );
         return $this->_twig->render($this->_template, $in_data);
 
@@ -137,22 +141,50 @@ class TwigRenderer implements Renderer
         $session = $app->getSessionManager()->getActiveSession();
         \Twig_Autoloader::register();
 
-        $templatesPath  = $this->_basePath.DIRECTORY_SEPARATOR.$session->getAttribute('category');
-        $loader         =  new \Twig_Loader_Filesystem($templatesPath);
         $commonPath = 'templates/common';
-        if($app->getConfiguration()->isLocal()) {
+        if ($app->getConfiguration()->isLocal()) {
             $commonPath = 'views'.'/'.$commonPath;
         } 
-        $loader->prependPath('./'.$commonPath, 'common');
+        $templatesPath  = $this->_basePath.DIRECTORY_SEPARATOR.$session->getAttribute('category');
+        $pathsToSearch = array();
+        if (file_exists($templatesPath)) {
+            $pathsToSearch[] = $templatesPath;
+        }
+        $pathsToSearch[] = $commonPath;
+        $loader         =  new \Twig_Loader_Filesystem($pathsToSearch);
         $cache_path = defined('CACHE_PATH') ? CACHE_PATH : 'cache';
-        $this->_twig = new \Twig_Environment($loader,
+        
+        $cacheFolder =  getcwd().DIRECTORY_SEPARATOR.$cache_path;
+        if (!file_exists($cacheFolder)) {
+            if(!mkdir($cacheFolder)) {
+                $cacheFolder = sys_get_temp_dir().$cache_path;
+                if(!file_exists($cacheFolder) && !mkdir($cacheFolder)) {
+                    die('Insufficient privileges to create logs folder in application directory, or temp path, exiting');    
+                }
+            }
+        }
+        
+        $this->_twig = new \Twig_Environment(
+            $loader,
             array(
                 'debug'      => true,
                 'autoreload' => false,
                 'autoescape' => true,
-                'cache'      => $cache_path,
+                'cache'      => $cacheFolder,
             ));
         $this->_twig->getExtension('core')->setNumberFormat(2, '.', ',');
+        $this->_twig->addFilter(
+            'nonce',
+            new \Twig_Filter_Function(function($str) {
+                $app=$GLOBALS['app'];
+                $logger = $GLOBALS['logger'];
+                $logger->debug('Checking for string value of nonce '.$str);
+                if (strpos($str, '?') !== false) {
+                    return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'&rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+                }
+                return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'?rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+        })
+        );
         $this->_twig->addFilter(
             'truncate',
             new \Twig_Filter_Function('StringFilter::truncate')
@@ -168,6 +200,9 @@ class TwigRenderer implements Renderer
         $this->_twig->addFilter(
             'isLater',
             new \Twig_Filter_Function('DateFilter::isLater')
+        );
+        $this->_twig->addFunction(
+            new \Twig_SimpleFunction('resolvePath', 'Native5\UI\ScriptPathResolver::resolve')
         );
 
     }//end _configure()
