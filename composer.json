@@ -1,8 +1,9 @@
 {   
     "name"            : "native5/native5-sdk-client-php",
-    "description"     : "Client SDK for Native5 Framework for building web applications.",
-    "keywords"        : ["templating", "logging", "framework", "security", "sessions", "events", "scheduling"],
-    "homepage"        : "http://www.native5.com",
+    "type"          : "library",
+    "description"     : "Native5 PHP Framework for building web applications.",
+    "keywords"        : ["templating", "logging", "security", "sessions"],
+    "homepage"        : "http://docs.native5.com",
     "license"         : "proprietary",
     "authors"         : [
         {
@@ -21,21 +22,8 @@
     "support"        : {
             "email"   : "support@native5.com"
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "http://releases.native5.com/sdk-php/"
-        },    
-        { 
-            "type": "pear", 
-            "url": "http://pear.php.net" 
-        }
-    ],
-    "require-dev" : {
-        "native5/native5-sdk-common-php": "dev-development"
-    },
     "require" : {
-            "native5/native5-sdk-common-php": "0.1.0",
+            "native5/native5-sdk-common-php": "0.2.0",
             "twig/twig": "1.*",
             "monolog/monolog": "1.2.*",
             "guzzle/guzzle": "*",
