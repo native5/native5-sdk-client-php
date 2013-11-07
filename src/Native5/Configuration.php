@@ -110,16 +110,5 @@ class Configuration {
     public function setLocal() {
         $this->_local = true;
     }
-
-
-    /**
-     * getApplicationContext 
-     * 
-     * @access public
-     * @return void
-     */
-    public function getApplicationContext() {
-        return $this->_config['app']['name'];
-    }
 }
 
