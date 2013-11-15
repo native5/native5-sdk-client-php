@@ -87,10 +87,10 @@ class DeviceManager
         $gradePrefix = 'X';
         $gradeSuffix = Grades::UNSUPPORTED;
 
-        if ($ua->isMobile && $ua->isTablet) {
+        if (($ua->isMobile || $ua->isMobileDevice) && $ua->isTablet) {
             $gradePrefix = DeviceTypes::TABLET;
             $gradeSuffix == Grades::_001;
-        } else if ($ua->isMobile) {
+        } else if (($ua->isMobile || $ua->isMobileDevice)) {
             $gradePrefix = DeviceTypes::MOBILE;
             $logger->info(print_r($ua->os." : ".$ua->osMajor.$ua->osMinor,1));
             switch($ua->os) {
