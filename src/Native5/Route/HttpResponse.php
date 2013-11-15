@@ -86,15 +86,24 @@ class HttpResponse implements Response
         $host = $_SERVER['HTTP_HOST'];
         if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) {
             $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
-        } 
-        $redirectHeader = 'Location: '.'http://'.$host.'/'.$app->getConfiguration()->getApplicationContext().'/'.$location;
+        }
+        $protocol = isset($_SERVER['HTTPS'])?'https://':'http://'; 
+        $redirectLocation = $protocol.$host.'/'.$app->getConfiguration()->getApplicationContext().'/'.$location;
         if ($app->getSubject()->isAuthenticated()) {
             $separator = '?';
-            if(strpos($redirectHeader, '?'))
+            if(strpos($redirectLocation, '?'))
                 $separator = '&';
-            $redirectHeader .= $separator."rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+            $redirectLocation .= $separator."rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
         }
-        $this->addHeader($redirectHeader);
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            $response = array();
+            $response['redirect'] = $redirectLocation;
+            echo json_encode($response);
+            exit;
+        } else {
+            $this->addHeader('Location: '.$redirectLocation);
+        }
     }
     
     
