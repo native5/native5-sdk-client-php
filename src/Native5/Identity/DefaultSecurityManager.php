@@ -87,7 +87,10 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         global $logger;
         global $app;
         try {
-            list($authInfo, $roles, $tokens) = $this->authenticate($token);
+            if($app->getConfiguration()->isPreventMultipleLogins()) {
+                list($authInfo, $roles, $tokens,$hashedSessionId) = $this->authenticate($token, true);
+            } else
+                list($authInfo, $roles, $tokens) = $this->authenticate($token);
         } catch (AuthenticationException $aex) {
             $logger->error($aex->getMessage(), array($aex->getMessage()));
             throw $aex;
@@ -102,6 +105,8 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             $app->getSessionManager()->getActiveSession()->setAttribute('sharedKey', $tokens['token']); 
             $app->getSessionManager()->getActiveSession()->setAttribute('secretKey', $tokens['secret']); 
         }
+        if($app->getConfiguration()->isPreventMultipleLogins())
+            $app->getSessionManager()->getActiveSession()->setAttribute('sessionHash', $hashedSessionId); 
         return $loggedInSubj;
 
     }//end login()
@@ -213,9 +218,9 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      * @access public
      * @return void
      */
-    public function authenticate($token)
+    public function authenticate($token, $preventMultiple=false)
     {
-        return $this->_authenticator->authenticate($token);
+        return $this->_authenticator->authenticate($token, $preventMultiple);
 
     }//end authenticate()
 
