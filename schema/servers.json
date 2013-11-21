@@ -1,4 +1,0 @@
-{"type":"app", "name":"Native5-Sandbox", "ip_address":'122.168.1.109', 'dns':'ec2-xyz-abc-102.com', "load":"0.84"}
-{"type":"app", "name":"Native5-Prod0", "ip_address":'122.168.12.109', 'dns':'ec2-yug-abc-102.com', "load":"0.84"}
-{"type":"app", "name":"Native5-Prod1", "ip_address":'122.168.11.109', 'dns':'ec2-xac-abc-102.com',"load":"0.84"}
-
