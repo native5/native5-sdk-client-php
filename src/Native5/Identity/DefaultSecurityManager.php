@@ -218,9 +218,9 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      * @access public
      * @return void
      */
-    public function authenticate($token)
+    public function authenticate($token, $preventMultiple=false)
     {
-        return $this->_authenticator->authenticate($token);
+        return $this->_authenticator->authenticate($token, $preventMultiple);
 
     }//end authenticate()
 

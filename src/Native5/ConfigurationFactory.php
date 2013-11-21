@@ -70,7 +70,8 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
             if (isset($this->_config['environment']) && (strcasecmp($this->_config['environment'], 'local') == 0))
                 $this->_configuration->setLocal();
             
-            if (isset($this->_config['app']['preventMultipleLogins']) && (strcasecmp($this->_config['app']['preventMultipleLogins'], 'true') == 0))
+            if (isset($this->_config['app']['preventMultipleLogins']) 
+                && (strcasecmp($this->_config['app']['preventMultipleLogins'], 'true') == 0 || $this->_config['app']['preventMultipleLogins']))
                 $this->_configuration->setPreventMultipleLogins();
 
             // App Configuration
