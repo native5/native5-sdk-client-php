@@ -122,6 +122,11 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      */
     public function logout(&$subject)
     {
+        global $app;
+        if($app->getConfiguration()->isPreventMultipleLogins()) {
+            $sessionHash = $app->getSessionManager()->getActiveSession()->getAttribute('sessionHash');
+            $this->_authenticator->onLogout($subject->getPrincipal(), $sessionHash);
+        }
         $this->_delete($subject);
 
     }//end logout()
