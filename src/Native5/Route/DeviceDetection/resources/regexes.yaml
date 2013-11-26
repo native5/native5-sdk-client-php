@@ -573,17 +573,21 @@ os_parsers:
   ##########
   - regex: '(CPU OS|iPhone OS) (\d+)_(\d+)(?:_(\d+))?'
     os_replacement: 'iOS'
+    os_family : 'iPhone'
 
   # remaining cases are mostly only opera uas, so catch opera as to not catch iphone spoofs
   - regex: '(iPhone|iPad|iPod); Opera'
     os_replacement: 'iOS'
+    os_family : 'iPhone'
 
   # few more stragglers
   - regex: '(iPhone|iPad|iPod).*Mac OS X.*Version/(\d+)\.(\d+)'
     os_replacement: 'iOS'
+    os_family : 'iPhone'
 
   - regex: '(AppleTV)/(\d+)\.(\d+)'
     os_replacement: 'ATV OS X'
+    os_family : 'TV'
 
   ##########
   # Chrome OS
@@ -608,19 +612,27 @@ os_parsers:
   ##########
   - regex: '(Symbian[Oo][Ss])/(\d+)\.(\d+)'
     os_replacement: 'Symbian OS'
+    os_family : 'Symbian'
   - regex: '(Symbian/3).+NokiaBrowser/7\.3'
     os_replacement: 'Symbian^3 Anna'
+    os_family : 'Symbian'
   - regex: '(Symbian/3).+NokiaBrowser/7\.4'
     os_replacement: 'Symbian^3 Belle'
+    os_family : 'Symbian'
   - regex: '(Symbian/3)'
     os_replacement: 'Symbian^3'
+    os_family : 'Symbian'
   - regex: '(Series 60|SymbOS|S60)'
     os_replacement: 'Symbian OS'
+    os_family : 'Symbian'
   - regex: '(MeeGo)'
+    os_family : 'Symbian'
   - regex: 'Symbian [Oo][Ss]'
     os_replacement: 'Symbian OS'
+    os_family : 'Symbian'
   - regex: 'Series40;'
     os_replacement: 'Nokia Series 40'
+    os_family : 'Symbian'
 
   ##########
   # BlackBerry devices

@@ -130,6 +130,18 @@ class TwigRenderer implements Renderer
 
 
     /**
+     * Check if template exists 
+     * 
+     * @param mixed $template 
+     * @access public
+     * @return void
+     */
+    public function exists()
+    {
+        return $this->_twig->exists($this->_template);
+    }
+    
+    /**
      * _configure 
      * 
      * @access private
