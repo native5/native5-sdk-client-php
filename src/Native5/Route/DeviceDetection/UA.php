@@ -279,6 +279,7 @@ class UA
                     $osObj->osRevision = $matches[5];
                 }
                 $osObj->os        = isset($osRegex['os_replacement'])    ? str_replace("$1",$osObj->osMajor,$osRegex['os_replacement'])  : $matches[1];
+                $osObj->osFamily  = isset($osRegex['os_family'])    ? str_replace("$1",$osObj->osMajor,$osRegex['os_family'])  : $matches[1];
 
                 // os version
                 $osObj->osVersion = isset($osObj->osMajor) ? $osObj->osMajor : "";

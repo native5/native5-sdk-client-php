@@ -102,6 +102,14 @@ class Configuration {
     public function setLogLevel($logLevel) {
         $this->_logLevel = $logLevel;
     }
+    
+    public function isPreventMultipleLogins() {
+        return empty($this->_preventMultipleLogins) ? false : true;
+    }
+    
+    public function setPreventMultipleLogins() {
+        $this->_preventMultipleLogins = true;
+    }
 
     public function isLocal() {
         return empty($this->_local) ? false : true;
