@@ -22,10 +22,6 @@
             "email"   : "support@native5.com"
     },
     "repositories": [
-        {
-            "type": "composer",
-            "url": "http://test.native5.com/composer"
-        },    
         { 
             "type": "pear", 
             "url": "http://pear.php.net" 
