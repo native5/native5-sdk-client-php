@@ -6,7 +6,7 @@ php:
 
 install:
     - composer install
-    - pecl install yaml
+    - printf "\n" | pecl install yaml
 
 before_script: 
     - phpenv config-add native5.ini  
