@@ -7,6 +7,8 @@ php:
 install:
     - composer install
 
+before_script: phpenv config-add native5.ini  
+
 script : phpunit -vvv --configuration phpunit.xml
 
 branches:
