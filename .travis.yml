@@ -9,9 +9,7 @@ install:
     - printf "\n" | pecl install yaml
 
 before_script: 
-    - phpenv config-add native5.ini  
-
-script : phpunit -vvv --configuration phpunit.xml
+    - phpenv config-add tests/native5-env.ini  
 
 branches:
     only:
