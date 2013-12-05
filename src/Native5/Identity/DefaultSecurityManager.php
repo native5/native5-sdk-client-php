@@ -104,6 +104,10 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         if(!empty($tokens)) {
             $app->getSessionManager()->getActiveSession()->setAttribute('sharedKey', $tokens['token']); 
             $app->getSessionManager()->getActiveSession()->setAttribute('secretKey', $tokens['secret']); 
+            // TODO : Fix Hack for storing account level tokens when logging in.
+            $session = $app->getSessionManager()->getActiveSession();
+            $session->setAttribute('accountSharedKey', $tokens['token']);
+            $session->setAttribute('accountSecretKey', $tokens['secret']);
         }
         if($app->getConfiguration()->isPreventMultipleLogins())
             $app->getSessionManager()->getActiveSession()->setAttribute('sessionHash', $hashedSessionId); 
