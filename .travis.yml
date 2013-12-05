@@ -6,8 +6,10 @@ php:
 
 install:
     - composer install
+    - pecl install yaml
 
-before_script: phpenv config-add native5.ini  
+before_script: 
+    - phpenv config-add native5.ini  
 
 script : phpunit -vvv --configuration phpunit.xml
 
