@@ -128,7 +128,7 @@ class Application
         $app->_services['templating'] = new TemplatingEngine();
         $app->_services['messaging']  = NotificationService::instance();
 
-        $GLOBALS['logger']->debug("The app configuration: ".PHP_EOL.print_r($app->_config, 1));
+        //$GLOBALS['logger']->debug("The app configuration: ".PHP_EOL.print_r($app->_config, 1));
         return $app;
     }
 
