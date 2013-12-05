@@ -65,7 +65,7 @@ class DeviceManager
                 return $this->_computeCategory($browser);
             }
         } else {
-            $logger->info("Local environment, defaulting to local file based detection");
+            //$logger->info("Local environment, defaulting to local file based detection");
             $browser = $this->_lookupLocal($parsedUA, $defaultGrade);
             return $this->_computeCategory($browser);
         }
@@ -92,7 +92,7 @@ class DeviceManager
             $gradeSuffix == Grades::_001;
         } else if (($ua->isMobile || $ua->isMobileDevice)) {
             $gradePrefix = DeviceTypes::MOBILE;
-            $logger->info(print_r($ua->os." : ".$ua->osMajor.$ua->osMinor,1));
+            //$logger->info(print_r($ua->os." : ".$ua->osMajor.$ua->osMinor,1));
             switch($ua->os) {
             case "Android" :
                 if (intval($ua->osMajor) >= 4) {
