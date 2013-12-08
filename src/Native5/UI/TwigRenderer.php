@@ -42,9 +42,7 @@ class TwigRenderer implements Renderer
 {
 
     private $_template;
-
     private $_basePath;
-
     private $_twig;
 
 
@@ -130,6 +128,18 @@ class TwigRenderer implements Renderer
 
 
     /**
+     * Check if template exists 
+     * 
+     * @param mixed $template 
+     * @access public
+     * @return void
+     */
+    public function exists()
+    {
+        return $this->_twig->exists($this->_template);
+    }
+    
+    /**
      * _configure 
      * 
      * @access private
@@ -173,41 +183,9 @@ class TwigRenderer implements Renderer
                 'cache'      => $cacheFolder,
             ));
         $this->_twig->getExtension('core')->setNumberFormat(2, '.', ',');
-        $this->_twig->addFilter(
-            'nonce',
-            new \Twig_Filter_Function(function($str) {
-                $app=$GLOBALS['app'];
-                $logger = $GLOBALS['logger'];
-                $logger->debug('Checking for string value of nonce '.$str);
-                if (strpos($str, '?') !== false) {
-                    return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'&rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
-                }
-                return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'?rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
-        })
-        );
-        $this->_twig->addFilter(
-            'truncate',
-            new \Twig_Filter_Function('StringFilter::truncate')
-        );
-        $this->_twig->addFilter(
-            'isToday',
-            new \Twig_Filter_Function('DateFilter::isToday')
-        );
-        $this->_twig->addFilter(
-            'isTomorrow',
-            new \Twig_Filter_Function('DateFilter::isTomorrow')
-        );
-        $this->_twig->addFilter(
-            'isLater',
-            new \Twig_Filter_Function('DateFilter::isLater')
-        );
-        $this->_twig->addFunction(
-            new \Twig_SimpleFunction('resolvePath', 'Native5\UI\ScriptPathResolver::resolve')
-        );
-
+        $this->_twig->addExtension(new Native5TwigExtension($session->getAttribute('category')));
     }//end _configure()
 
 
 }//end class
 
-?>

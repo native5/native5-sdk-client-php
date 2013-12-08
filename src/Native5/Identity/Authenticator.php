@@ -48,7 +48,7 @@ interface Authenticator
      * @access public
      * @return void
      */
-    public function authenticate($token);
+    public function authenticate($token, $preventDuplicate=false);
 
 
 }//end interface

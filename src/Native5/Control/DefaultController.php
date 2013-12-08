@@ -25,6 +25,7 @@ namespace Native5\Control;
 
 use Native5\Sessions\WebSessionManager;
 use Native5\Route\HttpResponse;
+use Native5\UI\TwigRenderer;
 
 /**
  * DefaultController 
@@ -145,7 +146,11 @@ abstract class DefaultController implements Controller
             $response->addHeader('HTTP/1.1 400 Bad Request');
             $this->_response->send();
         } catch(BadResponseException $bre) {
-            $this->_response = new HttpResponse();
+            $renderer = new TwigRenderer('500.html');
+            if($renderer->exists()) {
+                $this->_response = new HttpResponse('none', $renderer);
+            } else 
+                $this->_response = new HttpResponse();
             $response->addHeader('HTTP/1.1 500 Internal Server Error');
             $this->_response->send();
         }//end try

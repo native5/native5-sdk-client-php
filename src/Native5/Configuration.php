@@ -66,9 +66,12 @@ class Configuration {
     }
 
     public function getSharedKey() {
-        $sessionSharedKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('sharedKey');
-        if (!empty($sessionSharedKey))
-            return $sessionSharedKey;
+        $sessionManager = $GLOBALS['app']->getSessionManager();
+        if(!empty($sessionManager)) {
+            $sessionSharedKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('sharedKey');
+            if (!empty($sessionSharedKey))
+                return $sessionSharedKey;
+        }
         return $this->_sharedKey;
     }
 
@@ -77,9 +80,12 @@ class Configuration {
     }
 
     public function getSecretKey() {
-        $sessionSecretKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('secretKey');
-        if (!empty($sessionSecretKey))
-            return $sessionSecretKey;
+        $sessionManager = $GLOBALS['app']->getSessionManager();
+        if(!empty($sessionManager)) {
+            $sessionSecretKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('secretKey');
+            if (!empty($sessionSecretKey))
+                return $sessionSecretKey;
+        }
         return $this->_secretKey;
     }
 
@@ -101,6 +107,14 @@ class Configuration {
 
     public function setLogLevel($logLevel) {
         $this->_logLevel = $logLevel;
+    }
+    
+    public function isPreventMultipleLogins() {
+        return empty($this->_preventMultipleLogins) ? false : true;
+    }
+    
+    public function setPreventMultipleLogins() {
+        $this->_preventMultipleLogins = true;
     }
 
     public function isLocal() {

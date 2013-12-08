@@ -142,15 +142,21 @@ class HttpResponse implements Response
      * sendFile 
      * 
      * @param mixed $filePath The file path
+     * @param mixed $fileName Alternate file name than the one in filepath
      *
      * @access public
      * @return void
      */
-    public function sendFile($filePath) {
-        header("X-Sendfile: $filePath");
-        header('Content-type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="'.basename($filePath).'"');
+    public function sendFile($filePath, $fileName = null) {
+        if (!file_exists($filePath))
+            return false;
 
+        if (empty($fileName))
+            $fileName = basename($filePath);
+
+        $this->addHeader("X-Sendfile: $filePath");
+        $this->addHeader("Content-type: application/octet-stream");
+        $this->addHeader('Content-Disposition: attachment; filename="'.$fileName.'"');
     }//end sendFile()
 
 

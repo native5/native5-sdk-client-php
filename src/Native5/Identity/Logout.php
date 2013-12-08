@@ -47,6 +47,6 @@ interface Logout
      * @access public
      * @return void
      */
-    public function onLogout($principal);
+    public function onLogout($principal, $sessionHash=null);
 }
 ?>

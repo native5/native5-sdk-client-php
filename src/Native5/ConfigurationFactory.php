@@ -69,6 +69,10 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
             // Local Environment
             if (isset($this->_config['environment']) && (strcasecmp($this->_config['environment'], 'local') == 0))
                 $this->_configuration->setLocal();
+            
+            if (isset($this->_config['app']['preventMultipleLogins']) 
+                && (strcasecmp($this->_config['app']['preventMultipleLogins'], 'true') == 0 || $this->_config['app']['preventMultipleLogins']))
+                $this->_configuration->setPreventMultipleLogins();
 
             // App Configuration
             // Default Grade
@@ -82,9 +86,17 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
             // Url
             $this->_configuration->setApiUrl($this->_config['api']['url']);
             // Shared Key
-            $this->_configuration->setSharedKey($this->_config['api']['sharedKey']);
+            $sharedKey = getenv('NATIVE5_API_SHARED_KEY');
+            if(empty($sharedKey))
+                $this->_configuration->setSharedKey($this->_config['api']['sharedKey']);
+            else 
+                $this->_configuration->setSharedKey($sharedKey);
             // Secret Key
-            $this->_configuration->setSecretKey($this->_config['api']['secretKey']);
+            $secretKey = getenv('NATIVE5_API_SECRET_KEY');
+            if(empty($secretKey)) 
+                $this->_configuration->setSecretKey($this->_config['api']['secretKey']);
+            else
+                $this->_configuration->setSecretKey($secretKey);
         }
 
         return $this->_configuration;

@@ -74,4 +74,4 @@ class UrlInterpreter {
         return $this->command;
     }
 }
-?>
+

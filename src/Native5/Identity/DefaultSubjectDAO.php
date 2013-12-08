@@ -68,7 +68,7 @@ class DefaultSubjectDAO implements SubjectDAO
     public function destroy(Subject $subject)
     {
         $this->_removeFromSession($subject);
-
+        WebSessionManager::resetActiveSession();
     }//end destroy()
 
 

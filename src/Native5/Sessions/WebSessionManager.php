@@ -23,6 +23,8 @@
 
 namespace Native5\Sessions;
 
+define('SESSION_TIMEOUT', 1440);
+
 /**
  * SessionManager
  * 

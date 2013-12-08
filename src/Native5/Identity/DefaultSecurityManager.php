@@ -87,7 +87,10 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         global $logger;
         global $app;
         try {
-            list($authInfo, $roles, $tokens) = $this->authenticate($token);
+            if($app->getConfiguration()->isPreventMultipleLogins()) {
+                list($authInfo, $roles, $tokens,$hashedSessionId) = $this->authenticate($token, true);
+            } else
+                list($authInfo, $roles, $tokens) = $this->authenticate($token);
         } catch (AuthenticationException $aex) {
             $logger->error($aex->getMessage(), array($aex->getMessage()));
             throw $aex;
@@ -101,7 +104,13 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         if(!empty($tokens)) {
             $app->getSessionManager()->getActiveSession()->setAttribute('sharedKey', $tokens['token']); 
             $app->getSessionManager()->getActiveSession()->setAttribute('secretKey', $tokens['secret']); 
+            // TODO : Fix Hack for storing account level tokens when logging in.
+            $session = $app->getSessionManager()->getActiveSession();
+            $session->setAttribute('accountSharedKey', $tokens['token']);
+            $session->setAttribute('accountSecretKey', $tokens['secret']);
         }
+        if($app->getConfiguration()->isPreventMultipleLogins())
+            $app->getSessionManager()->getActiveSession()->setAttribute('sessionHash', $hashedSessionId); 
         return $loggedInSubj;
 
     }//end login()
@@ -117,6 +126,11 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      */
     public function logout(&$subject)
     {
+        global $app;
+        if($app->getConfiguration()->isPreventMultipleLogins()) {
+            $sessionHash = $app->getSessionManager()->getActiveSession()->getAttribute('sessionHash');
+            $this->_authenticator->onLogout($subject->getPrincipal(), $sessionHash);
+        }
         $this->_delete($subject);
 
     }//end logout()
@@ -213,9 +227,9 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      * @access public
      * @return void
      */
-    public function authenticate($token)
+    public function authenticate($token, $preventMultiple=false)
     {
-        return $this->_authenticator->authenticate($token);
+        return $this->_authenticator->authenticate($token, $preventMultiple);
 
     }//end authenticate()
 

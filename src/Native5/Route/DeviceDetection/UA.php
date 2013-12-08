@@ -14,6 +14,7 @@
  *
  */
 namespace Native5\Route\DeviceDetection;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * UA 
@@ -54,7 +55,7 @@ class UA
         self::$accept  = empty($_SERVER["HTTP_ACCEPT"]) ? '' : strip_tags($_SERVER["HTTP_ACCEPT"]);
         if (empty(self::$regexes)) {
             if (file_exists(__DIR__."/resources/regexes.yaml")) {
-                self::$regexes = yaml_parse_file(__DIR__."/resources/regexes.yaml");
+                self::$regexes = Yaml::parse(__DIR__."/resources/regexes.yaml");
             } else {
                 print "<h1>Error</h1>
                     <p>Please download the regexes.yaml file before using UAParser.php.</p>
@@ -279,6 +280,7 @@ class UA
                     $osObj->osRevision = $matches[5];
                 }
                 $osObj->os        = isset($osRegex['os_replacement'])    ? str_replace("$1",$osObj->osMajor,$osRegex['os_replacement'])  : $matches[1];
+                $osObj->osFamily  = isset($osRegex['os_family'])    ? str_replace("$1",$osObj->osMajor,$osRegex['os_family'])  : $matches[1];
 
                 // os version
                 $osObj->osVersion = isset($osObj->osMajor) ? $osObj->osMajor : "";
