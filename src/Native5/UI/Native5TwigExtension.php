@@ -87,7 +87,7 @@ class Native5TwigExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction("resolvePath", 
                 function($url) {
-                    return $this->resolvePath($url);
+                    return \Native5\UI\Native5TwigExtension::resolvePath($url);
                 },
                 array('is_safe'=>array('all'))
                 )
@@ -107,7 +107,7 @@ class Native5TwigExtension extends \Twig_Extension
      * @access public
      * @return void
      */
-    public function resolvePath($name)
+    public static function resolvePath($name)
     {
         
         $logger     = $GLOBALS['logger'];
