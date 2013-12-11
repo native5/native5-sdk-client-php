@@ -131,6 +131,7 @@ class Subject {
         $subject           = SecurityUtils::getSecurityManager()->login($this, $token);
         $this->_principal  = $subject->getPrincipal();
         $this->_principals = $subject->getPrincipals();
+        $this->principals = $subject->getPrincipals();
 
         if ($this->_principals === null || empty($this->_principals)) {
             $msg = "Principals returned from SecurityManager->login( token ) returned an empty set.".
