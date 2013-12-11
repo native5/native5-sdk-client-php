@@ -74,7 +74,7 @@ class Application
         'alert'     => 'LOG_ALERT',
     );
 
-    private $_cli;
+    private static $_cli;
 
     /**
      * __construct 
@@ -100,9 +100,9 @@ class Application
     public static function init($configFile='config/settings.yml', $localConfigFile='config/settings.local.yml')
     {
         // Check what php SAPI is being used
-        $this->_cli = false;
+        self::$_cli = false;
         if (strcmp(php_sapi_name(), 'cli') === 0)
-            $this->_cli = true;
+            self::$_cli = true;
 
         // Initialize application services, Store application Object as a global
         // Services are available from global app.
@@ -124,7 +124,7 @@ class Application
         $file              = $logFolder.DIRECTORY_SEPARATOR.$app->_config->getApplicationContext().'-debug.log';
         $GLOBALS['logger']->addHandler($file, Logger::ALL, self::$LOG_MAPPING[$app->_config->getLogLevel()]);
 
-        if (!$this->_cli) {
+        if (!self::$_cli) {
             $sessionManager = new WebSessionManager();
             $sessionManager->startSession(null, true);
             $app->_services['sessions']   = $sessionManager;
@@ -150,7 +150,7 @@ class Application
      */
     public function getSubject()
     {
-        if (!$this->_cli)
+        if (!self::$_cli)
             return $this->_subject;
         else
             return null;
@@ -166,7 +166,7 @@ class Application
      */
     public function setSubject($subject)
     {
-        if (!$this->_cli)
+        if (!self::$_cli)
             $this->_subject = $subject;
     }
 
@@ -178,7 +178,7 @@ class Application
      */
     public function getSessionManager()
     {
-        if (!$this->_cli)
+        if (!self::$_cli)
             return $this->_services['sessions'];
         else
             return null;
@@ -236,7 +236,7 @@ class Application
      */
     public function route($request)
     {
-        if (!$this->_cli) {
+        if (!self::$_cli) {
             $router = $this->get('routing');
             $router->route($request);
         }
