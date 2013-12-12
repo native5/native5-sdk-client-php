@@ -68,7 +68,7 @@ class Configuration {
     public function getSharedKey() {
         $sessionManager = $GLOBALS['app']->getSessionManager();
         if(!empty($sessionManager)) {
-            $sessionSharedKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('sharedKey');
+            $sessionSharedKey = $sessionManager->getActiveSession()->getAttribute('sharedKey');
             if (!empty($sessionSharedKey))
                 return $sessionSharedKey;
         }
@@ -82,7 +82,7 @@ class Configuration {
     public function getSecretKey() {
         $sessionManager = $GLOBALS['app']->getSessionManager();
         if(!empty($sessionManager)) {
-            $sessionSecretKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('secretKey');
+            $sessionSecretKey = $sessionManager->getActiveSession()->getAttribute('secretKey');
             if (!empty($sessionSecretKey))
                 return $sessionSecretKey;
         }

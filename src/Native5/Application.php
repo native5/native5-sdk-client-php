@@ -74,6 +74,8 @@ class Application
         'alert'     => 'LOG_ALERT',
     );
 
+    private static $_cli;
+
     /**
      * __construct 
      * 
@@ -97,6 +99,11 @@ class Application
      */
     public static function init($configFile='config/settings.yml', $localConfigFile='config/settings.local.yml')
     {
+        // Check what php SAPI is being used
+        self::$_cli = false;
+        if (strcmp(php_sapi_name(), 'cli') === 0)
+            self::$_cli = true;
+
         // Initialize application services, Store application Object as a global
         // Services are available from global app.
         $GLOBALS['app']    = $app = new self();
@@ -116,19 +123,22 @@ class Application
 
         $file              = $logFolder.DIRECTORY_SEPARATOR.$app->_config->getApplicationContext().'-debug.log';
         $GLOBALS['logger']->addHandler($file, Logger::ALL, self::$LOG_MAPPING[$app->_config->getLogLevel()]);
-        $sessionManager = new WebSessionManager();
-        $sessionManager->startSession(null, true);
-        $app->_services['sessions']   = $sessionManager;
 
-        SecurityUtils::setSecurityManager(new DefaultSecurityManager());
+        if (!self::$_cli) {
+            $sessionManager = new WebSessionManager();
+            $sessionManager->startSession(null, true);
+            $app->_services['sessions']   = $sessionManager;
 
-        $app->_subject = $app->_getSubjectFromSession($sessionManager->getActiveSession());
+            SecurityUtils::setSecurityManager(new DefaultSecurityManager());
 
-        $app->_services['routing']      = new RoutingEngine();
-        $app->_services['templating'] = new TemplatingEngine();
+            $app->_subject = $app->_getSubjectFromSession($sessionManager->getActiveSession());
+
+            $app->_services['routing']    = new RoutingEngine();
+            $app->_services['templating'] = new TemplatingEngine();
+        }
+
         $app->_services['messaging']  = NotificationService::instance();
 
-        //$GLOBALS['logger']->debug("The app configuration: ".PHP_EOL.print_r($app->_config, 1));
         return $app;
     }
 
@@ -140,8 +150,10 @@ class Application
      */
     public function getSubject()
     {
-        return $this->_subject;
-
+        if (!self::$_cli)
+            return $this->_subject;
+        else
+            return null;
     }
 
     /**
@@ -154,8 +166,8 @@ class Application
      */
     public function setSubject($subject)
     {
-        $this->_subject = $subject;
-
+        if (!self::$_cli)
+            $this->_subject = $subject;
     }
 
     /**
@@ -166,8 +178,10 @@ class Application
      */
     public function getSessionManager()
     {
-        return $this->_services['sessions'];
-
+        if (!self::$_cli)
+            return $this->_services['sessions'];
+        else
+            return null;
     }
 
     /**
@@ -179,7 +193,6 @@ class Application
     public function getConfiguration()
     {
         return $this->_config;
-
     }
 
     /**
@@ -223,8 +236,10 @@ class Application
      */
     public function route($request)
     {
-        $router = $this->get('routing');
-        $router->route($request);
+        if (!self::$_cli) {
+            $router = $this->get('routing');
+            $router->route($request);
+        }
     }
 
 
