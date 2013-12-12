@@ -44,9 +44,11 @@ class Configuration {
     private $_defaultGrade;
     private $_logLevel;
     private $_local;
+    private $_nativeBinary;
 
     public function __construct($applicationContext = null) {
         $this->_applicationContext = $applicationContext;
+        $this->_nativeBinary = false;
     }
 
     public function getApplicationContext() {
@@ -124,6 +126,13 @@ class Configuration {
     public function setLocal() {
         $this->_local = true;
     }
-
+    
+    public function isNativeBinary() {
+        return $this->_nativeBinary;
+    }
+    
+    public function setNativeBinary() {
+        $this->_nativeBinary = true;
+    }
 }
 

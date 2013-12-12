@@ -97,6 +97,8 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
                 $this->_configuration->setSecretKey($this->_config['api']['secretKey']);
             else
                 $this->_configuration->setSecretKey($secretKey);
+            if (isset($this->_config['nativeBinaryOnly']))
+                $this->_configuration->setNativeBinary($this->_config['nativeBinaryOnly']);
         }
 
         return $this->_configuration;
