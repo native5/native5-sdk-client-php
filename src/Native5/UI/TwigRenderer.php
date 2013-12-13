@@ -83,7 +83,7 @@ class TwigRenderer implements Renderer
     {
         global $app;
         $session = $app->getSessionManager()->getActiveSession();
-        $nativeOnly = $app->getConfiguration()->getNativeBinary();
+        $nativeOnly = $app->getConfiguration()->isNativeBinary();
         $category = $session->getAttribute('category').'/';
         $staticResDir = 'public';
         if ($app->getConfiguration()->isLocal()) {
