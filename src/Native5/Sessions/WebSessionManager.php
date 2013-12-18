@@ -194,6 +194,13 @@ class WebSessionManager implements SessionManager
     {
         $_SESSION[self::GLOBAL_PREFIX.'last_accessed'] = time();
 
+        // Update the session if session is authenticated and multiple logins is disabled
+        $app = $GLOBALS['app'];
+        if(\Native5\Identity\SecurityUtils::getSubject()->isAuthenticated() && $app->getConfiguration()->isPreventMultipleLogins()) {
+            $sessionHash = $app->getSessionManager()->getActiveSession()->getAttribute('sessionHash');
+            $authenticator = new \Native5\Services\Identity\RemoteAuthenticationService();
+            $authenticator->onAccess($sessionHash);
+        }
     }//end updateActiveSession()
 
 
