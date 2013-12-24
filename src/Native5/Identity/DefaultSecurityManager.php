@@ -386,7 +386,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      */
     protected function _delete(Subject $subject)
     {
-        $this->_subjectDAO->delete($subject);
+        $this->_subjectDAO->destroy($subject);
 
     }//end _delete()
 
