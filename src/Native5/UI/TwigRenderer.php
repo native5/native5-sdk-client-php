@@ -185,6 +185,7 @@ class TwigRenderer implements Renderer
                 'cache'      => $cacheFolder,
             ));
         $this->_twig->getExtension('core')->setNumberFormat(2, '.', ',');
+        $this->_twig->addExtension(new \Twig_Extensions_Extension_I18n());
         $this->_twig->addExtension(new Native5TwigExtension($session->getAttribute('category')));
     }//end _configure()
 

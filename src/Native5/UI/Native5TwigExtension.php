@@ -71,6 +71,12 @@ class Native5TwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('truncate', 'DateFilter::isToday'),
             new \Twig_SimpleFunction('isTomorrow', 'DateFilter::isTomorrow'),
             new \Twig_SimpleFunction('isLater', 'DateFilter::isLater'),
+             new \Twig_SimpleFilter('truncate', function($text, $start=0, $min=0, $max = 50) {
+		if (strlen($text) >= $min) {
+		    $text = substr($text, $start, $max);
+		}
+		return $text;
+            }),
             new \Twig_SimpleFilter('nonce', function($str) {
                 $app=$GLOBALS['app'];
                 if (strpos($str, '?') !== false) {

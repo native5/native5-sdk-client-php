@@ -34,7 +34,8 @@
     "require" : {
             "twig/twig": "1.*",
             "monolog/monolog": "1.2.*",
-            "guzzle/guzzle": "*"
+            "guzzle/guzzle": "*",
+            "twig/extensions": "*.*"
     },
     "autoload": {
             "psr-0": {
