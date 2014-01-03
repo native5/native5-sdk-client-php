@@ -82,6 +82,10 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
             if (isset($this->_config['app']['logLevel']))
                 $this->_configuration->setLogLevel($this->_config['app']['logLevel']);
 
+            //Track Analytics
+            if (isset($this->_config['app']['trackAnalytics']))
+                $this->_configuration->setLogAnalytics($this->_config['app']['trackAnalytics']);
+
             // Api Configuration
             // Url
             $this->_configuration->setApiUrl($this->_config['api']['url']);

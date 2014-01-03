@@ -108,6 +108,8 @@ class Application
         // Services are available from global app.
         $GLOBALS['app']    = $app = new self();
         $GLOBALS['logger'] = LoggerFactory::instance()->getLogger();
+        $GLOBALS['routeLogger'] = LoggerFactory::instance()->getLogger();
+
         $configFactory     = new ConfigurationFactory($configFile, $localConfigFile);
         $app->_config      = $configFactory->getConfig();
         
@@ -123,6 +125,9 @@ class Application
 
         $file              = $logFolder.DIRECTORY_SEPARATOR.$app->_config->getApplicationContext().'-debug.log';
         $GLOBALS['logger']->addHandler($file, Logger::ALL, self::$LOG_MAPPING[$app->_config->getLogLevel()]);
+
+        $analyticsFile = $logFolder.DIRECTORY_SEPARATOR.$app->_config->getApplicationContext().'-analytics.log';
+        $GLOBALS['routeLogger']->addHandler($analyticsFile, Logger::ALL, self::$LOG_MAPPING[$app->_config->getLogLevel()], 'analytics');
 
         if (!self::$_cli) {
             $sessionManager = new WebSessionManager();

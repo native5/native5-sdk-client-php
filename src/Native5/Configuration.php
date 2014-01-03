@@ -43,12 +43,14 @@ class Configuration {
     private $_secretKey;
     private $_defaultGrade;
     private $_logLevel;
+    private $_logAnalytics;
     private $_local;
     private $_nativeBinary;
 
     public function __construct($applicationContext = null) {
         $this->_applicationContext = $applicationContext;
         $this->_nativeBinary = false;
+        $this->_logAnalytics = false;
     }
 
     public function getApplicationContext() {
@@ -110,7 +112,17 @@ class Configuration {
     public function setLogLevel($logLevel) {
         $this->_logLevel = $logLevel;
     }
+
+    public function logAnalytics()
+    {
+        return $this->_logAnalytics;
+    }
     
+    public function setLogAnalytics($logAnalytics)
+    {
+        return $this->_logAnalytics=$logAnalytics;
+    }
+
     public function isPreventMultipleLogins() {
         return empty($this->_preventMultipleLogins) ? false : true;
     }
