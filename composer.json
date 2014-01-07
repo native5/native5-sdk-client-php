@@ -35,7 +35,8 @@
             "twig/twig": "1.*",
             "monolog/monolog": "1.2.*",
             "guzzle/guzzle": "*",
-            "twig/extensions": "*.*"
+            "twig/extensions": "*.*",
+            "symfony/yaml": "*.*"
     },
     "autoload": {
             "psr-0": {
