@@ -47,6 +47,8 @@ class Configuration {
     private $_local;
     private $_nativeBinary;
 
+    private $_config;
+
     public function __construct($applicationContext = null) {
         $this->_applicationContext = $applicationContext;
         $this->_nativeBinary = false;
@@ -145,6 +147,17 @@ class Configuration {
     
     public function setNativeBinary() {
         $this->_nativeBinary = true;
+    }
+
+    public function setRawConfig($config) {
+        $this->_config = $config;
+    }
+
+    public function getRawConfig($key = null) {
+        if (empty($key))
+            return $this->_config;
+
+        return isset($this->_config[$key]) ? $this->_config[$key] : null;
     }
 }
 
