@@ -149,11 +149,11 @@ class Configuration {
         $this->_nativeBinary = true;
     }
 
-    public function setRawConfig($config) {
+    public function setRawConfiguration($config) {
         $this->_config = $config;
     }
 
-    public function getRawConfig($key = null) {
+    public function getRawConfiguration($key = null) {
         if (empty($key))
             return $this->_config;
 

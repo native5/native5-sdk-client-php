@@ -105,7 +105,7 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
                 $this->_configuration->setNativeBinary($this->_config['nativeBinaryOnly']);
 
             // Set the raw config
-            $this->_configuration->setRawConfig($this->_config);
+            $this->_configuration->setRawConfiguration($this->_config);
         }
 
         return $this->_configuration;
