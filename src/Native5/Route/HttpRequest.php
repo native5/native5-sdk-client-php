@@ -76,7 +76,7 @@ class HttpRequest implements Request
      */
     public function getParam($key)
     {
-        isset($this->_rawRequest[$key]) ? $this->_rawRequest[$key] : null;
+        return isset($this->_rawRequest[$key]) ? $this->_rawRequest[$key] : null;
     }//end getParam()
 
 
