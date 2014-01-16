@@ -72,14 +72,11 @@ class HttpRequest implements Request
      * @param mixed $key Param to retrieve based on key
      *
      * @access public
-     * @return void
+     * @return mixed Request param value
      */
     public function getParam($key)
     {
-        if(isset($this->_rawRequest[$key]))
-            return $this->_rawRequest[$key];
-        return null;
-
+        return isset($this->_rawRequest[$key]) ? $this->_rawRequest[$key] : null;
     }//end getParam()
 
 
@@ -95,6 +92,19 @@ class HttpRequest implements Request
 
     }//end getParams()
 
+
+    /**
+     * hasParam 
+     * 
+     * @param mixed $key Param to check based on key
+     *
+     * @access public
+     * @return boolean True if request has the param, false otherwise
+     */
+    public function hasParam($key)
+    {
+        isset($this->_rawRequest[$key]) ? true : false;
+    }
 
     /**
      * setKeys
