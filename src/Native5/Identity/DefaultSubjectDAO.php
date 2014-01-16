@@ -223,4 +223,3 @@ class DefaultSubjectDAO implements SubjectDAO
 
 }//end class
 
-?>

@@ -94,8 +94,8 @@ class TwigRenderer implements Renderer
         $in_data = array (
             'items'          => $data,
             'STATIC_RES_URL' => $staticPath,
-            'isBinary'       => $nativeOnly,
-            );
+            'isBinary'       => $nativeOnly
+        );
         return $this->_twig->render($this->_template, $in_data);
 
     }//end render()

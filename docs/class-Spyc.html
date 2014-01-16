@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class Spyc</title>
+
+	<script type="text/javascript" src="resources/combined.js?1180343265"></script>
+	<script type="text/javascript" src="elementlist.js?4004830262"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/bootstrap.min.css?2446941819" />
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?2979642362" />
+
+</head>
+
+<body>
+	<div id="navigation" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<div class="brand" style="padding: 5px 0 0 5px; height: 20px; line-height: 20px; margin-left: -15PX;">
+        			<img alt="Native5 APIs" src="resources/logo.png" style="width: 32px;" title="Native5 APIs" />
+        			Native5 APIs
+        		</div>
+				<div class="nav-collapse">
+					<ul class="nav">
+        				<li class="divider-vertical"></li>
+						<li>
+							<a href="namespace-None.html" title="Summary of None"><span>Namespace</span></a>
+						</li>
+						<li class="active">
+<span>Class</span>						</li>
+
+						<li class="divider-vertical"></li>
+
+						<li>
+							<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="left">
+	<div id="menu">
+		<form id="search" class="form-search">
+			<input type="hidden" name="cx" value="" />
+			<input type="hidden" name="ie" value="UTF-8" />
+			<input type="text" name="q" class="search-query" placeholder="Search" />
+		</form>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-Native5.html">Native5<span></span></a>
+						<ul>
+				<li><a href="namespace-Native5.Api.html">Api</a>
+						</li>
+				<li><a href="namespace-Native5.Control.html">Control</a>
+						</li>
+				<li><a href="namespace-Native5.Identity.html">Identity</a>
+						</li>
+				<li><a href="namespace-Native5.Route.html">Route</a>
+						</li>
+				<li><a href="namespace-Native5.Scheduler.html">Scheduler</a>
+						</li>
+				<li><a href="namespace-Native5.Security.html">Security</a>
+						</li>
+				<li><a href="namespace-Native5.Services.html">Services<span></span></a>
+						<ul>
+				<li><a href="namespace-Native5.Services.Account.html">Account</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Analytics.html">Analytics</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Identity.html">Identity</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Job.html">Job</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Messaging.html">Messaging</a>
+						</li>
+				<li><a href="namespace-Native5.Services.Users.html">Users</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Native5.Sessions.html">Sessions</a>
+						</li>
+				<li><a href="namespace-Native5.UI.html">UI</a>
+						</li>
+				<li><a href="namespace-Native5.Users.html">Users</a>
+						</li>
+							</ul></li>
+				<li class="active"><a href="namespace-None.html">None</a>
+						</li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-BaseTemplate.html">BaseTemplate</a></li>
+				<li><a href="class-DumpTest.html">DumpTest</a></li>
+				<li><a href="class-IndentTest.html">IndentTest</a></li>
+				<li><a href="class-LDAPIdentityManager.html">LDAPIdentityManager</a></li>
+				<li><a href="class-ParseTest.html">ParseTest</a></li>
+				<li><a href="class-RequestChecker.html">RequestChecker</a></li>
+				<li><a href="class-RoundTripTest.html">RoundTripTest</a></li>
+				<li class="active"><a href="class-Spyc.html">Spyc</a></li>
+				<li><a href="class-UA.html">UA</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-iSecure.html">iSecure</a></li>
+			</ul>
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-json_decode.html">json_decode</a></li>
+				<li><a href="function-json_encode.html">json_encode</a></li>
+				<li><a href="function-php5to4.html">php5to4</a></li>
+				<li><a href="function-roundTrip.html">roundTrip</a></li>
+				<li><a href="function-spyc_load.html">spyc_load</a></li>
+				<li><a href="function-spyc_load_file.html">spyc_load_file</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class Spyc</h1>
+
+
+	<div class="description">
+	
+<p>The Simple PHP YAML Class.</p>
+
+<p>This class can be used to read a YAML file and convert its contents into a
+PHP array. It currently supports a very limited subsection of the YAML spec.</p>
+
+<p>Usage:</p>
+
+<pre>
+<span class="php-var">$Spyc</span>  = <span
+class="php-keyword1">new</span> Spyc;
+<span
+class="php-var">$array</span> = <span
+class="php-var">$Spyc</span>-&gt;load(<span
+class="php-var">$file</span>);
+</pre>
+
+<p>or:</p>
+
+<pre>
+<span class="php-var">$array</span> = Spyc::YAMLLoad(<span
+class="php-var">$file</span>);
+</pre>
+
+<p>or:</p>
+
+<pre>
+<span class="php-var">$array</span> = spyc_load_file(<span
+class="php-var">$file</span>);
+</pre>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		
+		<b>Package:</b> Spyc<br />
+
+				<b>Copyright:</b>
+				Copyright 2005-2006 Chris Wanstrath, 2006-2011 Vlad Andersen<br />
+				<b>License:</b>
+				<a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a><br />
+				<b>Author:</b>
+				Vlad Andersen &lt;<a
+href="mailto:vlad.andersen&#64;gmail.com">vlad.andersen&#64;<!-- -->gmail.com</a>&gt;<br />
+				<b>Author:</b>
+				Chris Wanstrath &lt;<a
+href="mailto:chris&#64;ozmm.org">chris&#64;<!-- -->ozmm.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-Spyc.html#35-1032" title="Go to source code">Native5/Route/lib/spyc-0.5/spyc.php</a><br />
+	</div>
+
+
+
+		<h2>Methods summary</h2>
+		<table class="summary table table-bordered table-striped" id="methods">
+		<tr data-order="load" id="_load">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_load">#</a>
+			<code><a href="source-class-Spyc.html#105-112" title="Go to source code">load</a>( <span>string <var>$input</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Load a valid YAML string to Spyc.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Load a valid YAML string to Spyc.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$input</var></dt>
+						<dd><code>string</code><br>$input</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br />
+					</div>
+
+
+					<h4>Var</h4>
+					<div class="list">
+							mixed<br />
+							mixed<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="loadFile" id="_loadFile">
+
+			<td class="attributes"><code>
+				 public 
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_loadFile">#</a>
+			<code><a href="source-class-Spyc.html#114-121" title="Go to source code">loadFile</a>( <span>string <var>$file</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Load a valid YAML file to Spyc.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Load a valid YAML file to Spyc.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$file</var></dt>
+						<dd><code>string</code><br>$file</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br />
+					</div>
+
+
+					<h4>Var</h4>
+					<div class="list">
+							mixed<br />
+							mixed<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="YAMLLoad" id="_YAMLLoad">
+
+			<td class="attributes"><code>
+				 public static
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_YAMLLoad">#</a>
+			<code><a href="source-class-Spyc.html#123-141" title="Go to source code">YAMLLoad</a>( <span>string <var>$input</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Load YAML into a PHP array statically</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Load YAML into a PHP array statically</p>
+
+<p>The load method, when supplied with a YAML stream (string or file), will do
+its best to convert YAML in a file into a PHP array. Pretty simple. Usage:</p>
+
+<pre>
+ <span class="php-var">$array</span> = Spyc::YAMLLoad(<span
+class="php-quote">'lucky.yaml'</span>);
+ <span
+class="php-keyword2">print_r</span>(<span class="php-var">$array</span>);
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$input</var></dt>
+						<dd><code>string</code><br>$input Path of YAML file or string containing YAML</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br />
+					</div>
+
+
+					<h4>Var</h4>
+					<div class="list">
+							mixed<br />
+							mixed<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="YAMLLoadString" id="_YAMLLoadString">
+
+			<td class="attributes"><code>
+				 public static
+				array
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_YAMLLoadString">#</a>
+			<code><a href="source-class-Spyc.html#143-165" title="Go to source code">YAMLLoadString</a>( <span>string <var>$input</var></span> )</code>
+
+			<div class="description short">
+				
+<p>Load a string of YAML into a PHP array statically</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Load a string of YAML into a PHP array statically</p>
+
+<p>The load method, when supplied with a YAML string, will do its best to
+convert YAML in a string into a PHP array. Pretty simple.</p>
+
+<p>Note: use this function if you don't want files from the file system loaded
+and processed as YAML. This is of interest to people concerned about security
+whose input is from a string.<br />
+Usage:</p>
+
+<pre>
+ <span class="php-var">$array</span> = Spyc::YAMLLoadString(<span
+class="php-quote">&quot;---\n0: hello world\n&quot;</span>);
+ <span
+class="php-keyword2">print_r</span>(<span class="php-var">$array</span>);
+</pre>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$input</var></dt>
+						<dd><code>string</code><br>$input String containing YAML</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>array</code><br />
+					</div>
+
+
+					<h4>Var</h4>
+					<div class="list">
+							mixed<br />
+							mixed<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="YAMLDump" id="_YAMLDump">
+
+			<td class="attributes"><code>
+				 public static
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_YAMLDump">#</a>
+			<code><a href="source-class-Spyc.html#167-190" title="Go to source code">YAMLDump</a>( <span>array <var>$array</var></span>, <span>integer <var>$indent</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$wordwrap</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Dump YAML from PHP array statically</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Dump YAML from PHP array statically</p>
+
+<p>The dump method, when supplied with an array, will do its best to convert the
+array into friendly YAML. Pretty simple. Feel free to save the returned string
+as nothing.yaml and pass it around.</p>
+
+<p>Oh, and you can decide how big the indent is and what the wordwrap for
+folding is. Pretty cool -- just pass in 'false' for either if you want to use
+the default.</p>
+
+<p>Indent's default is 2 spaces, wordwrap's default is 40 characters. And you
+can turn off wordwrap by passing in 0.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$array</var></dt>
+						<dd><code>array</code><br>$array PHP array</dd>
+						<dt><var>$indent</var></dt>
+						<dd><code>integer</code><br>$indent Pass in false to use the default, which is 2</dd>
+						<dt><var>$wordwrap</var></dt>
+						<dd><code>integer</code><br>$wordwrap Pass in 0 for no wordwrap, false for default (40)</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br />
+					</div>
+
+
+					<h4>Var</h4>
+					<div class="list">
+							mixed<br />
+							mixed<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="dump" id="_dump">
+
+			<td class="attributes"><code>
+				 public 
+				string
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_dump">#</a>
+			<code><a href="source-class-Spyc.html#193-244" title="Go to source code">dump</a>( <span>array <var>$array</var></span>, <span>integer <var>$indent</var> = <span class="php-keyword1">false</span></span>, <span>integer <var>$wordwrap</var> = <span class="php-keyword1">false</span></span> )</code>
+
+			<div class="description short">
+				
+<p>Dump PHP array to YAML</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Dump PHP array to YAML</p>
+
+<p>The dump method, when supplied with an array, will do its best to convert the
+array into friendly YAML. Pretty simple. Feel free to save the returned string
+as tasteful.yaml and pass it around.</p>
+
+<p>Oh, and you can decide how big the indent is and what the wordwrap for
+folding is. Pretty cool -- just pass in 'false' for either if you want to use
+the default.</p>
+
+<p>Indent's default is 2 spaces, wordwrap's default is 40 characters. And you
+can turn off wordwrap by passing in 0.</p>
+
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$array</var></dt>
+						<dd><code>array</code><br>$array PHP array</dd>
+						<dt><var>$indent</var></dt>
+						<dd><code>integer</code><br>$indent Pass in false to use the default, which is 2</dd>
+						<dt><var>$wordwrap</var></dt>
+						<dd><code>integer</code><br>$wordwrap Pass in 0 for no wordwrap, false for default (40)</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code>string</code><br />
+					</div>
+
+
+					<h4>Var</h4>
+					<div class="list">
+							mixed<br />
+							mixed<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="revertLiteralPlaceHolder" id="_revertLiteralPlaceHolder">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_revertLiteralPlaceHolder">#</a>
+			<code><a href="source-class-Spyc.html#861-869" title="Go to source code">revertLiteralPlaceHolder</a>( <span>mixed <var>$lineArray</var></span>, <span>mixed <var>$literalBlock</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+					<h4>Var</h4>
+					<div class="list">
+							mixed<br />
+							mixed<br />
+					</div>
+
+
+			</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+		<h3>Magic methods summary</h3>
+
+
+
+
+
+		<h2>Constants summary</h2>
+		<table class="summary table table-bordered table-striped" id="constants">
+		<tr data-order="REMPTY" id="REMPTY">
+
+			<td class="attributes"><code>string</code></td>
+			<td class="name"><code>
+					<a href="source-class-Spyc.html#61" title="Go to source code"><b>REMPTY</b></a>
+			</code></td>
+			<td class="value"><code><span class="php-quote">&quot;\0\0\0\0\0&quot;</span></code></td>
+			<td class="description"><div>
+				<a href="#REMPTY" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+		<h2>Properties summary</h2>
+		<table class="summary table table-bordered table-striped" id="properties">
+		<tr data-order="setting_dump_force_quotes" id="$setting_dump_force_quotes">
+			<td class="attributes"><code>
+				public  
+				boolean
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Spyc.html#63-69" title="Go to source code"><var>$setting_dump_force_quotes</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$setting_dump_force_quotes" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Setting this to true will force YAMLDump to enclose any string value in
+quotes. False by default.</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Setting this to true will force YAMLDump to enclose any string value in
+quotes. False by default.</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="setting_use_syck_is_possible" id="$setting_use_syck_is_possible">
+			<td class="attributes"><code>
+				public  
+				boolean
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Spyc.html#71-76" title="Go to source code"><var>$setting_use_syck_is_possible</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$setting_use_syck_is_possible" class="anchor">#</a>
+
+				<div class="description short">
+					
+<p>Setting this to true will forse YAMLLoad to use syck_load function when
+possible. False by default.</p>
+
+				</div>
+
+				<div class="description detailed hidden">
+					
+<p>Setting this to true will forse YAMLLoad to use syck_load function when
+possible. False by default.</p>
+
+
+				</div>
+			</div></td>
+		</tr>
+		<tr data-order="_nodeId" id="$_nodeId">
+			<td class="attributes"><code>
+				public  
+				mixed
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-Spyc.html#99-103" title="Go to source code"><var>$_nodeId</var></a>
+			</td>
+			<td class="description"><div>
+				<a href="#$_nodeId" class="anchor">#</a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</div></td>
+		</tr>
+		</table>
+
+
+
+
+
+
+</div>
+	</div>
+</div>
+</body>
+</html>
