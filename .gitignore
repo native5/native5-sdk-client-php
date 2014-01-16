@@ -5,3 +5,4 @@ vendor
 docs/generated/**/*
 docs/**
 composer.lock
+*.local.*
