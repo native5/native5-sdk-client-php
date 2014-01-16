@@ -83,6 +83,7 @@ class TwigRenderer implements Renderer
     {
         global $app;
         $session = $app->getSessionManager()->getActiveSession();
+        $nativeOnly = $app->getConfiguration()->isNativeBinary();
         $category = $session->getAttribute('category').'/';
         $staticResDir = 'public';
         if ($app->getConfiguration()->isLocal()) {
@@ -92,8 +93,9 @@ class TwigRenderer implements Renderer
 
         $in_data = array (
             'items'          => $data,
-            'STATIC_RES_URL' => $staticPath
-            );
+            'STATIC_RES_URL' => $staticPath,
+            'isBinary'       => $nativeOnly
+        );
         return $this->_twig->render($this->_template, $in_data);
 
     }//end render()
@@ -183,6 +185,7 @@ class TwigRenderer implements Renderer
                 'cache'      => $cacheFolder,
             ));
         $this->_twig->getExtension('core')->setNumberFormat(2, '.', ',');
+        $this->_twig->addExtension(new \Twig_Extensions_Extension_I18n());
         $this->_twig->addExtension(new Native5TwigExtension($session->getAttribute('category')));
     }//end _configure()
 

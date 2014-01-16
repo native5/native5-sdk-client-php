@@ -9,4 +9,5 @@ install:
     - printf "\n" | pecl install yaml
 branches:
     only:
-        - development
+        - master
+        #- development

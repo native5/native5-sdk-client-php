@@ -43,10 +43,16 @@ class Configuration {
     private $_secretKey;
     private $_defaultGrade;
     private $_logLevel;
+    private $_logAnalytics;
     private $_local;
+    private $_nativeBinary;
+
+    private $_config;
 
     public function __construct($applicationContext = null) {
         $this->_applicationContext = $applicationContext;
+        $this->_nativeBinary = false;
+        $this->_logAnalytics = false;
     }
 
     public function getApplicationContext() {
@@ -68,7 +74,7 @@ class Configuration {
     public function getSharedKey() {
         $sessionManager = $GLOBALS['app']->getSessionManager();
         if(!empty($sessionManager)) {
-            $sessionSharedKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('sharedKey');
+            $sessionSharedKey = $sessionManager->getActiveSession()->getAttribute('sharedKey');
             if (!empty($sessionSharedKey))
                 return $sessionSharedKey;
         }
@@ -82,7 +88,7 @@ class Configuration {
     public function getSecretKey() {
         $sessionManager = $GLOBALS['app']->getSessionManager();
         if(!empty($sessionManager)) {
-            $sessionSecretKey = $GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('secretKey');
+            $sessionSecretKey = $sessionManager->getActiveSession()->getAttribute('secretKey');
             if (!empty($sessionSecretKey))
                 return $sessionSecretKey;
         }
@@ -108,7 +114,17 @@ class Configuration {
     public function setLogLevel($logLevel) {
         $this->_logLevel = $logLevel;
     }
+
+    public function logAnalytics()
+    {
+        return $this->_logAnalytics;
+    }
     
+    public function setLogAnalytics($logAnalytics)
+    {
+        return $this->_logAnalytics=$logAnalytics;
+    }
+
     public function isPreventMultipleLogins() {
         return empty($this->_preventMultipleLogins) ? false : true;
     }
@@ -123,6 +139,25 @@ class Configuration {
 
     public function setLocal() {
         $this->_local = true;
+    }
+    
+    public function isNativeBinary() {
+        return $this->_nativeBinary;
+    }
+    
+    public function setNativeBinary() {
+        $this->_nativeBinary = true;
+    }
+
+    public function setRawConfiguration($config) {
+        $this->_config = $config;
+    }
+
+    public function getRawConfiguration($key = null) {
+        if (empty($key))
+            return $this->_config;
+
+        return isset($this->_config[$key]) ? $this->_config[$key] : null;
     }
 }
 

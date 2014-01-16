@@ -80,7 +80,7 @@ class Router
      */
     public function route()
     {
-        global $logger;
+        global $app;
         $controllerName = $this->_command->getControllerName();
         
         if (!$this->routeExists($controllerName)) {
@@ -88,9 +88,20 @@ class Router
         }
 
         include 'controllers/'.$controllerName.'.php';
-        
+
+        if($app->getConfiguration()->logAnalytics() == true)
+            $GLOBALS['routeLogger']->log(json_encode(
+                array (
+                    "user" => $_SESSION['ID'],
+                    "time" => time(),
+                    "session" => session_id(),
+                    "page" => $controllerName
+                )
+            ));
+
         $controllerClass = $controllerName.'Controller';
         $controller = new $controllerClass($this->_command);
+        //$controller->addPreProcessor();
         try {
             $params = $controller->getParams();
             $request = new HttpRequest($params);

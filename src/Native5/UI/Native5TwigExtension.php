@@ -71,6 +71,12 @@ class Native5TwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('truncate', 'DateFilter::isToday'),
             new \Twig_SimpleFunction('isTomorrow', 'DateFilter::isTomorrow'),
             new \Twig_SimpleFunction('isLater', 'DateFilter::isLater'),
+            new \Twig_SimpleFilter('truncate', function($text, $start=0, $min=0, $max = 50) {
+		if (strlen($text) >= $min) {
+		    $text = substr($text, $start, $max);
+		}
+		return $text;
+            }),
             new \Twig_SimpleFilter('nonce', function($str) {
                 $app=$GLOBALS['app'];
                 if (strpos($str, '?') !== false) {
@@ -87,7 +93,7 @@ class Native5TwigExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction("resolvePath", 
                 function($url) {
-                    return $this->resolvePath($url);
+                    return \Native5\UI\Native5TwigExtension::resolvePath($url);
                 },
                 array('is_safe'=>array('all'))
                 )
@@ -107,7 +113,7 @@ class Native5TwigExtension extends \Twig_Extension
      * @access public
      * @return void
      */
-    public function resolvePath($name)
+    public static function resolvePath($name)
     {
         
         $logger     = $GLOBALS['logger'];

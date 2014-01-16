@@ -82,6 +82,10 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
             if (isset($this->_config['app']['logLevel']))
                 $this->_configuration->setLogLevel($this->_config['app']['logLevel']);
 
+            //Track Analytics
+            if (isset($this->_config['app']['trackAnalytics']))
+                $this->_configuration->setLogAnalytics($this->_config['app']['trackAnalytics']);
+
             // Api Configuration
             // Url
             $this->_configuration->setApiUrl($this->_config['api']['url']);
@@ -97,6 +101,11 @@ class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
                 $this->_configuration->setSecretKey($this->_config['api']['secretKey']);
             else
                 $this->_configuration->setSecretKey($secretKey);
+            if (isset($this->_config['nativeBinaryOnly']))
+                $this->_configuration->setNativeBinary($this->_config['nativeBinaryOnly']);
+
+            // Set the raw config
+            $this->_configuration->setRawConfiguration($this->_config);
         }
 
         return $this->_configuration;

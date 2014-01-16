@@ -1,8 +1,8 @@
 {   
     "name"            : "native5/native5-sdk-client-php",
     "type"          : "library",
-    "description"     : "Native5 PHP Framework for building web applications.",
-    "keywords"        : ["templating", "logging", "security", "sessions"],
+    "description"     : "Client SDK for Native5 Framework for building web applications.",
+    "keywords"        : ["templating", "logging", "framework", "security", "sessions", "events", "scheduling"],
     "homepage"        : "http://docs.native5.com",
     "license"         : "proprietary",
     "authors"         : [
@@ -36,6 +36,8 @@
             "monolog/monolog": "1.2.*",
             "guzzle/guzzle": "*",
             "phpunit/phpunit": "3.7.*"
+            "twig/extensions": "*.*",
+            "symfony/yaml": "*.*"
     },
     "autoload": {
             "psr-0": {

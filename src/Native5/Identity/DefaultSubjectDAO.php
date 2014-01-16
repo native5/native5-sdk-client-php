@@ -23,6 +23,8 @@
 
 namespace Native5\Identity;
 
+use Native5\Sessions\WebSessionManager;
+
 /**
  * DefaultSubjectDAO
  *
@@ -67,7 +69,7 @@ class DefaultSubjectDAO implements SubjectDAO
      */
     public function destroy(Subject $subject)
     {
-        $this->_removeFromSession($subject);
+        $this->removeFromSession($subject);
         WebSessionManager::resetActiveSession();
     }//end destroy()
 
@@ -212,8 +214,8 @@ class DefaultSubjectDAO implements SubjectDAO
     {
         $session = $subject->getSession(false);
         if ($session !== null) {
-            $session->removeAttribute(SessionSubjectContext::AUTHENTICATED_SESSION_KEY);
-            $session->removeAttribute(SessionSubjectContext::PRINCIPALS_SESSION_KEY);
+            $session->removeAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY);
+            $session->removeAttribute(DefaultSubjectContext::PRINCIPALS_SESSION_KEY);
         }
 
     }//end removeFromSession()
@@ -221,4 +223,3 @@ class DefaultSubjectDAO implements SubjectDAO
 
 }//end class
 
-?>
