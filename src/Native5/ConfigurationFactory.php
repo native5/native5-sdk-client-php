@@ -36,14 +36,9 @@ namespace Native5;
  * Created : 27-11-2012
  * Last Modified : Fri Dec 21 09:11:53 2012
  */
-class ConfigurationFactory extends \Native5\Core\YamlConfigFactory
+class ConfigurationFactory extends \Native5\Core\Configuration\YamlConfigFactory
 {
     protected $_configuration;
-
-    public function __construct($configFile, $localConfigFile) {
-        parent::__construct($configFile);
-        parent::override($localConfigFile);
-    }
 
     /**
      * makeConfig Wrap the associative configuration array inside a Configuration class
