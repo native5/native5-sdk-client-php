@@ -140,4 +140,3 @@ class HttpRequest implements Request
 
 }//end class
 
-?>
