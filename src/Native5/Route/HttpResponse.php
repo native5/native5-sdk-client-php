@@ -133,6 +133,7 @@ class HttpResponse implements Response
             foreach ($this->_headers as $value) {
                 header($value);
             }//end foreach
+            header('N5_RAND_TOKEN: '.$app->getSessionManager()->getActiveSession()->getAttribute('nonce'));
             echo $this->_transform($this->_encoding, $this->_body);
         }
     }//end send()
