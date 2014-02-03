@@ -66,6 +66,7 @@ class Native5TwigExtension extends \Twig_Extension
 
     public function getFilters()
     {
+        $app        = $GLOBALS['app'];
         return array(
             new \Twig_SimpleFunction('isToday', 'DateFilter::isToday'),
             new \Twig_SimpleFunction('truncate', 'DateFilter::isToday'),

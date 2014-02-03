@@ -89,15 +89,14 @@ class Router
 
         include 'controllers/'.$controllerName.'.php';
 
-        if($app->getConfiguration()->logAnalytics() == true)
-            $GLOBALS['routeLogger']->log(json_encode(
-                array (
-                    "user" => $_SESSION['ID'],
-                    "time" => time(),
-                    "session" => session_id(),
-                    "page" => $controllerName
-                )
-            ));
+        if($app->getConfiguration()->logAnalytics() == true) {
+            $analyticsData = array();
+            $analyticsData['user'] = $app->getSubject()->getPrincipal();
+            $analyticsData['time'] = time(); 
+            $analyticsData['session'] = session_id(); 
+            $analyticsData['page'] = $controllerName; 
+            $GLOBALS['routeLogger']->info(json_encode($analyticsData));
+        }
 
         $controllerClass = $controllerName.'Controller';
         $controller = new $controllerClass($this->_command);
