@@ -51,7 +51,7 @@ class WebSecurityManager implements PreProcessor
      * @access public
      * @return void
      */
-    public function process($request)
+    public function process(&$request)
     {
         if (!($this->isAuthenticated($request) && $this->isAuthorized($request))) {
            throw new AuthenticationException();

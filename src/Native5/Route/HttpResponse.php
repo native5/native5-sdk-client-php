@@ -82,7 +82,7 @@ class HttpResponse implements Response
      * @return void
      */
     public function redirectTo($location) {
-        global $app;
+        $app = $GLOBALS['app'];
         $host = $_SERVER['HTTP_HOST'];
         if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) {
             $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
@@ -133,7 +133,7 @@ class HttpResponse implements Response
             foreach ($this->_headers as $value) {
                 header($value);
             }//end foreach
-            header('N5_RAND_TOKEN: '.$app->getSessionManager()->getActiveSession()->getAttribute('nonce'));
+            header('N5_RAND_TOKEN: '.$GLOBALS['app']->getSessionManager()->getActiveSession()->getAttribute('nonce'));
             echo $this->_transform($this->_encoding, $this->_body);
         }
     }//end send()
@@ -272,7 +272,6 @@ class HttpResponse implements Response
      */
     private function _transform($encoding, $data)
     {
-        global $logger;
         switch($encoding) {
         case 'none' :
             header('Content-Type: text/html');
@@ -292,4 +291,3 @@ class HttpResponse implements Response
 
 }//end class
 
-?>

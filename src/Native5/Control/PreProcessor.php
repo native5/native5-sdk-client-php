@@ -48,9 +48,8 @@ interface PreProcessor
      * @access public
      * @return void
      */
-    public function process($request);
+    public function process(&$request);
 
 
 }//end interface
 
-?>

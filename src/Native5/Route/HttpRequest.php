@@ -103,7 +103,7 @@ class HttpRequest implements Request
      */
     public function hasParam($key)
     {
-        isset($this->_rawRequest[$key]) ? true : false;
+        return isset($this->_rawRequest[$key]) ? true : false;
     }
 
     /**
@@ -140,4 +140,3 @@ class HttpRequest implements Request
 
 }//end class
 
-?>
