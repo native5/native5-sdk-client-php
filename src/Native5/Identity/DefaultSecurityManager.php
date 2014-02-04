@@ -101,13 +101,15 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             $clientIP = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ?
                 $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
             $analyticsData = array();
-            $analyticsData['user'] = $app->getSubject()->getPrincipal();
+	    	$principal = $loggedInSubj->getPrincipal();
+	    	$userId = $principal['displayName'];
+            $analyticsData['user'] = $userId;
             $analyticsData['time'] = time(); 
             $analyticsData['session'] = session_id(); 
             $analyticsData['page'] = 'login'; 
             $analyticsData['UA'] = $_SERVER['HTTP_USER_AGENT'];
             $analyticsData['ip'] = $clientIP;
-            $GLOBALS['routeLogger']->log(json_encode($analyticsData));
+            $GLOBALS['routeLogger']->info(json_encode($analyticsData));
         }
         $logger->debug('User Logged in as : '.print_r($subject,1));
         // Generate unique token to prevent XSRF.

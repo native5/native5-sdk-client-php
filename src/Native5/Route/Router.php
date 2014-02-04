@@ -89,14 +89,19 @@ class Router
 
         include 'controllers/'.$controllerName.'.php';
 
-        if($app->getConfiguration()->logAnalytics() == true) {
-            $analyticsData = array();
-            $analyticsData['user'] = $app->getSubject()->getPrincipal();
-            $analyticsData['time'] = time(); 
-            $analyticsData['session'] = session_id(); 
-            $analyticsData['page'] = $controllerName; 
-            $GLOBALS['routeLogger']->info(json_encode($analyticsData));
-        }
+        // Only log analytics data for non-login pages here
+	if (strcasecmp($controllerName, 'login') !== 0) {
+            if($app->getConfiguration()->logAnalytics() == true) {
+                $analyticsData = array();
+                $principal = $GLOBALS['app']->getSubject()->getPrincipal();
+                $userId = $principal['displayName'];
+                $analyticsData['user'] = $userId;
+                $analyticsData['time'] = time(); 
+                $analyticsData['session'] = session_id(); 
+                $analyticsData['page'] = $controllerName; 
+                $GLOBALS['routeLogger']->info(json_encode($analyticsData));
+            }
+	}
 
         $controllerClass = $controllerName.'Controller';
         $controller = new $controllerClass($this->_command);
