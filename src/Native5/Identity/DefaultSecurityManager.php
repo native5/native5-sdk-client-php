@@ -101,9 +101,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             $clientIP = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ?
                 $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
             $analyticsData = array();
-	    	$principal = $loggedInSubj->getPrincipal();
-	    	$userId = $principal['displayName'];
-            $analyticsData['user'] = $userId;
+            $analyticsData['user'] = $token->getPrincipal(); // Get the user from the principal
             $analyticsData['time'] = time(); 
             $analyticsData['session'] = session_id(); 
             $analyticsData['page'] = 'login'; 

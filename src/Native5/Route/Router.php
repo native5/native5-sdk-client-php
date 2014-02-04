@@ -93,9 +93,6 @@ class Router
 	if (strcasecmp($controllerName, 'login') !== 0) {
             if($app->getConfiguration()->logAnalytics() == true) {
                 $analyticsData = array();
-                $principal = $GLOBALS['app']->getSubject()->getPrincipal();
-                $userId = $principal['displayName'];
-                $analyticsData['user'] = $userId;
                 $analyticsData['time'] = time(); 
                 $analyticsData['session'] = session_id(); 
                 $analyticsData['page'] = $controllerName; 
