@@ -146,13 +146,13 @@ class Native5TwigExtension extends \Twig_Extension
         }
 
         if ($isUrl) {
-            return "\"".$name."\"";
+            return $name;
         }
 
         if (file_exists(getcwd().$basePath.'/'.$searchFolder.'/'.$name)) {
-            return "\"".'/'.$app->getConfiguration()->getApplicationContext().$basePath.'/'.$searchFolder.'/'.$name."\"";
+            return '/'.$app->getConfiguration()->getApplicationContext().$basePath.'/'.$searchFolder.'/'.$name;
         } else if (file_exists(getcwd().$commonPath.'/'.$searchFolder.'/'.$name)) {
-            return "\"".'/'.$app->getConfiguration()->getApplicationContext().$commonPath.'/'.$searchFolder.'/'.$name."\"";
+            return '/'.$app->getConfiguration()->getApplicationContext().$commonPath.'/'.$searchFolder.'/'.$name;
         }
         return $name;
     }
