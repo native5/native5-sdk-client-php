@@ -99,7 +99,6 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         $loggedInSubj = $this->_createSubject($token, $authInfo, $subject, $roles);
         $this->_logAnalytics($app);
 
-        //  $logger->debug('User Logged in as : '.print_r($subject,1));
         // Generate unique token to prevent XSRF.
         $app->getSessionManager()->getActiveSession()->setAttribute('nonce', sha1(uniqid(mt_rand(), true))); 
         $app->getSessionManager()->getActiveSession()->setAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY, true);
