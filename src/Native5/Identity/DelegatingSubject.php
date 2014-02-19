@@ -40,9 +40,8 @@ class DelegatingSubject extends Subject
 {
 
     protected $principals;
-
+    protected $primaryPrincipal;
     protected $host;
-
     protected $securityManager;
 
 
@@ -64,7 +63,8 @@ class DelegatingSubject extends Subject
         $host,
         $session,
         $roles,
-        $securityManager
+        $securityManager,
+        $primaryPrincipal=null
     ) {
         $this->principals      = $principals;
         $this->_authenticated  = $authenticated;
@@ -72,6 +72,10 @@ class DelegatingSubject extends Subject
         $this->_session        = $session;
         $this->_roles          = $roles; 
         $this->securityManager = $securityManager;
+        if($primaryPrincipal == null)
+            $this->primaryPrincipal = $principals[0];
+        else
+            $this->primaryPrincipal = $primaryPrincipal;
 
     }//end __construct()
 
@@ -110,7 +114,7 @@ class DelegatingSubject extends Subject
      */
     public function getPrincipal()
     {
-        return $this->getPrimaryPrincipal($this->principals);
+        return $this->getPrimaryPrincipal();
 
     }//end getPrincipal()
 
@@ -149,7 +153,7 @@ class DelegatingSubject extends Subject
      */
     public function getPrimaryPrincipal()
     {
-        return $this->principals[0];
+        return $this->primaryPrincipal;
 
     }//end getPrimaryPrincipal()
 

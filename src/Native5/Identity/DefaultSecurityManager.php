@@ -89,6 +89,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         try {
             if($app->getConfiguration()->isPreventMultipleLogins()) {
                 list($authInfo, $roles, $tokens,$hashedSessionId) = $this->authenticate($token, true);
+                $app->getSessionManager()->getActiveSession()->setAttribute('sessionHash', $hashedSessionId); 
             } else
                 list($authInfo, $roles, $tokens) = $this->authenticate($token);
         } catch (AuthenticationException $aex) {
@@ -96,20 +97,9 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             throw $aex;
         }
         $loggedInSubj = $this->_createSubject($token, $authInfo, $subject, $roles);
+        $this->_logAnalytics($app);
 
-        if($app->getConfiguration()->logAnalytics() == true) {
-            $clientIP = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ?
-                $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
-            $analyticsData = array();
-            $analyticsData['user'] = $app->getSubject()->getPrincipal();
-            $analyticsData['time'] = time(); 
-            $analyticsData['session'] = session_id(); 
-            $analyticsData['page'] = 'login'; 
-            $analyticsData['UA'] = $_SERVER['HTTP_USER_AGENT'];
-            $analyticsData['ip'] = $clientIP;
-            $GLOBALS['routeLogger']->log(json_encode($analyticsData));
-        }
-        $logger->debug('User Logged in as : '.print_r($subject,1));
+        //  $logger->debug('User Logged in as : '.print_r($subject,1));
         // Generate unique token to prevent XSRF.
         $app->getSessionManager()->getActiveSession()->setAttribute('nonce', sha1(uniqid(mt_rand(), true))); 
         $app->getSessionManager()->getActiveSession()->setAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY, true);
@@ -121,11 +111,33 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             $session->setAttribute('accountSharedKey', $tokens['token']);
             $session->setAttribute('accountSecretKey', $tokens['secret']);
         }
-        if($app->getConfiguration()->isPreventMultipleLogins())
-            $app->getSessionManager()->getActiveSession()->setAttribute('sessionHash', $hashedSessionId); 
         return $loggedInSubj;
 
     }//end login()
+
+
+    /**
+     * Log Analytics using the route logger 
+     * 
+     * @param mixed $app 
+     * @access private
+     * @return void
+     */
+    private function _logAnalytics($app)
+    {
+        if($app->getConfiguration()->logAnalytics() == true) {
+            $clientIP = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ?
+                $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
+            $analyticsData = array();
+            $analyticsData['user'] = $app->getSubject()->getPrincipal();
+            $analyticsData['time'] = time();
+            $analyticsData['session'] = session_id();
+            $analyticsData['page'] = 'login'; 
+            $analyticsData['UA'] = $_SERVER['HTTP_USER_AGENT'];
+            $analyticsData['ip'] = $clientIP;
+            $GLOBALS['routeLogger']->log(json_encode($analyticsData));
+        }
+    }
 
 
     /**
