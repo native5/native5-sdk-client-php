@@ -26,6 +26,7 @@ namespace Native5\Identity;
 use Native5\Sessions\SessionManager;
 use Native5\Sessions\WebSessionManager;
 use Native5\Services\Identity\RemoteAuthenticationService;
+use Native5\Util\RandomUtils;
 
 /**
  * DefaultSecurityManager
@@ -100,7 +101,8 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         $this->_logAnalytics($app);
 
         // Generate unique token to prevent XSRF.
-        $app->getSessionManager()->getActiveSession()->setAttribute('nonce', sha1(uniqid(mt_rand(), true))); 
+        $app->getSessionManager()->getActiveSession()->setAttribute('nonce', $this->_generateCSRFToken(32)); 
+            //sha1(uniqid(mt_rand(), true))); 
         $app->getSessionManager()->getActiveSession()->setAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY, true);
         if(!empty($tokens)) {
             $app->getSessionManager()->getActiveSession()->setAttribute('sharedKey', $tokens['token']); 
@@ -114,6 +116,21 @@ class DefaultSecurityManager implements Authenticator, SessionManager
 
     }//end login()
 
+
+    /**
+     * Generate CSRF Token of given length. 
+     * 
+     * @param mixed $length 
+     * @access private
+     * @return void
+     */
+    private function _generateCSRFToken($length=32)
+    {
+        $randUtils = new RandomUtils();
+        $randToken = $randUtils->getBytes($length, true);
+        return base64_encode($randToken);
+    }
+    
 
     /**
      * Log Analytics using the route logger 
