@@ -96,20 +96,10 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             throw $aex;
         }
         $loggedInSubj = $this->_createSubject($token, $authInfo, $subject, $roles);
-
         if($app->getConfiguration()->logAnalytics() == true) {
-            $clientIP = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ?
-                $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
-            $analyticsData = array();
-            $analyticsData['user'] = $token->getPrincipal(); // Get the user from the principal
-            $analyticsData['time'] = time(); 
-            $analyticsData['session'] = session_id(); 
-            $analyticsData['page'] = 'login'; 
-            $analyticsData['UA'] = $_SERVER['HTTP_USER_AGENT'];
-            $analyticsData['ip'] = $clientIP;
-            $GLOBALS['routeLogger']->info(json_encode($analyticsData));
+            $this->_logAnalytics($loggedInSubj);
         }
-        $logger->debug('User Logged in as : '.print_r($subject,1));
+        $logger->debug('User Logged in as : '.print_r($loggedInSubj,1));
         // Generate unique token to prevent XSRF.
         $app->getSessionManager()->getActiveSession()->setAttribute('nonce', sha1(uniqid(mt_rand(), true))); 
         $app->getSessionManager()->getActiveSession()->setAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY, true);
@@ -126,6 +116,30 @@ class DefaultSecurityManager implements Authenticator, SessionManager
         return $loggedInSubj;
 
     }//end login()
+
+
+    /**
+     * Log Analytics using current subject. 
+     * 
+     * @param mixed $subject 
+     * @access private
+     * @return void
+     */
+    private function _logAnalytics($subject) {
+        $clientIP = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ?
+            $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
+        $analyticsData = array();
+        $principalValues = array_values($subject->getPrincipal());
+        if(count($principalValues) > 0)
+            $analyticsData['user'] = $principalValues[0]; 
+            //$subject->getPrincipal(); // Get the user from the principal
+        $analyticsData['time'] = time(); 
+        $analyticsData['session'] = session_id(); 
+        $analyticsData['page'] = 'login'; 
+        $analyticsData['UA'] = $_SERVER['HTTP_USER_AGENT'];
+        $analyticsData['ip'] = $clientIP;
+        $GLOBALS['routeLogger']->info(json_encode($analyticsData));
+    }
 
 
     /**
