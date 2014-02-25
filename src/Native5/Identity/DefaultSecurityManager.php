@@ -153,7 +153,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             $analyticsData['page'] = 'login'; 
             $analyticsData['UA'] = $_SERVER['HTTP_USER_AGENT'];
             $analyticsData['ip'] = $clientIP;
-            $GLOBALS['routeLogger']->log(json_encode($analyticsData));
+            $GLOBALS['routeLogger']->info(json_encode($analyticsData));
         }
     }
 
