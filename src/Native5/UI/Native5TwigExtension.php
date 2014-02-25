@@ -81,9 +81,9 @@ class Native5TwigExtension extends \Twig_Extension
             new \Twig_SimpleFilter('nonce', function($str) {
                 $app=$GLOBALS['app'];
                 if (strpos($str, '?') !== false) {
-                    return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'&rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+                    return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'&rand_token='.urlencode($app->getSessionManager()->getActiveSession()->getAttribute('nonce'));
                 }
-                return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'?rand_token='.$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+                return DIRECTORY_SEPARATOR.$app->getConfiguration()->getApplicationContext().DIRECTORY_SEPARATOR.$str.'?rand_token='.urlencode($app->getSessionManager()->getActiveSession()->getAttribute('nonce'));
                 })
         ); 
     }

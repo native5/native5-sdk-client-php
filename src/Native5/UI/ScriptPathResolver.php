@@ -112,7 +112,7 @@ class ScriptPathResolver
             if(!strpos($url, '?')) {
                 $separator = '?';
             }
-            $url = $url.$separator.'rand_token='.$app->getSessionManager()->getActiveSession()->get('nonce');
+            $url = $url.$separator.'rand_token='.urlencode($app->getSessionManager()->getActiveSession()->get('nonce'));
         }
     }//end resolveLink()
 }

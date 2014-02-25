@@ -93,7 +93,7 @@ class HttpResponse implements Response
             $separator = '?';
             if(strpos($redirectLocation, '?'))
                 $separator = '&';
-            $redirectLocation .= $separator."rand_token=".$app->getSessionManager()->getActiveSession()->getAttribute('nonce');
+            $redirectLocation .= $separator."rand_token=".urlencode($app->getSessionManager()->getActiveSession()->getAttribute('nonce'));
         }
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
