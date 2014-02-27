@@ -54,23 +54,27 @@ class DeviceDetectionTest extends \PHPUnit_Framework_TestCase
      * @access public
      * @return void
      */
-    public function testDeviceDetection($userAgents)
+    public function testDeviceDetection($userAgent)
     {
-        foreach ($userAgents as $category=>$userAgent) {
-            $deviceManager = new DeviceManager();
-            $computedCategory = $deviceManager->determineCategory($userAgent);
-            $this->assertEquals($category, $computedCategory);
-        }
-
+        $deviceManager = new DeviceManager();
+        $computedCategory = $deviceManager->determineCategory($userAgent);
+        $this->assertFalse($computedCategory==="XXXX");
     }//end testDeviceDetection()
 
+
     public function provider() {
-        return array(
-            array(array('M201'=> 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30')),
-            array(array('M400'=> 'Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 Nokia6120c/3.70; Profile/MIDP-2.0 Configuration/CLDC-1.1) AppleWebKit/413 (KHTML, like Gecko) Safari/413')),
-            array(array('M320'=> 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; NOKIA; Lumia 510)')),
-            array(array('M101'=> 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; da-dk) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8C148 Safari/6533.18.5'))
-        );
+        $data = json_decode(file_get_contents("./tests/useragents.json"));
+        $dataToReturn = array();
+        foreach ($data as $value){
+            $dataToReturn[] = array($value);
+        }
+       return $dataToReturn; 
+/*        return array(*/
+            //array(array('M201'=> 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30')),
+            //array(array('M400'=> 'Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 Nokia6120c/3.70; Profile/MIDP-2.0 Configuration/CLDC-1.1) AppleWebKit/413 (KHTML, like Gecko) Safari/413')),
+            //array(array('M320'=> 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; NOKIA; Lumia 510)')),
+            //array(array('M101'=> 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_2_1 like Mac OS X; da-dk) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8C148 Safari/6533.18.5'))
+        /*);*/
     }
 
 }
