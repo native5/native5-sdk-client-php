@@ -97,10 +97,11 @@ class HttpResponse implements Response
         }
         if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-            $response = array();
-            $response['redirect'] = $redirectLocation;
-            echo json_encode($response);
-            exit;
+                $this->addHeader("Content-type: application/json");
+                $response = array();
+                $response['redirect'] = $redirectLocation;
+                echo json_encode($response);
+                exit;
         } else {
             $this->addHeader('Location: '.$redirectLocation);
         }
