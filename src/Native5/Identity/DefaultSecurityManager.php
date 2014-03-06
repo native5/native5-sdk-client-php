@@ -98,7 +98,7 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             throw $aex;
         }
         $loggedInSubj = $this->_createSubject($token, $authInfo, $subject, $roles);
-        $this->_logAnalytics($app);
+        $this->_logAnalytics($app, $loggedInSubj);
 
         // Generate unique token to prevent XSRF.
         $app->getSessionManager()->getActiveSession()->setAttribute('nonce', $this->_generateCSRFToken(32)); 
@@ -139,13 +139,13 @@ class DefaultSecurityManager implements Authenticator, SessionManager
      * @access private
      * @return void
      */
-    private function _logAnalytics($app)
+    private function _logAnalytics($app, $subject)
     {
         if($app->getConfiguration()->logAnalytics() == true) {
             $clientIP = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ?
                 $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
             $analyticsData = array();
-            $principalVals = array_values($app->getSubject()->getPrincipal());
+            $principalVals = array_values($subject->getPrincipal());
             if(count($principalVals) > 0)
                 $analyticsData['user'] = $principalVals[0];
             $analyticsData['time'] = time();
