@@ -58,8 +58,14 @@ class WebSessionManager implements SessionManager
     public function startSession($context=null, $useExisting=false)
     {
         $logger = $GLOBALS['logger'];
+        $app = $GLOBALS['app'];
+
         if ($useExisting === true) {
-            session_name('_n5_session');
+            $sessionCookieName = $app->getConfiguration()->getApplicationContext()."-"."_n5_session";
+            $sessionCookieName = preg_replace("/\./", "_",$sessionCookieName); 
+            $appContext = "/".$app->getConfiguration()->getApplicationContext();
+            session_set_cookie_params(0, $appContext."/", null, false, true);
+            session_name($sessionCookieName);
             session_start();
             $this->_session = new Session($_SESSION);
             if ($this->_session->getAttribute('category') !== null) {
@@ -75,8 +81,11 @@ class WebSessionManager implements SessionManager
 
             session_unset();
             session_destroy();
-            session_set_cookie_params(0, '/', '', false, true);
-            session_name('_n5_session');
+            $appContext = "/".$app->getConfiguration()->getApplicationContext(); 
+            $sessionCookieName = $app->getConfiguration()->getApplicationContext()."-"."_n5_session"; 
+            $sessionCookieName = preg_replace("/\./", "_",$sessionCookieName); 
+            session_set_cookie_params(0, $appContext."/", null, false, true);
+            session_name($sessionCookieName);
             session_start();
             session_regenerate_id();
             $_SESSION = array();
