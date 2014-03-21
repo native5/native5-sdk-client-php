@@ -105,9 +105,9 @@ class DefaultSecurityManager implements Authenticator, SessionManager
             //sha1(uniqid(mt_rand(), true))); 
         $app->getSessionManager()->getActiveSession()->setAttribute(DefaultSubjectContext::AUTHENTICATED_SESSION_KEY, true);
         if(!empty($tokens)) {
-            // Swapping in user tokens into the session during a successful user login
-            $app->getSessionManager()->getActiveSession()->setAttribute('sharedKey', $tokens['token']); 
-            $app->getSessionManager()->getActiveSession()->setAttribute('secretKey', $tokens['secret']); 
+            // FIXME: No token swapping done here - left to the application
+            //$app->getSessionManager()->getActiveSession()->setAttribute('sharedKey', $tokens['token']); 
+            //$app->getSessionManager()->getActiveSession()->setAttribute('secretKey', $tokens['secret']); 
             // FIXME: No token swapping done here - left to the application
             //// TODO : Fix Hack for storing account level tokens when logging in.
             //$session = $app->getSessionManager()->getActiveSession();
