@@ -33,7 +33,6 @@
     },
     "require" : {
             "twig/twig": "1.*",
-            "monolog/monolog": "1.2.*",
             "guzzle/guzzle": "*",
             "phpunit/phpunit": "3.7.*",
             "twig/extensions": "*.*",
