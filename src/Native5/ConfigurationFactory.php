@@ -60,7 +60,7 @@ class ConfigurationFactory extends \Native5\Core\Configuration\YamlConfigFactory
 
         // Construct the Configuration object
         if (empty($this->_configuration) || !($this->_configuration instanceof Configuration)) {
-            $this->_configuration = new Configuration($this->_config['app']['name']);
+            $this->_configuration = new Configuration(trim($this->_config['app']['name']));
             // Local Environment
             if (isset($this->_config['environment']) && (strcasecmp($this->_config['environment'], 'local') == 0))
                 $this->_configuration->setLocal();
@@ -72,32 +72,32 @@ class ConfigurationFactory extends \Native5\Core\Configuration\YamlConfigFactory
             // App Configuration
             // Default Grade
             if (isset($this->_config['app']['defaultGrade']))
-                $this->_configuration->setDefaultGrade($this->_config['app']['defaultGrade']);
+                $this->_configuration->setDefaultGrade(trim($this->_config['app']['defaultGrade']));
             // Log Level
             if (isset($this->_config['app']['logLevel']))
-                $this->_configuration->setLogLevel($this->_config['app']['logLevel']);
+                $this->_configuration->setLogLevel(trim($this->_config['app']['logLevel']));
 
             //Track Analytics
             if (isset($this->_config['app']['trackAnalytics']))
-                $this->_configuration->setLogAnalytics($this->_config['app']['trackAnalytics']);
+                $this->_configuration->setLogAnalytics(trim($this->_config['app']['trackAnalytics']));
 
             // Api Configuration
             // Url
-            $this->_configuration->setApiUrl($this->_config['api']['url']);
+            $this->_configuration->setApiUrl(trim($this->_config['api']['url']));
             // Shared Key
             $sharedKey = getenv('NATIVE5_API_SHARED_KEY');
             if(empty($sharedKey))
-                $this->_configuration->setSharedKey($this->_config['api']['sharedKey']);
+                $this->_configuration->setSharedKey(trim($this->_config['api']['sharedKey']));
             else 
-                $this->_configuration->setSharedKey($sharedKey);
+                $this->_configuration->setSharedKey(trim($sharedKey));
             // Secret Key
             $secretKey = getenv('NATIVE5_API_SECRET_KEY');
             if(empty($secretKey)) 
-                $this->_configuration->setSecretKey($this->_config['api']['secretKey']);
+                $this->_configuration->setSecretKey(trim($this->_config['api']['secretKey']));
             else
-                $this->_configuration->setSecretKey($secretKey);
+                $this->_configuration->setSecretKey(trim($secretKey));
             if (isset($this->_config['nativeBinaryOnly']))
-                $this->_configuration->setNativeBinary($this->_config['nativeBinaryOnly']);
+                $this->_configuration->setNativeBinary(trim($this->_config['nativeBinaryOnly']));
 
             // Set the raw config
             $this->_configuration->setRawConfiguration($this->_config);
