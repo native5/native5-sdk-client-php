@@ -29,7 +29,6 @@ namespace Native5;
 
 use Native5\Configuration;
 use Native5\Route\RoutingEngine;
-use Native5\UI\TemplatingEngine;
 use Native5\Services\Messaging\NotificationService;
 
 use Native5\Core\Log\LoggerFactory;
@@ -139,7 +138,6 @@ class Application
             $app->_subject = $app->_getSubjectFromSession($sessionManager->getActiveSession());
 
             $app->_services['routing']    = new RoutingEngine();
-            $app->_services['templating'] = new TemplatingEngine();
         }
 
         $app->_services['messaging']  = NotificationService::instance();

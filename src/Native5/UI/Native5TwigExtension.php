@@ -127,8 +127,8 @@ class Native5TwigExtension extends \Twig_Extension
 
         $session    = $app->getSessionManager()->getActiveSession();
         $category   = $session->getAttribute('category');
-        $basePath   = '/'.$staticPath.'/resources/'.$category;
-        $commonPath = '/'.$staticPath.'/resources/common';
+        $basePath   = '/'.$staticPath.'/'.$category;
+        $commonPath = '/'.$staticPath.'/common';
 
         $searchFolder = '.';
         
