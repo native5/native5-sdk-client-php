@@ -44,7 +44,7 @@ class TwigRenderer implements Renderer
     private $_template;
     private $_basePath;
     private $_twig;
-    protected $_viewsPath = "views";
+
 
     /**
      * __construct 
@@ -59,6 +59,11 @@ class TwigRenderer implements Renderer
     {
         $app=$GLOBALS['app'];
 
+        if ($app->getConfiguration()->isLocal())
+        {
+            $basePath = 'views'.'/'.$basePath;
+        }
+        
         $this->_template = $template;
         $this->_basePath = $basePath;
         $this->_configure();
@@ -84,7 +89,7 @@ class TwigRenderer implements Renderer
         if ($app->getConfiguration()->isLocal()) {
             $staticResDir = 'views';
         }
-        $staticPath = '/'.$app->getConfiguration()->getApplicationContext().'/'.$staticResDir.'/'.$category.'/resources/';
+        $staticPath = '/'.$app->getConfiguration()->getApplicationContext().'/'.$staticResDir.'/resources/'.$category;
 
         $in_data = array (
             'items'          => $data,
@@ -151,11 +156,11 @@ class TwigRenderer implements Renderer
         $session = $app->getSessionManager()->getActiveSession();
         \Twig_Autoloader::register();
 
-        $commonPath = 'common/templates';
+        $commonPath = 'templates/common';
         if ($app->getConfiguration()->isLocal()) {
             $commonPath = 'views'.'/'.$commonPath;
         } 
-        $templatesPath  = $this->_viewsPath.DIRECTORY_SEPARATOR.$session->getAttribute('category').DIRECTORY_SEPARATOR.$this->_basePath;
+        $templatesPath  = $this->_basePath.DIRECTORY_SEPARATOR.$session->getAttribute('category');
         $pathsToSearch = array();
         if (file_exists($templatesPath)) {
             $pathsToSearch[] = $templatesPath;
