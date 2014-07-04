@@ -202,7 +202,7 @@ class WebSessionManager implements SessionManager
     public static function resetActiveSession()
     {
         // Strip '.'
-        $appContext = rtrim($app->getConfiguration()->getApplicationContext(), '.');
+        $appContext = rtrim($GLOBALS['app']->getConfiguration()->getApplicationContext(), '.');
         if (empty($appContext)) {
             $appContext = "/";
         } else {
