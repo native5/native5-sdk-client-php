@@ -74,6 +74,10 @@ class WebSessionManager implements SessionManager
             session_set_cookie_params(0, $appContext, null, false, true);
             session_name($sessionCookieName);
             session_start();
+        if (!$this->isActiveSession()) {
+            self::resetActiveSession();
+        }
+
             $this->_session = new Session($_SESSION);
             if ($this->_session->getAttribute('category') !== null) {
                 return;
@@ -170,12 +174,22 @@ class WebSessionManager implements SessionManager
      */
     public function isActiveSession()
     {
-        if(isset($_SESSION[self::GLOBAL_PREFIX.'last_accessed']) &&
-            (time() - $_SESSION[self::GLOBAL_PREFIX.'last_accessed'] > SESSION_TIMEOUT)) {
-                return FALSE;	
-            }
-        return TRUE;
+        // Check if session timeout is defined in application settings
+        $sessionConfig = $GLOBALS['app']->getConfiguration()->getRawConfiguration('session');
+        if (!empty($sessionConfig) && isset($sessionConfig['timeout']) && !empty($sessionConfig['timeout'])) {
+            $sessionTimeout = $sessionConfig['timeout'];
+        } else {
+            $sessionTimeout = SESSION_TIMEOUT;
+        }
 
+        file_put_contents(getcwd().'/logs/session.log', print_r($_SESSION, 1));
+
+        if(isset($_SESSION[self::GLOBAL_PREFIX.'last_accessed']) &&
+            (time() - $_SESSION[self::GLOBAL_PREFIX.'last_accessed'] > $sessionTimeout)) {
+            return FALSE;
+        }
+
+        return TRUE;
     }//end isActiveSession()
 
 
@@ -187,9 +201,21 @@ class WebSessionManager implements SessionManager
      */
     public static function resetActiveSession()
     {
+        // Strip '.'
+        $appContext = rtrim($app->getConfiguration()->getApplicationContext(), '.');
+        if (empty($appContext)) {
+            $appContext = "/";
+        } else {
+            $appContext = "/".$appContext."/";
+        }
+
         $category = $_SESSION[self::GLOBAL_PREFIX.'category'];
         session_unset();
         session_destroy();
+        $sessionCookieName = $GLOBALS['app']->getConfiguration()->getApplicationContext()."-"."_n5_session"; 
+        $sessionCookieName = preg_replace("/\./", "_",$sessionCookieName); 
+        session_set_cookie_params(0, $appContext, null, false, true);
+        session_name($sessionCookieName);
         session_start();
         session_regenerate_id();
         $_SESSION = array();
